@@ -7,3 +7,7 @@
 [submodule "vendor/nix/pynixify"]
 	path = vendor/nix/pynixify
 	url = https://github.com/cript0nauta/pynixify
+[submodule "docs/duality"]
+	path = docs/duality
+	url = git@github.com:noesis-lattice/duality-formalization.git
+	branch = main
