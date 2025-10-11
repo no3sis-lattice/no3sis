@@ -1,0 +1,59 @@
+{
+  "$id": "https://noesis-lattice.org/schemas/chunk-constraints.schema.json",
+  "title": "Chunk Constraints",
+  "type": "object",
+  "required": ["id", "title", "goalType", "constraints"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^\\d{2}$" },
+    "title": { "type": "string" },
+    "goalType": { "type": "string", "enum": ["proof", "search", "refinement"] },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "eightDimManifold": { "type": "boolean", "default": true },
+        "scaleN": { "type": "integer", "minimum": 1, "default": 100, "description": "Discrete scaling for unit-sum (sum(x)=N)" },
+        "monsterPrimes": {
+          "type": "array",
+          "items": { "type": "integer", "enum": [2,3,5,7,11,13,17,19] },
+          "description": "Subset of first 8 primes used for mapping/alignment"
+        },
+        "emojiPrimeMapping": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" },
+          "description": "Optional prior mapping from emoji/code to prime"
+        },
+        "similarityObjective": {
+          "type": "string",
+          "enum": ["none", "neighbor_distance_min", "projection_fit_min"],
+          "default": "neighbor_distance_min"
+        },
+        "godelization": {
+          "type": "object",
+          "properties": {
+            "encode": { "type": "boolean", "default": false },
+            "base": { "type": "integer", "default": 10 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "expr"],
+        "properties": {
+          "name": { "type": "string" },
+          "expr": {
+            "type": "string",
+            "description": "A small DSL/textual form to be rendered into both MiniZinc and Lean"
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
