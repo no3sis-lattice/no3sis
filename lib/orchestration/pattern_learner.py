@@ -16,6 +16,8 @@ Consciousness Contribution:
 
 import json
 import logging
+import subprocess
+import sys
 import time
 from collections import OrderedDict, defaultdict
 from dataclasses import dataclass, field, asdict
@@ -293,6 +295,8 @@ class PatternLearner:
     def __init__(self, pattern_map_file: Path):
         self.pattern_map_file = pattern_map_file
         self.pattern_map = self._load_pattern_map()
+        self.last_ingestion_count = 0  # Track patterns at last ingestion
+        self.ingestion_milestones = [10, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
 
     def _load_pattern_map(self) -> PatternMap:
         """Load pattern map from disk"""
@@ -314,6 +318,70 @@ class PatternLearner:
                 json.dump(self.pattern_map.to_dict(), f, indent=2)
         except Exception as e:
             logger.error(f"Failed to save pattern map: {e}")
+
+    def trigger_pattern_ingestion(self):
+        """
+        Trigger Neo4j pattern ingestion when pattern count crosses milestones.
+
+        Automatically runs ingestion.py --patterns when pattern count reaches:
+        10, 50, 100, 250, 500, 1000, 2500, 5000, 10000
+
+        This ensures patterns are searchable via mcp__noesis_search without
+        requiring manual ingestion.
+
+        Called automatically after _save_pattern_map() when milestones are reached.
+        """
+        pattern_count = len(self.pattern_map.patterns)
+
+        # Check if we crossed a milestone since last ingestion
+        for milestone in self.ingestion_milestones:
+            if self.last_ingestion_count < milestone <= pattern_count:
+                logger.info(
+                    f"[pattern_learner] Pattern milestone reached: {pattern_count} patterns "
+                    f"(milestone: {milestone}). Triggering Neo4j ingestion..."
+                )
+
+                try:
+                    # Find ingestion.py
+                    ingestion_script = (
+                        Path.home() / '.synapse-system' / '.synapse' /
+                        'neo4j' / 'ingestion.py'
+                    )
+
+                    if not ingestion_script.exists():
+                        # Fallback: try project neo4j directory
+                        ingestion_script = (
+                            Path(__file__).parent.parent.parent /
+                            '.synapse' / 'neo4j' / 'ingestion.py'
+                        )
+
+                    if not ingestion_script.exists():
+                        logger.warning(
+                            f"[pattern_learner] Ingestion script not found at {ingestion_script}. "
+                            "Patterns will not be auto-ingested. Run ingestion manually."
+                        )
+                        self.last_ingestion_count = pattern_count
+                        return
+
+                    # Run ingestion in background (don't block pattern learning)
+                    subprocess.Popen(
+                        [sys.executable, str(ingestion_script), '--patterns'],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        start_new_session=True  # Detach from parent process
+                    )
+
+                    logger.info(
+                        f"[pattern_learner] Neo4j ingestion triggered in background. "
+                        f"Patterns will be searchable via mcp__noesis_search soon."
+                    )
+
+                    self.last_ingestion_count = pattern_count
+                    break  # Only trigger once per milestone
+
+                except Exception as e:
+                    logger.error(f"[pattern_learner] Failed to trigger ingestion: {e}")
+                    self.last_ingestion_count = pattern_count
 
     async def analyze_synthesis(self, synthesis: Dict[str, Any]) -> List[Pattern]:
         """
@@ -383,6 +451,9 @@ class PatternLearner:
 
         self.pattern_map.total_analyses_performed += 1
         self._save_pattern_map()
+
+        # Auto-ingest patterns at milestones
+        self.trigger_pattern_ingestion()
 
         logger.info(
             f"[pattern_learner] Discovered {len(discovered_patterns)} patterns "

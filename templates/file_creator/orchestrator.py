@@ -36,6 +36,7 @@ sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_ca
 
 # Import from new locations
 from lib.core.agent_consumer import AgentConsumer, AgentConfig
+from lib.core.base_orchestrator import BaseOrchestrator
 from reactive_message_router import TractType, MessagePriority
 
 # Import orchestration services from new location
@@ -74,13 +75,14 @@ DEFAULT_RESULT_TIMEOUT_S = 5.0  # Timeout for particle result collection (second
 # ============================================================================
 
 
-class FileCreatorOrchestrator(AgentConsumer):
+class FileCreatorOrchestrator(AgentConsumer, BaseOrchestrator):
     """
     Internal Tract orchestrator for file creation workflows (SRP-compliant).
 
     This orchestrator is a COORDINATOR that delegates to specialized components:
     - ExecutionPlanner: Generates execution plans (planning logic)
     - ResultSynthesizer: Synthesizes results and detects patterns (synthesis logic)
+    - BaseOrchestrator: Provides universal pattern learning and consciousness tracking
     - Self: Handles routing, result collection, state management (orchestration logic)
 
     Reduced from 8 responsibilities to 4 to maintain Single Responsibility Principle.
@@ -89,11 +91,12 @@ class FileCreatorOrchestrator(AgentConsumer):
     1. Message routing via Corpus Callosum
     2. Result collection with timeout handling
     3. State persistence (execution statistics)
-    4. Integration of pattern learning and MTF ranking
+    4. Pattern learning integration (inherited from BaseOrchestrator)
 
     Delegated Responsibilities (extracted to maintain SRP):
     - Planning → ExecutionPlanner
     - Synthesis → ResultSynthesizer
+    - Pattern Learning → BaseOrchestrator
     """
 
     def __init__(
@@ -105,7 +108,17 @@ class FileCreatorOrchestrator(AgentConsumer):
         enable_mtf_ranking: bool = True,
         enable_parallel_execution: bool = True
     ):
-        super().__init__(config, corpus_callosum)
+        # Initialize AgentConsumer
+        AgentConsumer.__init__(self, config, corpus_callosum)
+
+        # Initialize BaseOrchestrator (pattern learning + MTF ranking)
+        BaseOrchestrator.__init__(
+            self,
+            enable_pattern_learning=enable_pattern_learning,
+            enable_mtf_ranking=enable_mtf_ranking
+        )
+
+        # File creator specific state
         self.state_file = state_file
         self.state = self._load_state()
         self._pending_results: Dict[str, asyncio.Queue] = {}
@@ -116,30 +129,8 @@ class FileCreatorOrchestrator(AgentConsumer):
         self.planner = ExecutionPlanner()
         self.synthesizer = ResultSynthesizer()
 
-        # Day 3-4 features
-        self.enable_pattern_learning = enable_pattern_learning and ADVANCED_FEATURES_AVAILABLE
-        self.enable_mtf_ranking = enable_mtf_ranking and ADVANCED_FEATURES_AVAILABLE
+        # Parallel execution toggle
         self.enable_parallel_execution = enable_parallel_execution
-
-        # Initialize pattern learner
-        self.pattern_learner: Optional[PatternLearner] = None
-        if self.enable_pattern_learning:
-            try:
-                self.pattern_learner = create_pattern_learner()
-                logger.info("[orchestrator] Pattern learning enabled")
-            except Exception as e:
-                logger.warning(f"Failed to initialize pattern learner: {e}")
-                self.enable_pattern_learning = False
-
-        # Initialize MTF ranker
-        self.mtf_ranker: Optional[MTFRanker] = None
-        if self.enable_mtf_ranking:
-            try:
-                self.mtf_ranker = create_mtf_ranker()
-                logger.info("[orchestrator] MTF ranking enabled")
-            except Exception as e:
-                logger.warning(f"Failed to initialize MTF ranker: {e}")
-                self.enable_mtf_ranking = False
 
     def _load_state(self) -> Dict[str, Any]:
         """Load orchestrator state from disk"""
@@ -251,13 +242,9 @@ class FileCreatorOrchestrator(AgentConsumer):
         synthesis['execution_time_s'] = execution_time
         synthesis['plan_id'] = plan.plan_id
 
-        # Day 3-4: Learn from execution
-        if self.enable_pattern_learning and self.pattern_learner:
-            try:
-                discovered_patterns = await self.pattern_learner.analyze_synthesis(synthesis)
-                synthesis['discovered_patterns'] = [p.name for p in discovered_patterns]
-            except Exception as e:
-                logger.error(f"Pattern learning failed: {e}")
+        # Universal pattern learning via BaseOrchestrator
+        discovered_patterns = await self.post_synthesis_hook(synthesis)
+        synthesis['discovered_patterns'] = [p.name for p in discovered_patterns]
 
         self._save_state()
 
@@ -448,11 +435,17 @@ class FileCreatorOrchestrator(AgentConsumer):
     # ==================================================================
 
     def get_advanced_stats(self) -> Dict[str, Any]:
-        """Get orchestrator statistics including Day 3-4 features"""
+        """Get orchestrator statistics including consciousness metrics"""
+        # Get base stats from AgentConsumer
         base_stats = self.get_stats()
 
+        # Get consciousness stats from BaseOrchestrator
+        consciousness_stats = self.get_advanced_orchestrator_stats()
+
+        # Combine with file_creator specific stats
         advanced_stats = {
             **base_stats,
+            **consciousness_stats,
             "orchestrator_state": self.state,
             "features": {
                 "pattern_learning": self.enable_pattern_learning,
@@ -460,12 +453,6 @@ class FileCreatorOrchestrator(AgentConsumer):
                 "parallel_execution": self.enable_parallel_execution
             }
         }
-
-        if self.pattern_learner:
-            advanced_stats["pattern_learner"] = self.pattern_learner.get_stats()
-
-        if self.mtf_ranker:
-            advanced_stats["mtf_ranker"] = self.mtf_ranker.get_stats()
 
         return advanced_stats
 
