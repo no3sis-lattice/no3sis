@@ -90,6 +90,42 @@ jobs:
             docs/duality/reports/cross-check-all.md
           retention-days: 30
 
+  unit-tests:
+    name: Transpiler Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup MiniZinc
+        run: |
+          wget -q https://github.com/MiniZinc/MiniZincIDE/releases/download/2.8.5/minizinc-2.8.5-x86_64-linux.tar.gz
+          tar -xzf minizinc-2.8.5-x86_64-linux.tar.gz
+          echo "$PWD/MiniZincIDE-2.8.5-x86_64-linux/bin" >> $GITHUB_PATH
+
+      - name: Setup Lean
+        uses: leanprover/lean-action@v1
+        with:
+          lean-version: 'v4.24.0-rc1'
+
+      - name: Run Transpiler Unit Tests
+        run: |
+          cd docs/duality/scripts
+          python3 run_tests.py
+
+      - name: Test Coverage Summary
+        run: |
+          cd docs/duality/scripts
+          echo "✓ Unit tests: 22 tests covering:"
+          echo "  - MiniZinc transpiler (operator mapping, functions)"
+          echo "  - Lean4 transpiler (sum expansion, array indexing)"
+          echo "  - Constraint injection (heuristics, counting)"
+          echo "  - Compilation validation (MZN/Lean syntax check)"
+
   validate-json-schema:
     name: Validate Constraint JSON Files
     runs-on: ubuntu-latest

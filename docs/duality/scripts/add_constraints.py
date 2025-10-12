@@ -17,10 +17,24 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+# Import shared utilities
+from shared_utils import (
+    discover_chunks,
+    load_json_safe,
+    save_json_safe,
+    get_chunk_json_path,
+    add_common_cli_args,
+    process_chunks_batch,
+    validate_chunk_id
+)
+
 
 def load_templates(template_path: Path) -> Dict:
     """Load constraint templates from JSON file."""
-    return json.loads(template_path.read_text(encoding="utf-8"))
+    result = load_json_safe(template_path)
+    if result is None:
+        raise ValueError(f"Failed to load templates from {template_path}")
+    return result
 
 
 def detect_chunk_type(chunk_data: Dict) -> str:
@@ -197,18 +211,11 @@ def process_chunk(
     dry_run: bool = False
 ) -> bool:
     """Process a single chunk and add constraints if needed."""
-    chunks_dir = base_dir / "true-dual-tract" / "chunks"
-    json_path = chunks_dir / f"chunk-{chunk_id}.constraints.json"
+    # Load JSON using shared utility
+    json_path = get_chunk_json_path(chunk_id, base_dir)
+    chunk_data = load_json_safe(json_path)
 
-    if not json_path.exists():
-        print(f"Error: JSON file not found: {json_path}", file=sys.stderr)
-        return False
-
-    # Read JSON
-    try:
-        chunk_data = json.loads(json_path.read_text(encoding="utf-8"))
-    except Exception as e:
-        print(f"Error reading JSON for chunk {chunk_id}: {e}", file=sys.stderr)
+    if chunk_data is None:
         return False
 
     # Check current status
@@ -234,12 +241,12 @@ def process_chunk(
             print(f"    + {c['name']}: {c['expr']}")
         return True
 
-    # Write back
-    json_str = json.dumps(updated_chunk_data, indent=2, ensure_ascii=False)
-    json_path.write_text(json_str, encoding="utf-8")
-    print(f"  Updated: {json_path}")
-
-    return True
+    # Write back using shared utility
+    if save_json_safe(json_path, updated_chunk_data):
+        print(f"  Updated: {json_path}")
+        return True
+    else:
+        return False
 
 
 def discover_insufficient_chunks(base_dir: Path, target_count: int = 2) -> List[str]:

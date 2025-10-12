@@ -16,6 +16,17 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
+# Import shared utilities
+from shared_utils import (
+    discover_chunks,
+    load_json_safe,
+    get_chunk_json_path,
+    get_chunk_mzn_path,
+    add_common_cli_args,
+    process_chunks_batch,
+    validate_chunk_id
+)
+
 
 # Operator mapping: JSON DSL → MiniZinc
 OPERATOR_MAP = {
@@ -174,18 +185,11 @@ def generate_mzn_from_json(json_data: Dict) -> str:
 
 def process_chunk(chunk_id: str, base_dir: Path, output_path: Optional[Path] = None) -> bool:
     """Process a single chunk and generate MiniZinc model."""
-    chunks_dir = base_dir / "true-dual-tract" / "chunks"
-    json_path = chunks_dir / f"chunk-{chunk_id}.constraints.json"
+    # Load JSON using shared utility
+    json_path = get_chunk_json_path(chunk_id, base_dir)
+    json_data = load_json_safe(json_path)
 
-    if not json_path.exists():
-        print(f"Error: JSON file not found: {json_path}", file=sys.stderr)
-        return False
-
-    # Read JSON
-    try:
-        json_data = json.loads(json_path.read_text(encoding="utf-8"))
-    except Exception as e:
-        print(f"Error reading JSON for chunk {chunk_id}: {e}", file=sys.stderr)
+    if json_data is None:
         return False
 
     # Generate MiniZinc
@@ -193,26 +197,16 @@ def process_chunk(chunk_id: str, base_dir: Path, output_path: Optional[Path] = N
 
     # Determine output path
     if output_path is None:
-        output_path = chunks_dir / f"chunk-{chunk_id}.mzn"
+        output_path = get_chunk_mzn_path(chunk_id, base_dir)
 
     # Write output
-    output_path.write_text(mzn_content, encoding="utf-8")
-    print(f"Generated: {output_path}")
-
-    return True
-
-
-def discover_chunks(base_dir: Path) -> List[str]:
-    """Discover all chunk IDs from JSON files."""
-    chunks_dir = base_dir / "true-dual-tract" / "chunks"
-    ids = []
-
-    for json_file in sorted(chunks_dir.glob("chunk-*.constraints.json")):
-        match = re.search(r"chunk-(\d+)\.constraints\.json$", json_file.name)
-        if match:
-            ids.append(f"{int(match.group(1)):02d}")
-
-    return ids
+    try:
+        output_path.write_text(mzn_content, encoding="utf-8")
+        print(f"Generated: {output_path}")
+        return True
+    except Exception as e:
+        print(f"Error writing {output_path}: {e}", file=sys.stderr)
+        return False
 
 
 def main(argv: Optional[List[str]] = None) -> int:
