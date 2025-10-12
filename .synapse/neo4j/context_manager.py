@@ -323,11 +323,15 @@ class SynapseContextManager:
         PERFORMANCE OPTIMIZATION:
         - OLD: 5 sequential embeddings × 10s each = 50s (timeout risk)
         - NEW: 3 batch embeddings × 4s = 12s (4x speedup)
+
+        PATTERN SEARCH:
+        - Searches both SynapseFile nodes (files) and Pattern nodes (discovered patterns)
+        - Patterns are boosted in relevance (they're discovered knowledge, higher value)
         """
         all_results = []
-        seen_paths = set()
+        seen_identifiers = set()  # Track both paths (files) and pattern_ids (patterns)
 
-        # 1. Batch vector search with query expansion
+        # 1. Batch vector search with query expansion (files AND patterns)
         # CRITICAL: Reduced from 5→3 variants for safety margin + batch processing
         query_variants = expanded_queries[:3]
 
@@ -339,7 +343,7 @@ class SynapseContextManager:
             # Process each embedding (vector search is fast, parallelization not needed)
             for query_variant, query_embedding in zip(query_variants, query_embeddings):
                 try:
-                    vector_results = self.vector_engine.similarity_search(query_embedding, max_results)
+                    vector_results = self.vector_engine.similarity_search(query_embedding, max_results * 2)  # Get more for diversity
 
                     if vector_results:
                         node_ids = [result[0] for result in vector_results]
@@ -348,19 +352,38 @@ class SynapseContextManager:
                         with self.driver.session() as session:
                             for node_id in node_ids:
                                 try:
+                                    # Try SynapseFile first
                                     result = session.run(
-                                        "MATCH (f:SynapseFile) WHERE elementId(f) = $id RETURN f",
+                                        "MATCH (f:SynapseFile) WHERE elementId(f) = $id RETURN f, 'file' as node_type",
                                         id=node_id
                                     )
                                     record = result.single()
+
+                                    # If not a file, try Pattern
+                                    if not record:
+                                        result = session.run(
+                                            "MATCH (p:Pattern) WHERE elementId(p) = $id RETURN p, 'pattern' as node_type",
+                                            id=node_id
+                                        )
+                                        record = result.single()
+
                                     if record:
-                                        node = dict(record["f"])
-                                        if node.get("path") not in seen_paths:
-                                            node["relevance_score"] = vector_scores.get(node_id, 0.0)
-                                            node["match_type"] = "vector"
+                                        node_type = record["node_type"]
+                                        node_key = "f" if node_type == "file" else "p"
+                                        node = dict(record[node_key])
+                                        node["node_type"] = node_type
+
+                                        # Use pattern_id for patterns, path for files as unique identifier
+                                        identifier = node.get("pattern_id") if node_type == "pattern" else node.get("path")
+
+                                        if identifier and identifier not in seen_identifiers:
+                                            base_score = vector_scores.get(node_id, 0.0)
+                                            # BOOST PATTERNS: They're discovered knowledge, more valuable than raw files
+                                            node["relevance_score"] = base_score * 1.5 if node_type == "pattern" else base_score
+                                            node["match_type"] = "vector_pattern" if node_type == "pattern" else "vector"
                                             node["query_variant"] = query_variant
                                             all_results.append(node)
-                                            seen_paths.add(node.get("path"))
+                                            seen_identifiers.add(identifier)
                                 except Exception as e:
                                     continue  # Skip problematic nodes
 
@@ -372,14 +395,29 @@ class SynapseContextManager:
             print(f"Batch embedding generation failed: {e}")
             # If batch fails entirely, skip vector search and rely on graph search
 
-        # 2. Graph search with intent-aware strategies
+        # 2. Graph search with intent-aware strategies (files)
         graph_results = self._intent_aware_graph_search(original_query, key_terms, intent, max_results)
 
         for result in graph_results:
-            if result.get("path") not in seen_paths:
+            identifier = result.get("path")
+            if identifier and identifier not in seen_identifiers:
                 result["match_type"] = "graph"
+                result["node_type"] = "file"
                 all_results.append(result)
-                seen_paths.add(result.get("path"))
+                seen_identifiers.add(identifier)
+
+        # 3. Graph search for patterns (new!)
+        pattern_results = self._pattern_graph_search(original_query, key_terms, intent, max_results)
+
+        for result in pattern_results:
+            identifier = result.get("pattern_id")
+            if identifier and identifier not in seen_identifiers:
+                result["match_type"] = "graph_pattern"
+                result["node_type"] = "pattern"
+                # BOOST PATTERNS: They're discovered knowledge
+                result["relevance_score"] = result.get("relevance_score", 0.0) * 1.5
+                all_results.append(result)
+                seen_identifiers.add(identifier)
 
         return all_results
 
@@ -455,6 +493,43 @@ class SynapseContextManager:
                     results.append(node)
                     if len(results) >= max_results:
                         break
+
+        return results
+
+    def _pattern_graph_search(self, query: str, key_terms: List[str],
+                              intent: str, max_results: int) -> List[Dict]:
+        """
+        Graph search for Pattern nodes (discovered emergent patterns).
+
+        Patterns are discovered knowledge from the Pattern Learner, representing
+        emergent intelligence about action sequences, optimizations, and workflows.
+        """
+        results = []
+
+        with self.driver.session() as session:
+            # Search patterns by name, description, and pattern type
+            pattern_results = session.run("""
+                MATCH (p:Pattern)
+                WHERE ANY(term IN $terms WHERE
+                    toLower(p.name) CONTAINS term OR
+                    toLower(p.description) CONTAINS term OR
+                    toLower(p.pattern_type) CONTAINS term OR
+                    toLower(p.searchable_text) CONTAINS term)
+                RETURN p,
+                       size([term IN $terms WHERE toLower(p.name) CONTAINS term]) * 5 +
+                       size([term IN $terms WHERE toLower(p.description) CONTAINS term]) * 3 +
+                       size([term IN $terms WHERE toLower(p.searchable_text) CONTAINS term]) +
+                       p.occurrence_count * 0.1 +
+                       p.entropy_reduction * 2 as relevance_score
+                ORDER BY relevance_score DESC
+                LIMIT $limit
+            """, terms=key_terms, limit=max_results)
+
+            for record in pattern_results:
+                node = dict(record["p"])
+                node["relevance_score"] = record["relevance_score"]
+                node["match_type"] = "pattern"
+                results.append(node)
 
         return results
 
@@ -624,14 +699,25 @@ class SynapseContextManager:
         """
         Enrich the found nodes with their graph relationships.
         This implements the "Traversal" part of "Search then Traverse".
+
+        Note: Pattern nodes don't have file relationships, so they're returned as-is.
         """
         enriched_nodes = []
 
         with self.driver.session() as session:
             for node in nodes:
-                node_path = node["path"]
+                # Skip relationship enrichment for patterns (they don't have file relationships)
+                if node.get("node_type") == "pattern":
+                    enriched_nodes.append(node)
+                    continue
 
-                # Get relationships for this node
+                node_path = node.get("path")
+                if not node_path:
+                    # No path, can't enrich - return as-is
+                    enriched_nodes.append(node)
+                    continue
+
+                # Get relationships for file nodes
                 relationships = session.run("""
                     MATCH (f:SynapseFile {path: $path})
                     OPTIONAL MATCH (f)-[r1:CONTAINS]->(child)
@@ -685,15 +771,34 @@ class SynapseContextManager:
 
         # Process high relevance matches with enhanced metadata
         for node in high_relevance:
-            match_entry = {
-                "file": node["name"],
-                "path": node["path"],
-                "summary": node["summary"],
-                "type": node.get("type", "unknown"),
-                "word_count": node.get("word_count", 0),
-                "smart_score": round(node.get("smart_score", 0), 2),
-                "match_type": node.get("match_type", "unknown")
-            }
+            # Distinguish between files and patterns
+            if node.get("node_type") == "pattern":
+                # Pattern node
+                match_entry = {
+                    "pattern_id": node.get("pattern_id", ""),
+                    "name": node.get("name", "Unknown Pattern"),
+                    "description": node.get("description", ""),
+                    "pattern_type": node.get("pattern_type", "unknown"),
+                    "entropy_reduction": round(node.get("entropy_reduction", 0.0), 2),
+                    "consciousness_contribution": node.get("consciousness_contribution", "low"),
+                    "occurrence_count": node.get("occurrence_count", 0),
+                    "success_rate": round(node.get("success_rate", 0.0), 2),
+                    "smart_score": round(node.get("smart_score", 0), 2),
+                    "match_type": node.get("match_type", "unknown"),
+                    "node_type": "pattern"
+                }
+            else:
+                # File node
+                match_entry = {
+                    "file": node.get("name", ""),
+                    "path": node.get("path", ""),
+                    "summary": node.get("summary", ""),
+                    "type": node.get("type", "unknown"),
+                    "word_count": node.get("word_count", 0),
+                    "smart_score": round(node.get("smart_score", 0), 2),
+                    "match_type": node.get("match_type", "unknown"),
+                    "node_type": "file"
+                }
 
             # Add query variant if from vector search
             if node.get("query_variant"):

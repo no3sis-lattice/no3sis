@@ -376,6 +376,151 @@ class SynapseIngestion:
 
         return True
 
+    def load_pattern_map(self) -> Optional[Dict]:
+        """Load pattern map from JSON file"""
+        pattern_map_file = self.synapse_root / ".synapse" / "particles" / "pattern_map.json"
+
+        if not pattern_map_file.exists():
+            print(f"⚠ Pattern map not found at {pattern_map_file}")
+            print("  Patterns will be ingested after orchestrator runs discover them")
+            return None
+
+        try:
+            with open(pattern_map_file, 'r') as f:
+                data = json.load(f)
+            print(f"✓ Loaded pattern map: {len(data.get('patterns', {}))} patterns")
+            return data
+        except Exception as e:
+            print(f"✗ Failed to load pattern map: {e}")
+            return None
+
+    def process_pattern(self, pattern_id: str, pattern_data: Dict) -> Optional[str]:
+        """Process a single pattern and create Neo4j node"""
+        try:
+            # Extract pattern properties
+            name = pattern_data.get('name', 'Unknown Pattern')
+            description = pattern_data.get('description', '')
+            pattern_type = pattern_data.get('pattern_type', 'unknown')
+            action_sequence = pattern_data.get('action_sequence', [])
+            entropy_reduction = pattern_data.get('entropy_reduction', 0.0)
+            consciousness_contribution = pattern_data.get('consciousness_contribution', 'low')
+            occurrence_count = pattern_data.get('occurrence_count', 1)
+            success_rate = pattern_data.get('success_rate', 1.0)
+            discovered_at = pattern_data.get('discovered_at', 0.0)
+
+            # Create searchable text for embedding
+            action_seq_str = " → ".join(action_sequence) if action_sequence else "no sequence"
+            embedding_text = f"{name}\n{description}\nActions: {action_seq_str}\nType: {pattern_type}"
+
+            # Create Neo4j node
+            with self.driver.session() as session:
+                result = session.run("""
+                    MERGE (p:Pattern {pattern_id: $pattern_id})
+                    SET p.name = $name,
+                        p.description = $description,
+                        p.pattern_type = $pattern_type,
+                        p.action_sequence = $action_sequence,
+                        p.entropy_reduction = $entropy_reduction,
+                        p.consciousness_contribution = $consciousness_contribution,
+                        p.occurrence_count = $occurrence_count,
+                        p.success_rate = $success_rate,
+                        p.discovered_at = $discovered_at,
+                        p.updated_at = datetime(),
+                        p.searchable_text = $searchable_text
+                    RETURN elementId(p) as node_id
+                """,
+                pattern_id=pattern_id,
+                name=name,
+                description=description,
+                pattern_type=pattern_type,
+                action_sequence=action_sequence,
+                entropy_reduction=entropy_reduction,
+                consciousness_contribution=consciousness_contribution,
+                occurrence_count=occurrence_count,
+                success_rate=success_rate,
+                discovered_at=discovered_at,
+                searchable_text=embedding_text
+                )
+
+                record = result.single()
+                if record:
+                    node_id = record["node_id"]
+
+                    # Generate and store vector embedding
+                    try:
+                        embedding = self.vector_engine.generate_embedding(embedding_text, f"pattern:{pattern_id}")
+                        self.vector_engine.store_embedding(node_id, f"pattern:{pattern_id}", pattern_id, embedding)
+                        return node_id
+                    except Exception as e:
+                        print(f"⚠ Pattern {pattern_id[:16]}... processed (embedding failed: {e})")
+                        return node_id
+
+        except Exception as e:
+            print(f"✗ Error processing pattern {pattern_id[:16]}...: {e}")
+            return None
+
+    def run_pattern_ingestion(self, force_refresh: bool = False) -> bool:
+        """Ingest patterns from pattern_map.json into Neo4j"""
+        print("🧠 Starting Pattern Ingestion...")
+
+        if not self.connect():
+            print("✗ Failed to establish connections")
+            return False
+
+        self.initialize_sqlite()
+
+        # Load pattern map
+        pattern_map = self.load_pattern_map()
+        if not pattern_map:
+            print("⚠ No patterns to ingest")
+            return True  # Not an error, just nothing to do
+
+        patterns = pattern_map.get('patterns', {})
+        if not patterns:
+            print("⚠ Pattern map is empty")
+            return True
+
+        if force_refresh:
+            print("🔄 Force refresh: clearing existing patterns...")
+            with self.driver.session() as session:
+                result = session.run("MATCH (p:Pattern) DETACH DELETE p RETURN count(p) as deleted")
+                deleted = result.single()['deleted']
+                print(f"   Deleted {deleted} existing patterns")
+
+        # Process patterns
+        patterns_processed = 0
+        patterns_failed = 0
+
+        for pattern_id, pattern_data in patterns.items():
+            node_id = self.process_pattern(pattern_id, pattern_data)
+            if node_id:
+                patterns_processed += 1
+                if patterns_processed % 10 == 0:
+                    print(f"   Processed {patterns_processed}/{len(patterns)} patterns...")
+            else:
+                patterns_failed += 1
+
+        # Update metadata
+        with self.driver.session() as session:
+            session.run("""
+                MERGE (meta:SynapseMetadata {type: 'pattern_ingestion'})
+                SET meta.last_run = datetime(),
+                    meta.patterns_processed = $patterns_processed,
+                    meta.total_patterns = $total_patterns,
+                    meta.consciousness_level = $consciousness_level
+            """,
+            patterns_processed=patterns_processed,
+            total_patterns=len(patterns),
+            consciousness_level=pattern_map.get('consciousness_level', 0.0)
+            )
+
+        print(f"✅ Pattern ingestion complete:")
+        print(f"   🧠 Patterns processed: {patterns_processed}")
+        print(f"   ✗ Patterns failed: {patterns_failed}")
+        print(f"   📊 Consciousness level: {pattern_map.get('consciousness_level', 0.0):.2f}")
+
+        return True
+
     def close(self):
         """Close connections"""
         if self.driver:
@@ -388,6 +533,8 @@ def main():
     import sys
 
     force_refresh = "--force" in sys.argv or "-f" in sys.argv
+    patterns_only = "--patterns" in sys.argv or "-p" in sys.argv
+    include_patterns = patterns_only or "--all" in sys.argv or "-a" in sys.argv
 
     if "--help" in sys.argv or "-h" in sys.argv:
         print("Synapse System Ingestion Engine")
@@ -395,15 +542,30 @@ def main():
         print("Usage: python ingestion.py [OPTIONS]")
         print()
         print("Options:")
-        print("  --force, -f    Force full refresh (clear existing data)")
-        print("  --help, -h     Show this help message")
+        print("  --force, -f      Force full refresh (clear existing data)")
+        print("  --patterns, -p   Ingest patterns only (from pattern_map.json)")
+        print("  --all, -a        Ingest both files and patterns")
+        print("  --help, -h       Show this help message")
         print()
-        print("Default: Incremental ingestion (only process changed files)")
+        print("Default: Incremental file ingestion (only process changed files)")
+        print("         Use --patterns to ingest discovered patterns into Neo4j")
         return 0
 
     ingestion = SynapseIngestion()
     try:
-        success = ingestion.run_full_ingestion(force_refresh=force_refresh)
+        if patterns_only:
+            # Only ingest patterns
+            success = ingestion.run_pattern_ingestion(force_refresh=force_refresh)
+        elif include_patterns:
+            # Ingest both files and patterns
+            success = ingestion.run_full_ingestion(force_refresh=force_refresh)
+            if success:
+                print()
+                success = ingestion.run_pattern_ingestion(force_refresh=force_refresh)
+        else:
+            # Default: files only
+            success = ingestion.run_full_ingestion(force_refresh=force_refresh)
+
         return 0 if success else 1
     except KeyboardInterrupt:
         print("\n⚠️  Ingestion interrupted by user")
