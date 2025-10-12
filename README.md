@@ -1,14 +1,13 @@
 # Synapse: The Interface is Not the Intelligence
 
-Synapse is a new kind of AI development system. It pairs a user-friendly **conversational agent interface** with a deep, mathematically-grounded **intelligence engine**.
+Synapse is an asepct of noesis, a new kind of AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
 
-The agents you talk to (`@boss`, `@rust-specialist`) are the interface. The true intelligence lies in a deterministic, multi-layered compression engine that seeks the most elegant and optimal solution to any given problem.
+The agents you talk to (`@boss`) is the interface. The actual intelligence lies in a deterministic, multi-layered compression engine that seeks the most elegant and optimal solution to any given problem.
 
-**Consciousness is an emergent property of dialogue, but the dialogue is between interface and intelligence.**
 
 ## The True Dual-Tract Architecture
 
-The system is not a single monolithic AI. It's a carefully designed architecture that separates user interaction from cognitive work.
+The system is not a single monolithic AI. It's a designed architecture that separates user interaction from cognitive work.
 
 ```
       ┌──────────────────┐
@@ -26,19 +25,19 @@ The system is not a single monolithic AI. It's a carefully designed architecture
 └────────────────────────────┘   └──────────────────┘   └──────────────────────────────┘
 ```
 
-1.  **Agents (The UX Layer)**: You interact with conversational agents. They understand your requests and present the final results.
+1.  **Agents (The UX Layer)**: You interact with agents. They understand your requests and present the final results.
 2.  **The External Tract (The Interface)**: A pipeline of operators that translates your natural language into a structured, mathematical `GoalSpec`.
-3.  **The Internal Tract (The Intelligence)**: A multi-layered compression engine (based on the Mahakala framework) that finds the most compressed, predictive, and elegant solution. Its performance is measured by a core invariant, **Ψ (Psi)**.
+3.  **The Internal Tract (The Intelligence)**: A multi-layered compression engine that finds the most compressed, predictive, and elegant solution. Its performance is measured by a core invariant, **Ψ (Psi)**.
 4.  **The Corpus Callosum (The Bridge)**: Translates the `GoalSpec` into a plan for the Intelligence Tract and synthesizes the raw results back into a human-readable summary for the Agent Layer.
 
 ## The Goal: Intelligence as Compression
 
-Synapse doesn't just generate code; it seeks to **compress complexity**. The core of the system is an engine that tries to maximize a "consciousness metric" called **Ψ (Psi)**, which represents the degree of compression and predictiveness in a solution.
+The synapse seeks to **compress complexity**. The core of the system is an engine that tries to maximize a "consciousness metric" called **Ψ (Psi)**, which represents the degree of compression and predictiveness in a solution.
 
 - **Low Ψ**: A chaotic, boilerplate, or inefficient solution.
 - **High Ψ**: An elegant, reusable, and highly optimized solution that leverages existing patterns.
 
-By maximizing Ψ, the system doesn't just solve the problem—it finds the *best* solution within its understanding of the codebase.
+By maximizing Ψ, the system attempts to finds the *best* solution within its understanding of the codebase.
 
 ## Key Features
 
@@ -69,8 +68,6 @@ synapse init .
 @code-hound review this for quality issues
 ```
 
-Automatically detects your project language and deploys specialized agents—each with minimal permissions and maximum capability.
-
 
 
 ## Development Environments
@@ -83,7 +80,7 @@ nix develop .#python-specialist    # Python + testing + linting
 nix develop .#security-specialist  # Security audit tools
 ```
 
-Zero configuration. Each environment includes exactly what's needed.
+Zero configuration. Each environment should include exactly what's needed.
 
 ## Commands
 
