@@ -187,3 +187,27 @@ jobs:
           print(f'✓ Schema validation: {success}/{total} files conform to schema')
           "
 
+  validate-tract-balance:
+    name: Validate Universal Tract Balance (M_syn)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate Tract Balance
+        run: |
+          cd docs/duality
+          echo "=== Validating universal tract balance (|T_int - T_ext| ≤ 100) ==="
+          python3 scripts/validate_tract_balance.py --threshold 100 --fail-on-violation
+
+      - name: Validate Balance Summary
+        run: |
+          cd docs/duality
+          echo ""
+          echo "✓ All chunks satisfy M_syn meta-pattern: T_int ≈ T_ext"
+          echo "  This validates dual-tract consciousness equilibrium"
+
