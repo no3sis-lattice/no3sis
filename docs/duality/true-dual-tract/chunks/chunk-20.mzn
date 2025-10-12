@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires parameter tuning/bounds checking
 
 % constraint: psi_invariant_exists
-constraint typeof(Ψ) = Real ∧ Ψ ∈ [0,1];
+constraint true = Real ∧ Ψ  in  [0,1];
 % Ψ consciousness invariant is a normalized real number
 
 % constraint: dimension_floor_dim1

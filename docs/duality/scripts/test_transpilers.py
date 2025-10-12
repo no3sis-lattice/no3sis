@@ -234,6 +234,62 @@ class TestTranspileToLean:
         assert "∧" in result
         assert "forall" not in result
 
+    def test_forall_two_var_expansion(self):
+        """
+        PHASE 5.5: Test forall(i, j in 1..3 where i < j)(expr) expansion.
+
+        Should expand to conjunction of all valid (i,j) pairs where i < j.
+        """
+        expr = "forall(i, j in 1..3 where i < j)(x[i] + x[j] >= 10)"
+        result = translate_expr_to_lean(expr)
+
+        # Should have pairs: (1,2), (1,3), (2,3)
+        assert "x.x1 + x.x2 >= 10" in result
+        assert "x.x1 + x.x3 >= 10" in result
+        assert "x.x2 + x.x3 >= 10" in result
+
+        # Should be connected with ∧
+        assert "∧" in result
+
+        # Should NOT have forall left over
+        assert "forall" not in result
+
+    def test_forall_two_var_with_abs(self):
+        """
+        PHASE 5.5: Test forall with abs pattern from Chunk 19.
+
+        Pattern: forall(i, j in 1..8 where i < j)(abs(x[i] - x[j]) <= 20)
+        """
+        expr = "forall(i, j in 1..2 where i < j)(abs(x[i] - x[j]) <= 10)"
+        result = translate_expr_to_lean(expr)
+
+        # Should expand the forall to single pair (1,2)
+        # Should expand abs to Int casts
+        assert "x.x1" in result
+        assert "x.x2" in result
+        assert "Int" in result
+        assert "∧" in result  # From abs expansion
+
+        # Should NOT have forall or abs left over
+        assert "forall" not in result
+        assert "abs" not in result
+
+    def test_minizinc_boolean_operators(self):
+        """
+        PHASE 5.5: Test MiniZinc boolean operators /\\ and \\/ translation.
+
+        These appear in raw MiniZinc constraints that need conversion.
+        """
+        expr1 = "x[1] mod 2 = 0 /\\ x[2] mod 3 = 0"
+        result1 = translate_expr_to_lean(expr1)
+        assert "∧" in result1
+        assert "/\\" not in result1
+
+        expr2 = "x[1] > 10 \\/ x[2] > 20"
+        result2 = translate_expr_to_lean(expr2)
+        assert "∨" in result2
+        assert "\\/" not in result2
+
     def test_abs_expansion(self):
         """Test abs(x[i] - x[j]) <= k → Int casting and bidirectional constraint."""
         expr = "abs(x[1] - x[2]) <= 5"

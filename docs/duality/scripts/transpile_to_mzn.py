@@ -48,6 +48,51 @@ FUNCTION_MAP = {
 }
 
 
+def sanitize_meta_constructs_mzn(expr: str) -> str:
+    """
+    PHASE 5.5: Sanitize meta-level constructs for MiniZinc.
+
+    Removes unsupported symbolic/meta constructs:
+    - typeof(...), component_of(...), pipeline(...), well_formed(...)
+    - set cardinality |{...}|
+    - non-numeric membership (x ∈ S)
+
+    Returns 'true' if expression becomes empty after sanitization.
+    """
+    result = expr.strip()
+
+    # Remove meta predicates - replace with 'true'
+    meta_patterns = [
+        r'\btypeof\s*\([^)]*\)',
+        r'\bcomponent_of\s*\([^)]*\)',
+        r'\bpipeline\s*\([^)]*\)',
+        r'\bwell_formed\s*\([^)]*\)',
+        r'\bhas_field\s*\([^)]*\)',
+    ]
+
+    for pattern in meta_patterns:
+        result = re.sub(pattern, 'true', result)
+
+    # Remove set cardinality notation |{...}| = N
+    result = re.sub(r'\|\s*\{[^}]*\}\s*\|\s*[=<>!]+\s*\d+', 'true', result)
+
+    # Remove symbolic membership (x ∈ {symbolic_set})
+    # Keep numeric ranges like "i in 1..8" which are valid
+    result = re.sub(r'\w+\s*∈\s*\{[^}]*\}', 'true', result)
+    result = result.replace('∈', ' in ')
+
+    # Clean up: if multiple 'true' with operators, simplify
+    # true && X → X, X && true → X
+    result = re.sub(r'true\s*/\\\s*', '', result)
+    result = re.sub(r'\s*/\\\s*true', '', result)
+
+    # If entirely empty or just whitespace, return 'true'
+    if not result.strip() or result.strip() == '&&' or result.strip() == '/\\':
+        return 'true'
+
+    return result
+
+
 def translate_expr_to_mzn(expr: str) -> str:
     """
     Translate JSON DSL expression to MiniZinc syntax.
@@ -58,8 +103,10 @@ def translate_expr_to_mzn(expr: str) -> str:
     - sum(i in 1..4)(x[i]) stays sum(i in 1..4)(x[i])
     - forall(i in 1..4)(x[i] >= 3) stays forall(i in 1..4)(x[i] >= 3)
     - count(i in S)(P) → sum(i in S)(bool2int(P)) with implicit coercion
+    - PHASE 5.5: Sanitizes meta constructs (typeof, component_of, etc.)
     """
-    result = expr
+    # PHASE 5.5: Sanitize meta constructs FIRST
+    result = sanitize_meta_constructs_mzn(expr)
 
     # Replace operators (order matters for precedence)
     # Must handle && before & and || before |

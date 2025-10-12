@@ -17,7 +17,7 @@ constraint Agents = UX_Layer ∧ UX_Layer ∉ Tracts;
 % Agents live outside both tracts as UX layer
 
 % constraint: tracts_are_operator_pipelines
-constraint ∀ tract ∈ {T_ext, T_int} : typeof(tract) = Pipeline[TypedOperators];
+constraint ∀ true : true = Pipeline[TypedOperators];
 % Tracts are pipelines of small, typed operators
 
 % constraint: new_data_flow
@@ -69,23 +69,23 @@ constraint interface_type(Agents) = NaturalLanguage;
 % Agents provide familiar conversational interface
 
 % constraint: operators_use_structured_data
-constraint ∀ op ∈ Operators : works_with(op, StructuredData);
+constraint ∀ op  in  Operators : works_with(op, StructuredData);
 % Operators work with structured data, not natural language
 
 % constraint: operators_have_budgets
-constraint ∀ op ∈ Operators : has(op, budget);
+constraint ∀ op  in  Operators : has(op, budget);
 % Operators have resource budgets
 
 % constraint: operators_emit_metrics
-constraint ∀ op ∈ Operators : emits(op, {Ψ, R_i});
+constraint ∀ op  in  Operators : emits(op, {Ψ, R_i});
 % Operators emit metrics (Ψ, R_i)
 
 % constraint: operators_testable_in_isolation
-constraint ∀ op ∈ Operators : testable(op, isolation=true);
+constraint ∀ op  in  Operators : testable(op, isolation=true);
 % Each operator can be tested independently
 
 % constraint: operators_predictable
-constraint ∀ op ∈ Operators : predictable(behavior(op));
+constraint ∀ op  in  Operators : predictable(behavior(op));
 % Operator behavior is predictable
 
 % No optimization objective

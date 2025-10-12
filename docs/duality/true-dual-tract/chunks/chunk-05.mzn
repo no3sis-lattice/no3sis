@@ -17,7 +17,7 @@ constraint |Frameworks| = 5;
 % System described by exactly 5 frameworks
 
 % constraint: frameworks_are_unified
-constraint ∀ f ∈ Frameworks : describes(f, SameSystem);
+constraint ∀ f  in  Frameworks : describes(f, SameSystem);
 % All frameworks describe one unified system from different perspectives
 
 % constraint: mahakala_defines_internal_tract
@@ -29,7 +29,7 @@ constraint computes(CIG3, Ψ) ∧ operates_within(CIG3, T_int);
 % CIG-3 measurement protocol computes Ψ invariant in Internal Tract
 
 % constraint: pneuma_guides_behavior
-constraint ∀ component ∈ (Agents ∪ Operators) : adheres_to(component, PNEUMA.axioms);
+constraint ∀ component  in  (Agents ∪ Operators) : adheres_to(component, PNEUMA.axioms);
 % PNEUMA axioms guide behavior of both agents and operators
 
 % constraint: prime_hierarchy_defines_depth
@@ -117,7 +117,7 @@ constraint step_8: presents(Agent, formatted_output);
 % Step 8: Agent presents final output to user
 
 % constraint: pneuma_axioms_throughout
-constraint step_9: ∀ step ∈ UnificationFlow : adheres_to(step, PNEUMA.axioms);
+constraint step_9: ∀ step  in  UnificationFlow : adheres_to(step, PNEUMA.axioms);
 % Step 9: All agents and operators adhere to PNEUMA axioms throughout
 
 % No optimization objective

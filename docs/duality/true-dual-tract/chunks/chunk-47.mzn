@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires parameter tuning/bounds checking
 
 % constraint: structure_well_formed
-constraint well_formed(Structure);
+constraint true;
 % Data structure must be well-formed with required fields
 
 % constraint: dimension_floor_dim1

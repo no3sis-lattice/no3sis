@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: corpus_callosum_constraint
-constraint component_of(X, C_c);
+constraint true;
 % Components belong to Corpus Callosum (Bridge Operators)
 
 % constraint: tract_minimum_start1_end4

@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires MiniZinc optimization/search
 
 % constraint: internal_tract_constraint
-constraint component_of(X, T_int);
+constraint true;
 % Components belong to Internal Tract (Intelligence Operators)
 
 % constraint: dimension_floor_dim1

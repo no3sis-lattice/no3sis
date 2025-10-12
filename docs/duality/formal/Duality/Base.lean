@@ -1,36 +1,21 @@
 /-
-Base module for TRUE_DUAL_TRACT formalization.
-Contains shared structures and definitions used across all chunks.
+Shared base for Duality chunks:
+- X8 type
+- N, unitary
+- tract sum helpers
 -/
-
-import Mathlib.Data.Nat.Basic
-
 namespace Duality
 
-/-- Scale parameter: sum constraint for 8D manifold -/
-def N : ℕ := 100
+def N : Nat := 100
 
-/-- 8-dimensional coordinate structure representing the manifold -/
 structure X8 where
-  x1 : Nat
-  x2 : Nat
-  x3 : Nat
-  x4 : Nat
-  x5 : Nat
-  x6 : Nat
-  x7 : Nat
-  x8 : Nat
-deriving Repr
+  x1 x2 x3 x4 x5 x6 x7 x8 : Nat
+deriving Repr, DecidableEq
 
-/-- Unit-sum constraint: all coordinates must sum to N -/
 def unitary (x : X8) : Prop :=
   x.x1 + x.x2 + x.x3 + x.x4 + x.x5 + x.x6 + x.x7 + x.x8 = N
 
-/-- Standard witness used across all chunks (matches MiniZinc solution) -/
-def standardWitness : X8 := ⟨100, 0, 0, 0, 0, 0, 0, 0⟩
-
-/-- Proof that standard witness satisfies unitary constraint -/
-theorem standardWitness_unitary : unitary standardWitness := by
-  rfl
+@[simp] def tractSumExt (x : X8) : Nat := x.x1 + x.x2 + x.x3 + x.x4
+@[simp] def tractSumInt (x : X8) : Nat := x.x5 + x.x6 + x.x7 + x.x8
 
 end Duality

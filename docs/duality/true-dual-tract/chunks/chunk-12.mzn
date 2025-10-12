@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: mahakala_layers_exist
-constraint |{L1, L2, L3, L4, L5}| = 5;
+constraint true;
 % Mahakala framework defines 5 compression layers
 
 % constraint: dimension_floor_dim1

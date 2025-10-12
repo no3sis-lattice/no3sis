@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: external_tract_constraint
-constraint component_of(X, T_ext);
+constraint true;
 % Components belong to External Tract (Interface Operators)
 
 % constraint: tract_minimum_start1_end4

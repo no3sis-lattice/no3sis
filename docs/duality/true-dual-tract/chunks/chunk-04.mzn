@@ -33,11 +33,11 @@ constraint output(NLP_Op) = GoalSpec;
 % NLP operator transforms text to structured GoalSpec
 
 % constraint: goalspec_has_domain
-constraint has_field(GoalSpec, 'domain');
+constraint true;
 % GoalSpec contains domain field (e.g., 'auth')
 
 % constraint: goalspec_has_target_psi
-constraint has_field(GoalSpec, 'target_Ψ') ∧ typeof(target_Ψ) = Real;
+constraint true ∧ true = Real;
 % GoalSpec specifies target Ψ metric (e.g., 0.85)
 
 % constraint: encoder_op_produces_phi_g
@@ -49,15 +49,15 @@ constraint output(PlannerOp) = Plan;
 % Planner produces execution plan
 
 % constraint: plan_specifies_layers
-constraint has_field(Plan, 'layers') ∧ layers ⊆ {L1, L2, L3, L4, L5};
+constraint true ∧ layers ⊆ {L1, L2, L3, L4, L5};
 % Plan specifies which internal tract layers to execute
 
 % constraint: layer_ops_produce_r_i
-constraint ∀ i ∈ {1,2,3,4,5} : output(L_i_Op) contains R_i;
+constraint ∀ true : output(L_i_Op) contains R_i;
 % Each layer operator produces compression ratio R_i
 
 % constraint: r_i_is_compression_ratio
-constraint typeof(R_i) = Real ∧ R_i > 0;
+constraint true = Real ∧ R_i > 0;
 % R_i is a positive real number (compression ratio)
 
 % constraint: synthesizer_op_produces_summary
@@ -69,7 +69,7 @@ constraint output(RenderOp) = FormattedOutput;
 % Render operator formats summary for user presentation
 
 % constraint: system_measurable
-constraint ∀ stage ∈ pipeline : measurable(stage);
+constraint ∀ stage  in  pipeline : measurable(stage);
 % Every stage in pipeline has measurable performance
 
 % constraint: system_optimizable

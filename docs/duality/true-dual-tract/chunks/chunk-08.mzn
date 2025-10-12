@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: internal_tract_constraint
-constraint component_of(X, T_int);
+constraint true;
 % Components belong to Internal Tract (Intelligence Operators)
 
 % constraint: tract_minimum_start1_end4

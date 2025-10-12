@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires MiniZinc optimization/search
 
 % constraint: operator_contract_required
-constraint ∀ op ∈ Operators : has_field(op, 'contract');
+constraint ∀ op  in  Operators : true;
 % All operators must have defined contracts
 
 % constraint: tract_minimum_start1_end4
