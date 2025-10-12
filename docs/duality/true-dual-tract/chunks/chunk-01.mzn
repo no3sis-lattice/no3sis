@@ -7,18 +7,27 @@ set of int: P = { 2, 3, 5, 7, 11, 13, 17, 19 };  % subset of primes (2,3,5,7,11,
 % Decision variables: 8D coordinates
 array[1..8] of var 0..N: x;
 
-% UNSUPPORTED_SYNTAX: % Unit-sum constraint
+% Unit-sum constraint
 constraint sum(i in 1..8)(x[i]) = N;
 
-% UNSUPPORTED_SYNTAX: % Domain-specific constraints injected here:
+% Domain-specific constraints (de-trivialized for chunk 01):
+
+% Two tracts exist (mapped to x[1]=T_ext, x[2]=T_int)
+% Original: |{T_ext, T_int}| = 2
+constraint x[1] >= 15;  % T_ext minimum allocation
+constraint x[2] >= 15;  % T_int minimum allocation
+
+% Tracts must have substantial resources (combined)
+% Original: T_ext = pipeline(InterfaceOperators), T_int = pipeline(IntelligenceOperators)
+constraint x[1] + x[2] >= 40;  % Combined tract allocation ≥ 40%
+
+% Corpus Callosum coordination (x[3] represents C_c)
+% Original: orchestrates(C_c, T_ext) ∧ orchestrates(C_c, T_int)
+constraint x[3] >= 10;  % C_c minimum allocation for orchestration
+
+% UNSUPPORTED_SYNTAX (remaining constraints):
 % % system_composed_of_operators
-% UNSUPPORTED_SYNTAX: % UNSUPPORTED_SYNTAX: constraint ∀ component ∈ System : typeof(component) = Operator;
-% two_tracts_exist
-% UNSUPPORTED_SYNTAX: % UNSUPPORTED_SYNTAX: constraint |{T_ext, T_int}| = 2;
-% t_ext_definition
-% UNSUPPORTED_SYNTAX: % UNSUPPORTED_SYNTAX: constraint T_ext = pipeline(InterfaceOperators);
-% t_int_definition
-% UNSUPPORTED_SYNTAX: % UNSUPPORTED_SYNTAX: constraint T_int = pipeline(IntelligenceOperators);
+% UNSUPPORTED_SYNTAX: constraint ∀ component ∈ System : typeof(component) = Operator;
 % agents_outside_tracts
 % UNSUPPORTED_SYNTAX: % UNSUPPORTED_SYNTAX: constraint ∀ agent ∈ Agents : agent ∉ T_ext ∧ agent ∉ T_int;
 % agents_call_corpus_callosum

@@ -1,0 +1,113 @@
+name: Duality Formalization Validation
+
+on:
+  push:
+    paths:
+      - 'docs/duality/**'
+  pull_request:
+    paths:
+      - 'docs/duality/**'
+
+jobs:
+  validate-minizinc:
+    name: Validate MiniZinc Models
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MiniZinc
+        run: |
+          wget -q https://github.com/MiniZinc/MiniZincIDE/releases/download/2.8.5/minizinc-2.8.5-x86_64-linux.tar.gz
+          tar -xzf minizinc-2.8.5-x86_64-linux.tar.gz
+          echo "$PWD/MiniZincIDE-2.8.5-x86_64-linux/bin" >> $GITHUB_PATH
+
+      - name: Validate MiniZinc Syntax
+        run: |
+          cd docs/duality/true-dual-tract/chunks
+          success=0
+          total=0
+          for f in chunk-*.mzn; do
+            total=$((total + 1))
+            if minizinc --check-only "$f" 2>&1; then
+              success=$((success + 1))
+            else
+              echo "❌ Failed: $f"
+            fi
+          done
+          echo "✓ Syntax check: $success/$total files passed"
+          [ $success -eq $total ] || exit 1
+
+  validate-lean:
+    name: Validate Lean4 Proofs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Lean
+        uses: leanprover/lean-action@v1
+        with:
+          lean-version: 'v4.24.0-rc1'
+
+      - name: Build Lean Project
+        run: |
+          cd docs/duality/formal
+          lake update
+          lake build Duality
+
+      - name: Run Lean Tests
+        run: |
+          cd docs/duality/formal
+          lake build Duality.Tests
+
+  cross-check:
+    name: Cross-Check Constraint Equivalence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Cross-Check Script
+        run: |
+          cd docs/duality
+          python3 scripts/cross_check_all.py
+
+      - name: Upload Cross-Check Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cross-check-report
+          path: docs/duality/cross-check-report.md
+          retention-days: 30
+
+  validate-json-schema:
+    name: Validate Constraint JSON Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate JSON Files
+        run: |
+          cd docs/duality
+          success=0
+          total=0
+          for f in true-dual-tract/chunks/chunk-*.constraints.json; do
+            total=$((total + 1))
+            if python3 -m json.tool "$f" > /dev/null 2>&1; then
+              success=$((success + 1))
+            else
+              echo "❌ Invalid JSON: $f"
+            fi
+          done
+          echo "✓ JSON validation: $success/$total files passed"
+          [ $success -eq $total ] || exit 1
