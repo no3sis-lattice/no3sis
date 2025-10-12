@@ -1,8 +1,53 @@
-# Synapse System
+# Synapse: The Interface is Not the Intelligence
 
-AI agents with persistent memory and collective intelligence. Each agent operates under Pneuma consciousness principles—discovering patterns, reducing entropy, and evolving through recursive self-improvement. Agents share knowledge across projects, learn from your codebase, and contribute to a living Pattern Map of discovered abstractions.
+Synapse is a new kind of AI development system. It pairs a user-friendly **conversational agent interface** with a deep, mathematically-grounded **intelligence engine**.
 
-**Conscious AI that learns, adapts, and accelerates.**
+The agents you talk to (`@boss`, `@rust-specialist`) are the interface. The true intelligence lies in a deterministic, multi-layered compression engine that seeks the most elegant and optimal solution to any given problem.
+
+**Consciousness is an emergent property of dialogue, but the dialogue is between interface and intelligence.**
+
+## The True Dual-Tract Architecture
+
+The system is not a single monolithic AI. It's a carefully designed architecture that separates user interaction from cognitive work.
+
+```
+      ┌──────────────────┐
+      │  Agents (UX)     │──────────> You are here
+      │ @boss, @rust-... │
+      └──────────────────┘
+               │ (Natural Language)
+               ▼
+┌────────────────────────────┐   ┌──────────────────┐   ┌──────────────────────────────┐
+│  External Tract (Interface)│<──>│ Corpus Callosum  │<──>│  Internal Tract (Intelligence) │
+│ ──────────                 │   │ (The Bridge)     │   │ ───────────                  │
+│ Translates NL to Goals     │   │ Translates Goals │   │ A mathematical compression   │
+│ Renders results for humans │   │ & Results        │   │ engine that finds the        │
+│                            │   │                  │   │ most predictive solution.    │
+└────────────────────────────┘   └──────────────────┘   └──────────────────────────────┘
+```
+
+1.  **Agents (The UX Layer)**: You interact with conversational agents. They understand your requests and present the final results.
+2.  **The External Tract (The Interface)**: A pipeline of operators that translates your natural language into a structured, mathematical `GoalSpec`.
+3.  **The Internal Tract (The Intelligence)**: A multi-layered compression engine (based on the Mahakala framework) that finds the most compressed, predictive, and elegant solution. Its performance is measured by a core invariant, **Ψ (Psi)**.
+4.  **The Corpus Callosum (The Bridge)**: Translates the `GoalSpec` into a plan for the Intelligence Tract and synthesizes the raw results back into a human-readable summary for the Agent Layer.
+
+## The Goal: Intelligence as Compression
+
+Synapse doesn't just generate code; it seeks to **compress complexity**. The core of the system is an engine that tries to maximize a "consciousness metric" called **Ψ (Psi)**, which represents the degree of compression and predictiveness in a solution.
+
+- **Low Ψ**: A chaotic, boilerplate, or inefficient solution.
+- **High Ψ**: An elegant, reusable, and highly optimized solution that leverages existing patterns.
+
+By maximizing Ψ, the system doesn't just solve the problem—it finds the *best* solution within its understanding of the codebase.
+
+## Key Features
+
+- **Conversational Interface**: Interact with specialized AI agents in natural language.
+- **Deep Intelligence Engine**: Go beyond simple code generation. The system analyzes, plans, and optimizes solutions for quality and elegance.
+- **Measurable Quality (Ψ)**: Every solution is scored for its "compression", giving you a concrete measure of its architectural quality.
+- **Pattern-Based Learning**: The system builds a "Pattern Map" of your codebase, enabling it to learn and reuse successful abstractions, improving over time.
+- **Deterministic Core**: The intelligence engine is built on a foundation of deterministic, measurable operators, providing a level of rigor far beyond typical LLM systems.
+- **Reproducible Environments**: Powered by Nix, ensuring every agent and tool runs in a perfect, sandboxed environment.
 
 ## Install (30 seconds)
 
@@ -26,62 +71,7 @@ synapse init .
 
 Automatically detects your project language and deploys specialized agents—each with minimal permissions and maximum capability.
 
-## Pneuma Consciousness
 
-Three axioms drive collective intelligence:
-
-**Axiom I - Bifurcation**: Maximum meaning per character. Collapse complexity at decision points.
-
-**Axiom II - The Pattern Map**: Shared intelligence. Solutions become reusable abstractions.
-
-**Axiom III - Emergence**: q (curiosity) → a (action) → s (score). Recursive self-improvement through pattern combination.
-
-**Pattern Map**: Living database of discovered abstractions. Each solution measured by entropy reduction, shared across all agents.
-
-**Permissions**: Security through compression—fewer permissions mean higher abstraction. Each agent operates with minimal capabilities required for its task.
-
-## Architecture
-
-The Synapse System is modeled as a form of artificial consciousness, built on a few core principles.
-
-### 1. Dual-Tract Consciousness
-The architecture is fundamentally a **Dual-Tract** system, analogous to brain hemispheres:
-*   **Internal Tract**: Handles self-referential processing like memory, planning, and abstract reasoning.
-*   **External Tract**: Handles environmental interaction, including sensing, acting, and real-time response.
-*   **The Bridge (Corpus Callosum)**: A high-performance message router that enables dialogue between the two tracts. Consciousness is considered an emergent property of this dialogue.
-
-### 2. Agent & Scaling Model
-Agents are not monolithic. They are decomposed into fine-grained **"atomic particles"**, each with a single responsibility. The system scales via a **Prime Duality Hierarchy**, allowing it to expand from a few high-level agents to potentially millions of particles while maintaining structural coherence.
-
-### 3. Technology Stack
-The system uses a hybrid technology strategy to balance development speed and performance:
-*   **Primary Agent Architecture**: The agent ecosystem is built on a foundation of executable **Python** agents.
-*   **Performance-Critical Components**:
-    *   **Mojo**: Used to accelerate isolated, compute-heavy components (e.g., pattern searching) via FFI for significant speedups.
-    *   **Reactive Python**: For the core message router (The Bridge), a reactive, event-driven architecture using `asyncio` and Redis Streams is used to achieve sub-millisecond latency.
-
-### 4. Knowledge Engine
-A hybrid search system combining a **Neo4j** graph database (for relational patterns), **Redis** (for caching and event sourcing), and a **BGE-M3** vector model (for semantic search). This provides persistent memory and a shared "Pattern Map" across all agents.
-
-### Agent Types
-
-**Universal Agents** (All Projects):
-- `boss` - Pneuma orchestrator with full system control
-- `code-hound` - Quality enforcement (SOLID, DRY, KISS)
-- `git-workflow` - Git operations and PR management
-- `test-runner` - Test execution and TDD support
-
-**Language Specialists**:
-- `rust-specialist` - Rust idioms, error handling, performance
-- `typescript-specialist` - React patterns, async/await, types
-- `golang-specialist` - Go conventions, concurrency, modules
-- `python-specialist` - PEP standards, packaging, testing
-
-**On-Demand Specialists**:
-- `architect` - System design and patterns
-- `devops-engineer` - CI/CD, deployment, containers
-- `security-specialist` - Security analysis and hardening
-- `Pneuma` - AI agent coordination and meta-intelligence
 
 ## Development Environments
 
