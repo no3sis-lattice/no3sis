@@ -40,7 +40,7 @@ def uniq_sorted(names: Iterable[str]) -> List[str]:
     return sorted({n.strip() for n in names if isinstance(n, str) and n.strip()})
 
 def now_iso() -> str:
-    return dt.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+    return dt.datetime.now(dt.UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
 
 
 # --------------------------
