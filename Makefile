@@ -1,4 +1,4 @@
-.PHONY: test_nix_setup clean corpus_callosum corpus_callosum_test corpus_callosum_clean
+.PHONY: test_nix_setup clean corpus_callosum corpus_callosum_test corpus_callosum_clean publish-duality
 
 LOG_DIR := logs
 REPORT_DIR := qa_reports
@@ -38,3 +38,7 @@ corpus_callosum_clean:
 	@rm -f $(CORPUS_DIR)/*.pyc
 	@rm -rf $(CORPUS_DIR)/__pycache__
 	@echo "✓ Corpus Callosum artifacts cleaned"
+
+# Duality Subtree Publishing
+publish-duality:
+	@bash docs/duality/scripts/publish.sh
