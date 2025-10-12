@@ -15,13 +15,31 @@ deriving Repr
 def unitary (x : X8) : Prop :=
   x.x1 + x.x2 + x.x3 + x.x4 + x.x5 + x.x6 + x.x7 + x.x8 = N
 
--- Domain constraints placeholder; render from JSON constraints to Lean props.
+-- Domain constraints: PILOT Corpus Callosum
 def domainConstraints (x : X8) : Prop :=
-  True  -- (True) ∧ (True) ∧ (component_of(X, C_c))
+  -- constraint: chunk_09_exists
+  True ∧
+  -- constraint: proof_required
+  True ∧
+  -- constraint: bridge_minimum
+  (x.x1 + x.x2 >= 10) ∧
+  -- constraint: bridge_balance
+  ((x.x1 : Int) - x.x2 ≤ 5 ∧ (x.x2 : Int) - x.x1 ≤ 5) ∧
+  -- constraint: bridge_modest
+  (x.x1 + x.x2 + x.x3 <= 40)
 
--- Existence theorem (SAT-style). For proofs, either construct a witness or
--- leave tactic stubs and track as PARTIAL.
-theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x := by
-  admit
+-- Witness from MiniZinc: [7, 3, 0, 90, 0, 0, 0, 0]
+def witness : X8 := ⟨7, 3, 0, 90, 0, 0, 0, 0⟩
+
+theorem witness_valid : unitary witness ∧ domainConstraints witness := by
+  constructor
+  · rfl
+  · constructor <;> try trivial
+    constructor; omega  -- minimum: 7+3=10
+    constructor; omega  -- balance: |7-3|=4<=5
+    omega  -- modest: 7+3+0=10<=40
+
+theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
+  ⟨witness, witness_valid⟩
 
 end Chunk09

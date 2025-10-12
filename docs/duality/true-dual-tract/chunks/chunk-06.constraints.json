@@ -24,18 +24,28 @@
   "constraints": [
     {
       "name": "chunk_06_exists",
-      "expr": "True",
+      "expr": "true",
       "notes": "Placeholder: Extract formal constraints from lines 189-200"
     },
     {
       "name": "proof_required",
-      "expr": "True",
+      "expr": "true",
       "notes": "This chunk requires formal verification in Lean4"
     },
     {
-      "name": "external_tract_constraint",
-      "expr": "component_of(X, T_ext)",
-      "notes": "Components belong to External Tract (Interface Operators)"
+      "name": "external_min_viable",
+      "expr": "x[1] + x[2] + x[3] >= 30",
+      "notes": "PILOT: External tract needs minimum capacity (first 3 dimensions = interface layer)"
+    },
+    {
+      "name": "external_reactive_bias",
+      "expr": "sum(i in 1..4)(x[i]) >= sum(i in 5..8)(x[i])",
+      "notes": "PILOT: External tract (reactive) should have equal or more capacity than planning layers"
+    },
+    {
+      "name": "external_min_per_layer",
+      "expr": "forall(i in 1..4)(x[i] >= 3)",
+      "notes": "PILOT: Each external layer needs minimum allocation"
     }
   ]
 }

@@ -24,13 +24,28 @@
   "constraints": [
     {
       "name": "chunk_19_exists",
-      "expr": "True",
+      "expr": "true",
       "notes": "Placeholder: Extract formal constraints from lines 892-997"
     },
     {
       "name": "optimization_required",
-      "expr": "True",
+      "expr": "true",
       "notes": "This chunk requires MiniZinc optimization/search"
+    },
+    {
+      "name": "boss_min_distribution",
+      "expr": "forall(i in 1..8)(x[i] >= 5)",
+      "notes": "PILOT: Each dimension must have minimum allocation (prevents degenerate [100,0,0,0,0,0,0,0])"
+    },
+    {
+      "name": "boss_balance_constraint",
+      "expr": "forall(i, j in 1..8 where i < j)(abs(x[i] - x[j]) <= 20)",
+      "notes": "PILOT: Dimensions must be relatively balanced (no single dimension dominates)"
+    },
+    {
+      "name": "boss_prime_alignment",
+      "expr": "x[1] mod 2 = 0 /\\ x[2] mod 3 = 0",
+      "notes": "PILOT: First two dimensions align with Monster primes (2, 3)"
     }
   ]
 }

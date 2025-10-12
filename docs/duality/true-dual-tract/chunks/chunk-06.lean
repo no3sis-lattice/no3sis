@@ -15,13 +15,31 @@ deriving Repr
 def unitary (x : X8) : Prop :=
   x.x1 + x.x2 + x.x3 + x.x4 + x.x5 + x.x6 + x.x7 + x.x8 = N
 
--- Domain constraints placeholder; render from JSON constraints to Lean props.
+-- Domain constraints: PILOT External Tract
 def domainConstraints (x : X8) : Prop :=
-  True  -- (True) ∧ (True) ∧ (component_of(X, T_ext))
+  -- constraint: chunk_06_exists
+  True ∧
+  -- constraint: proof_required
+  True ∧
+  -- constraint: external_min_viable
+  (x.x1 + x.x2 + x.x3 >= 30) ∧
+  -- constraint: external_reactive_bias
+  (x.x1 + x.x2 + x.x3 + x.x4 >= x.x5 + x.x6 + x.x7 + x.x8) ∧
+  -- constraint: external_min_per_layer
+  (x.x1 >= 3 ∧ x.x2 >= 3 ∧ x.x3 >= 3 ∧ x.x4 >= 3)
 
--- Existence theorem (SAT-style). For proofs, either construct a witness or
--- leave tactic stubs and track as PARTIAL.
-theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x := by
-  admit
+-- Witness from MiniZinc: [91, 3, 3, 3, 0, 0, 0, 0]
+def witness : X8 := ⟨91, 3, 3, 3, 0, 0, 0, 0⟩
+
+theorem witness_valid : unitary witness ∧ domainConstraints witness := by
+  constructor
+  · rfl  -- unitary
+  · constructor <;> try trivial
+    constructor; omega  -- min_viable: 91+3+3=97>=30
+    constructor; omega  -- reactive_bias: 100>=0
+    omega  -- min_per_layer: all >= 3
+
+theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
+  ⟨witness, witness_valid⟩
 
 end Chunk06

@@ -11,9 +11,9 @@ array[1..8] of var 0..N: x;
 constraint sum(i in 1..8)(x[i]) = N;
 
 % Domain-specific constraints injected here:
-% {{CONSTRAINTS}}
+{{CONSTRAINTS}}
 
 % Optional objectives:
-% {{OBJECTIVE}}
+{{OBJECTIVE}}
 
 solve satisfy;

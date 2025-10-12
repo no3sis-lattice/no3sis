@@ -24,18 +24,28 @@
   "constraints": [
     {
       "name": "chunk_09_exists",
-      "expr": "True",
+      "expr": "true",
       "notes": "Placeholder: Extract formal constraints from lines 266-307"
     },
     {
       "name": "proof_required",
-      "expr": "True",
+      "expr": "true",
       "notes": "This chunk requires formal verification in Lean4"
     },
     {
-      "name": "corpus_callosum_constraint",
-      "expr": "component_of(X, C_c)",
-      "notes": "Components belong to Corpus Callosum (Bridge Operators)"
+      "name": "bridge_minimum",
+      "expr": "x[1] + x[2] >= 10",
+      "notes": "PILOT: Bridge needs minimum capacity (task_router + result_aggregator)"
+    },
+    {
+      "name": "bridge_balance",
+      "expr": "abs(x[1] - x[2]) <= 5",
+      "notes": "PILOT: Bridge components should be relatively balanced"
+    },
+    {
+      "name": "bridge_modest",
+      "expr": "sum(i in 1..3)(x[i]) <= 40",
+      "notes": "PILOT: Bridge should not dominate (≤40% of total capacity)"
     }
   ]
 }
