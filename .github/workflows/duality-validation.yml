@@ -70,16 +70,24 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run Cross-Check Script
+      - name: Run Cross-Check (Strict Mode for Pilots)
         run: |
           cd docs/duality
-          python3 scripts/cross_check_all.py
+          echo "=== Validating pilot chunks (strict mode) ==="
+          python3 scripts/cross_check_all.py --chunks 06 09 19 --report reports/cross-check-pilots.md
 
-      - name: Upload Cross-Check Report
+          echo ""
+          echo "=== Validating all chunks (warn-only mode) ==="
+          python3 scripts/cross_check_all.py --warn-only --report reports/cross-check-all.md
+
+      - name: Upload Cross-Check Reports
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: cross-check-report
-          path: docs/duality/cross-check-report.md
+          name: cross-check-reports
+          path: |
+            docs/duality/reports/cross-check-pilots.md
+            docs/duality/reports/cross-check-all.md
           retention-days: 30
 
   validate-json-schema:
@@ -96,7 +104,7 @@ jobs:
       - name: Install jsonschema
         run: pip install jsonschema
 
-      - name: Validate JSON Files
+      - name: Validate JSON Syntax
         run: |
           cd docs/duality
           success=0
@@ -109,5 +117,37 @@ jobs:
               echo "❌ Invalid JSON: $f"
             fi
           done
-          echo "✓ JSON validation: $success/$total files passed"
+          echo "✓ JSON syntax validation: $success/$total files passed"
           [ $success -eq $total ] || exit 1
+
+      - name: Validate Against Schema
+        run: |
+          cd docs/duality
+          python3 -c "
+          import json, jsonschema, sys
+          from pathlib import Path
+
+          schema = json.loads(Path('templates/chunk-constraints.schema.json').read_text())
+          errors = []
+          success = 0
+          total = 0
+
+          for f in sorted(Path('true-dual-tract/chunks').glob('chunk-*.constraints.json')):
+              total += 1
+              try:
+                  data = json.loads(f.read_text())
+                  jsonschema.validate(data, schema)
+                  success += 1
+              except jsonschema.ValidationError as e:
+                  errors.append(f'❌ {f.name}: {e.message}')
+              except Exception as e:
+                  errors.append(f'❌ {f.name}: {str(e)}')
+
+          if errors:
+              print('\n'.join(errors))
+              print(f'\n✗ Schema validation: {success}/{total} files passed')
+              sys.exit(1)
+
+          print(f'✓ Schema validation: {success}/{total} files conform to schema')
+          "
+

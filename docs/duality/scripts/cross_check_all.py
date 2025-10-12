@@ -146,6 +146,11 @@ class ChunkResult:
     checksum_lean: str
     files: Dict[str, str]
     error: str = ""
+    warnings: List[str] = None
+
+    def __post_init__(self):
+        if self.warnings is None:
+            self.warnings = []
 
 @dataclass
 class Summary:
@@ -199,6 +204,14 @@ def count_and_names_for_chunk(chunk_id: str, base_dir: Path) -> ChunkResult:
         checksum_mzn = sha256_hex(mzn_names)
         checksum_lean = sha256_hex(lean_names)
 
+        # Warnings collection
+        warnings = []
+
+        # ENHANCEMENT 1.1a: Warn if MZN annotation coverage is incomplete
+        if mzn_active > 1 and len(mzn_names) < mzn_active:
+            coverage_pct = 100.0 * len(mzn_names) / mzn_active if mzn_active > 0 else 0
+            warnings.append(f"MZN annotation coverage: {len(mzn_names)}/{mzn_active} ({coverage_pct:.0f}%)")
+
         # Determine status
         # Prefer name-based comparison if at least two modalities have non-empty name sets
         modalities = []
@@ -209,9 +222,16 @@ def count_and_names_for_chunk(chunk_id: str, base_dir: Path) -> ChunkResult:
         if lean_names:
             modalities.append(("lean", checksum_lean, set(lean_names)))
 
+        # ENHANCEMENT 1.1b: Detect INSUFFICIENT status (empty name sets force proper annotations)
+        empty_count = sum(1 for m in [("json", json_names), ("mzn", mzn_names), ("lean", lean_names)] if not m[1])
+
         if len(modalities) >= 2:
             checks = {c for _, c, _ in modalities}
             status = "OK" if len(checks) == 1 else "MISMATCH"
+        elif empty_count >= 2 and mzn_active > 1:
+            # Force annotation if 2+ modalities have no names and non-trivial constraints exist
+            status = "INSUFFICIENT"
+            warnings.append(f"Insufficient name annotations: {3 - empty_count}/3 modalities have names")
         else:
             # Fallback to count-based analysis
             if mzn_active <= 1:
@@ -235,6 +255,7 @@ def count_and_names_for_chunk(chunk_id: str, base_dir: Path) -> ChunkResult:
             checksum_mzn=checksum_mzn,
             checksum_lean=checksum_lean,
             files=files,
+            warnings=warnings,
         )
 
     except Exception as e:
@@ -253,6 +274,7 @@ def count_and_names_for_chunk(chunk_id: str, base_dir: Path) -> ChunkResult:
             checksum_lean="",
             files=files,
             error=str(e),
+            warnings=[],
         )
 
 
@@ -275,6 +297,7 @@ def render_text(results: List[ChunkResult], base_total: int) -> str:
     ok = sum(1 for r in results if r.status == "OK")
     deg = sum(1 for r in results if r.status == "DEGENERATE")
     mis = sum(1 for r in results if r.status == "MISMATCH")
+    insuf = sum(1 for r in results if r.status == "INSUFFICIENT")
     err = sum(1 for r in results if r.status == "ERROR")
 
     def pct(n: int) -> float:
@@ -294,6 +317,7 @@ def render_text(results: List[ChunkResult], base_total: int) -> str:
     lines.append(f"OK: {ok}/{base_total} ({pct(ok):.1f}%)")
     lines.append(f"DEGENERATE: {deg}/{base_total} ({pct(deg):.1f}%)")
     lines.append(f"MISMATCH: {mis}/{base_total} ({pct(mis):.1f}%)")
+    lines.append(f"INSUFFICIENT: {insuf}/{base_total} ({pct(insuf):.1f}%)")
     lines.append(f"ERROR: {err}/{base_total} ({pct(err):.1f}%)")
     lines.append("```")
     lines.append("")
@@ -335,6 +359,23 @@ def render_text(results: List[ChunkResult], base_total: int) -> str:
         lines.append("## Mismatch Samples")
         lines.extend(difflines)
 
+    # Warnings section (if any warnings exist)
+    warnings_exist = any(r.warnings for r in results)
+    if warnings_exist:
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+        lines.append("## Warnings")
+        lines.append("")
+        for r in sorted(results, key=lambda x: x.id):
+            if r.warnings:
+                lines.append(f"### Chunk {r.id}")
+                lines.append("```")
+                for w in r.warnings:
+                    lines.append(f"⚠  {w}")
+                lines.append("```")
+                lines.append("")
+
     lines.append("")
     lines.append("---")
     lines.append("")
@@ -343,6 +384,7 @@ def render_text(results: List[ChunkResult], base_total: int) -> str:
     lines.append("DEGENERATE: Only the unit/structural constraint is active in MiniZinc.")
     lines.append("OK: Name checksums match across modalities, or counts match if names are unavailable.")
     lines.append("MISMATCH: Name checksums differ (preferred) or counts differ (fallback).")
+    lines.append("INSUFFICIENT: 2+ modalities have empty name sets (proper annotations required for parity check).")
     return "\n".join(lines)
 
 
@@ -370,6 +412,7 @@ def render_json(results: List[ChunkResult]) -> str:
                 },
                 "files": r.files,
                 "error": r.error,
+                "warnings": r.warnings,
             }
             for r in results
         ],
@@ -434,8 +477,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     if args.warn_only:
         return 0
 
-    # Fail if any mismatch or error
-    has_fail = any(r.status in ("MISMATCH", "ERROR") for r in results)
+    # Fail if any mismatch, insufficient, or error
+    has_fail = any(r.status in ("MISMATCH", "INSUFFICIENT", "ERROR") for r in results)
     return 1 if has_fail else 0
 
 
