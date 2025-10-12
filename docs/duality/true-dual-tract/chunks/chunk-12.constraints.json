@@ -36,6 +36,16 @@
       "name": "mahakala_layers_exist",
       "expr": "|{L1, L2, L3, L4, L5}| = 5",
       "notes": "Mahakala framework defines 5 compression layers"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 1",
+      "notes": "PHASE3: Single dimension has minimum value"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 10",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
     }
   ]
 }

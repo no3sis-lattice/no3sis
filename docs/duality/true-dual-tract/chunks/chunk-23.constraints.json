@@ -34,8 +34,18 @@
     },
     {
       "name": "operator_contract_required",
-      "expr": "\u2200 op \u2208 Operators : has_field(op, 'contract')",
+      "expr": "∀ op ∈ Operators : has_field(op, 'contract')",
       "notes": "All operators must have defined contracts"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 30",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 3",
+      "notes": "PHASE3: Single dimension has minimum value"
     }
   ]
 }

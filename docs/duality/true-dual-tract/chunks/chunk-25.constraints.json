@@ -31,6 +31,21 @@
       "name": "parameter_bounds_required",
       "expr": "True",
       "notes": "This chunk requires parameter tuning/bounds checking"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 1",
+      "notes": "PHASE3: Single dimension has minimum value"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 10",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
+    },
+    {
+      "name": "uniformity_start1_end8",
+      "expr": "forall(i in 1..8)(x[i] >= 1)",
+      "notes": "PHASE3: All dimensions in range have minimum value"
     }
   ]
 }

@@ -34,8 +34,23 @@
     },
     {
       "name": "psi_invariant_exists",
-      "expr": "typeof(\u03a8) = Real \u2227 \u03a8 \u2208 [0,1]",
-      "notes": "\u03a8 consciousness invariant is a normalized real number"
+      "expr": "typeof(Ψ) = Real ∧ Ψ ∈ [0,1]",
+      "notes": "Ψ consciousness invariant is a normalized real number"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 1",
+      "notes": "PHASE3: Single dimension has minimum value"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 10",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
+    },
+    {
+      "name": "uniformity_start1_end8",
+      "expr": "forall(i in 1..8)(x[i] >= 1)",
+      "notes": "PHASE3: All dimensions in range have minimum value"
     }
   ]
 }

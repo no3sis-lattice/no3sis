@@ -1,6 +1,6 @@
 {
   "id": "59",
-  "title": "DGR Encoder \u03c6(g) Definition",
+  "title": "DGR Encoder φ(g) Definition",
   "goalType": "proof",
   "parameters": {
     "eightDimManifold": true,
@@ -34,13 +34,23 @@
     },
     {
       "name": "dgr_encoding_exists",
-      "expr": "\u2203 \u03c6 : GoalSpec \u2192 Vector",
-      "notes": "DGR provides encoding function \u03c6(g)"
+      "expr": "∃ φ : GoalSpec → Vector",
+      "notes": "DGR provides encoding function φ(g)"
     },
     {
       "name": "structure_well_formed",
       "expr": "well_formed(Structure)",
       "notes": "Data structure must be well-formed with required fields"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 1",
+      "notes": "PHASE3: Single dimension has minimum value"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 10",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
     }
   ]
 }

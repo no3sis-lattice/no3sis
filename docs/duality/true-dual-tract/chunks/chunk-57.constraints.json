@@ -36,6 +36,16 @@
       "name": "structure_well_formed",
       "expr": "well_formed(Structure)",
       "notes": "Data structure must be well-formed with required fields"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 1",
+      "notes": "PHASE3: Single dimension has minimum value"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 10",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
     }
   ]
 }

@@ -31,6 +31,21 @@
       "name": "proof_required",
       "expr": "True",
       "notes": "This chunk requires formal verification in Lean4"
+    },
+    {
+      "name": "tract_minimum_start5_end8",
+      "expr": "sum(i in 5..8)(x[i]) >= 20",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
+    },
+    {
+      "name": "dimension_ceiling_dim5",
+      "expr": "x[5] <= 40",
+      "notes": "PHASE3: Single dimension has maximum value"
+    },
+    {
+      "name": "sparsity_start5_end8",
+      "expr": "count(i in 5..8)(x[i] > 0) <= 5",
+      "notes": "PHASE3: At most N dimensions in range are non-zero"
     }
   ]
 }

@@ -36,6 +36,16 @@
       "name": "corpus_callosum_constraint",
       "expr": "component_of(X, C_c)",
       "notes": "Components belong to Corpus Callosum (Bridge Operators)"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 30",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 3",
+      "notes": "PHASE3: Single dimension has minimum value"
     }
   ]
 }

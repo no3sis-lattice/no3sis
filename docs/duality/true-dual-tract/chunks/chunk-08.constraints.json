@@ -36,6 +36,16 @@
       "name": "internal_tract_constraint",
       "expr": "component_of(X, T_int)",
       "notes": "Components belong to Internal Tract (Intelligence Operators)"
+    },
+    {
+      "name": "tract_minimum_start1_end4",
+      "expr": "sum(i in 1..4)(x[i]) >= 30",
+      "notes": "PHASE3: Tract (range of dimensions) has minimum total"
+    },
+    {
+      "name": "dimension_floor_dim1",
+      "expr": "x[1] >= 3",
+      "notes": "PHASE3: Single dimension has minimum value"
     }
   ]
 }

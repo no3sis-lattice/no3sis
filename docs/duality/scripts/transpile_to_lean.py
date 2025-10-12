@@ -1,0 +1,341 @@
+#!/usr/bin/env python3
+"""
+JSON→Lean4 Transpiler for Synapse Duality Formalization
+Phase 3: Automated constraint translation with decidability
+
+Usage:
+  python3 transpile_to_lean.py --chunk 06
+  python3 transpile_to_lean.py --all
+  python3 transpile_to_lean.py --chunk 06 --output Chunk06.lean
+"""
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
+
+
+# Operator mapping: JSON DSL → Lean4
+OPERATOR_MAP = {
+    '&&': '∧',
+    '||': '∨',
+    '!': '¬',
+    '->': '→',
+    '==': '=',
+    '!=': '≠',
+}
+
+
+def translate_expr_to_lean(expr: str, constraint_name: str = "") -> str:
+    """
+    Translate JSON DSL expression to Lean4 Prop syntax.
+
+    Handles:
+    - Array indexing: x[1] → x.x1, x[2] → x.x2, etc.
+    - Operators: &&→∧, ||→∨, !→¬, ->→→, ==→=, !=→≠
+    - Subtraction: Auto-cast to Int when detected
+    - sum(i in 1..4)(x[i]) → x.x1 + x.x2 + x.x3 + x.x4 (expansion)
+    - forall(i in 1..N)(P) → conjunction expansion
+    - abs(a - b) → ((a : Int) - b ≤ k ∧ (b : Int) - a ≤ k) for abs patterns
+    - count(i in S)(P) → List.sum (List.map (fun xi => if P then 1 else 0) [...])
+    """
+    result = expr.strip()
+
+    # Handle 'true' and 'false' literals
+    result = re.sub(r'\btrue\b', 'True', result, flags=re.IGNORECASE)
+    result = re.sub(r'\bfalse\b', 'False', result, flags=re.IGNORECASE)
+
+    # Handle abs(x[i] - x[j]) <= k pattern
+    # Convert to: ((x.xi : Int) - x.xj ≤ k ∧ (x.xj : Int) - x.xi ≤ k)
+    abs_pattern = re.compile(r'abs\s*\(\s*x\[(\d+)\]\s*-\s*x\[(\d+)\]\s*\)\s*([<>=]+)\s*(\d+)')
+    match = abs_pattern.search(result)
+    if match:
+        i, j, op, k = match.groups()
+        xi_name = f"x.x{i}"
+        xj_name = f"x.x{j}"
+
+        if op == '<=':
+            # abs(x[i] - x[j]) <= k means -k <= x[i]-x[j] <= k
+            lean_expr = f"(({xi_name} : Int) - {xj_name} ≤ {k} ∧ ({xj_name} : Int) - {xi_name} ≤ {k})"
+            result = abs_pattern.sub(lean_expr, result)
+        else:
+            # Other comparisons with abs - expand similarly
+            lean_expr = f"(({xi_name} : Int) - {xj_name}).natAbs {op} {k}"
+            result = abs_pattern.sub(lean_expr, result)
+
+    # Handle sum(i in 1..N)(x[i]) expansion - MUST do all at once to avoid double expansion
+    def expand_sum(match):
+        start, end = int(match.group(1)), int(match.group(2))
+        terms = [f"x.x{i}" for i in range(start, end + 1)]
+        return "(" + " + ".join(terms) + ")"
+
+    sum_pattern = re.compile(r'sum\s*\(\s*i\s+in\s+(\d+)\.\.(\d+)\s*\)\s*\(\s*x\[i\]\s*\)')
+    result = sum_pattern.sub(expand_sum, result)
+
+    # Handle forall(i in 1..N)(x[i] >= k) expansion
+    def expand_forall(match):
+        start, end, cond = int(match.group(1)), int(match.group(2)), match.group(3)
+        terms = []
+        for i in range(start, end + 1):
+            expanded = cond.replace('x[i]', f'x.x{i}')
+            terms.append(expanded)
+        return "(" + " ∧ ".join(terms) + ")"
+
+    forall_pattern = re.compile(r'forall\s*\(\s*i\s+in\s+(\d+)\.\.(\d+)\s*\)\s*\(([^)]+)\)')
+    result = forall_pattern.sub(expand_forall, result)
+
+    # Handle count(i in 1..N)(x[i] > 0) → sum of booleans as ints
+    count_pattern = re.compile(r'count\s*\(\s*i\s+in\s+(\d+)\.\.(\d+)\s*\)\s*\(([^)]+)\)')
+    match = count_pattern.search(result)
+    if match:
+        start, end, cond = int(match.group(1)), int(match.group(2)), match.group(3)
+        # Build list of elements
+        elements = [f"x.x{i}" for i in range(start, end + 1)]
+        elements_str = ", ".join(elements)
+
+        # Build predicate - need to map x[i] to the variable name in the lambda
+        pred = cond.replace('x[i]', 'xi')
+
+        list_sum_expr = f"(List.sum (List.map (fun xi => if {pred} then 1 else 0) [{elements_str}]))"
+        result = count_pattern.sub(list_sum_expr, result)
+
+    # Replace array indexing x[N] → x.xN (for any remaining instances)
+    result = re.sub(r'x\[(\d+)\]', r'x.x\1', result)
+
+    # Replace operators
+    for json_op, lean_op in OPERATOR_MAP.items():
+        if json_op in ('&&', '||'):
+            # Must replace as whole operators, not inside words
+            result = result.replace(json_op, f' {lean_op} ')
+        elif json_op == '!':
+            # Negation: replace ! before variable/expression
+            result = re.sub(r'!\s*([a-zA-Z(])', r'¬\1', result)
+        else:
+            result = result.replace(json_op, lean_op)
+
+    # Add Int casts for subtraction if needed
+    # Pattern: x.xi - x.xj needs casting
+    if '-' in result and 'x.' in result:
+        # Cast first operand in subtractions
+        result = re.sub(r'\b(x\.x\d+)\s*-', r'(\1 : Int) -', result)
+
+    # Clean up extra spaces
+    result = re.sub(r'\s+', ' ', result)
+    result = result.strip()
+
+    return result
+
+
+def generate_lean_header(chunk_id: str, title: str) -> List[str]:
+    """Generate Lean4 header."""
+    lines = [
+        "/-",
+        f"Chunk {chunk_id}: {title}",
+        "Auto-generated by transpile_to_lean.py",
+        "-/",
+        "",
+        "import Mathlib.Data.Nat.Basic",
+        "",
+        f"namespace Chunk{chunk_id}",
+        "",
+        "def N : ℕ := 100",
+        "",
+        "structure X8 where",
+        "  x1 x2 x3 x4 x5 x6 x7 x8 : Nat",
+        "deriving Repr",
+        "",
+        "def unitary (x : X8) : Prop :=",
+        "  x.x1 + x.x2 + x.x3 + x.x4 + x.x5 + x.x6 + x.x7 + x.x8 = N",
+        "",
+    ]
+    return lines
+
+
+def generate_lean_constraints(constraints: List[Dict]) -> List[str]:
+    """Generate Lean4 domain constraints definition."""
+    lines = ["-- Domain constraints"]
+    lines.append("def domainConstraints (x : X8) : Prop :=")
+
+    constraint_exprs = []
+    for c in constraints:
+        name = c.get("name", "unnamed")
+        expr = c.get("expr", "true")
+
+        # Translate to Lean
+        lean_expr = translate_expr_to_lean(expr, name)
+
+        # Add comment and expression
+        constraint_exprs.append(f"  -- constraint: {name}")
+        constraint_exprs.append(f"  ({lean_expr})")
+
+    # Join with ∧
+    if constraint_exprs:
+        lines.append(constraint_exprs[0])
+        for i in range(1, len(constraint_exprs), 2):
+            if i < len(constraint_exprs):
+                lines.append(constraint_exprs[i] + " ∧")
+                if i + 1 < len(constraint_exprs):
+                    lines.append(constraint_exprs[i + 1])
+
+        # Remove trailing ∧ if present
+        if lines[-1].endswith(" ∧"):
+            lines[-1] = lines[-1][:-2]
+    else:
+        lines.append("  True")
+
+    lines.append("")
+    return lines
+
+
+def generate_lean_decidability() -> List[str]:
+    """Generate decidability instance."""
+    lines = [
+        "-- Decidability instance (required for computational verification)",
+        "instance : Decidable (domainConstraints x) := by",
+        "  unfold domainConstraints",
+        "  infer_instance",
+        "",
+    ]
+    return lines
+
+
+def generate_lean_footer(chunk_id: str) -> List[str]:
+    """Generate Lean4 footer with witness placeholder."""
+    lines = [
+        "-- Witness (to be injected from MiniZinc solution)",
+        "-- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩",
+        "",
+        "-- theorem witness_valid : unitary witness ∧ domainConstraints witness := by",
+        "--   constructor",
+        "--   · rfl  -- unitary",
+        "--   · constructor <;> omega  -- domain constraints",
+        "",
+        "-- theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=",
+        "--   ⟨witness, witness_valid⟩",
+        "",
+        f"end Chunk{chunk_id}",
+    ]
+    return lines
+
+
+def generate_lean_from_json(json_data: Dict) -> str:
+    """Generate complete Lean4 module from JSON constraints."""
+    chunk_id = json_data.get("id", "XX")
+    title = json_data.get("title", "Untitled")
+    constraints = json_data.get("constraints", [])
+
+    lines = []
+    lines.extend(generate_lean_header(chunk_id, title))
+    lines.extend(generate_lean_constraints(constraints))
+    lines.extend(generate_lean_decidability())
+    lines.extend(generate_lean_footer(chunk_id))
+
+    return "\n".join(lines)
+
+
+def process_chunk(chunk_id: str, base_dir: Path, output_path: Optional[Path] = None) -> bool:
+    """Process a single chunk and generate Lean4 module."""
+    chunks_dir = base_dir / "true-dual-tract" / "chunks"
+    json_path = chunks_dir / f"chunk-{chunk_id}.constraints.json"
+
+    if not json_path.exists():
+        print(f"Error: JSON file not found: {json_path}", file=sys.stderr)
+        return False
+
+    # Read JSON
+    try:
+        json_data = json.loads(json_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"Error reading JSON for chunk {chunk_id}: {e}", file=sys.stderr)
+        return False
+
+    # Generate Lean
+    lean_content = generate_lean_from_json(json_data)
+
+    # Determine output path
+    if output_path is None:
+        output_path = base_dir / "formal" / "Duality" / "Chunks" / f"Chunk{chunk_id}.lean"
+
+    # Ensure directory exists
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Write output
+    output_path.write_text(lean_content, encoding="utf-8")
+    print(f"Generated: {output_path}")
+
+    return True
+
+
+def discover_chunks(base_dir: Path) -> List[str]:
+    """Discover all chunk IDs from JSON files."""
+    chunks_dir = base_dir / "true-dual-tract" / "chunks"
+    ids = []
+
+    for json_file in sorted(chunks_dir.glob("chunk-*.constraints.json")):
+        match = re.search(r"chunk-(\d+)\.constraints\.json$", json_file.name)
+        if match:
+            ids.append(f"{int(match.group(1)):02d}")
+
+    return ids
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Transpile JSON constraint DSL to Lean4"
+    )
+
+    default_base = Path(__file__).resolve().parents[1]
+    parser.add_argument(
+        "--base-dir",
+        type=Path,
+        default=default_base,
+        help=f"Base duality directory (default: {default_base})"
+    )
+    parser.add_argument(
+        "--chunk",
+        type=str,
+        help="Chunk ID to process (e.g., 06)"
+    )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Process all discovered chunks"
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Output path (default: formal/Duality/Chunks/Chunk{id}.lean)"
+    )
+
+    args = parser.parse_args(argv)
+
+    if not args.chunk and not args.all:
+        parser.error("Must specify --chunk or --all")
+
+    base_dir = args.base_dir
+
+    if args.all:
+        chunk_ids = discover_chunks(base_dir)
+        if not chunk_ids:
+            print("No chunks discovered", file=sys.stderr)
+            return 1
+
+        success_count = 0
+        for cid in chunk_ids:
+            if process_chunk(cid, base_dir):
+                success_count += 1
+
+        print(f"\nProcessed {success_count}/{len(chunk_ids)} chunks successfully")
+        return 0 if success_count == len(chunk_ids) else 1
+
+    else:
+        # Process single chunk
+        chunk_id = f"{int(args.chunk):02d}"
+        success = process_chunk(chunk_id, base_dir, args.output)
+        return 0 if success else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

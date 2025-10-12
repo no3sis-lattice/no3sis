@@ -1,0 +1,130 @@
+{
+  "templates": [
+    {
+      "id": "range_bound",
+      "json_expr": "x[{dim}] >= {min} && x[{dim}] <= {max}",
+      "description": "Variable in closed interval",
+      "params": ["dim", "min", "max"],
+      "applicability": "universal"
+    },
+    {
+      "id": "tract_minimum",
+      "json_expr": "sum(i in {start}..{end})(x[i]) >= {threshold}",
+      "description": "Tract (range of dimensions) has minimum total",
+      "params": ["start", "end", "threshold"],
+      "applicability": "tract-based chunks (external/internal)"
+    },
+    {
+      "id": "dimension_floor",
+      "json_expr": "x[{dim}] >= {floor}",
+      "description": "Single dimension has minimum value",
+      "params": ["dim", "floor"],
+      "applicability": "universal"
+    },
+    {
+      "id": "dimension_ceiling",
+      "json_expr": "x[{dim}] <= {ceiling}",
+      "description": "Single dimension has maximum value",
+      "params": ["dim", "ceiling"],
+      "applicability": "universal"
+    },
+    {
+      "id": "balance_constraint",
+      "json_expr": "abs(x[{dim1}] - x[{dim2}]) <= {tolerance}",
+      "description": "Two dimensions balanced within tolerance",
+      "params": ["dim1", "dim2", "tolerance"],
+      "applicability": "bridge/orchestration chunks"
+    },
+    {
+      "id": "mutual_exclusion",
+      "json_expr": "(x[{dim1}] > {threshold1}) -> (x[{dim2}] <= {threshold2})",
+      "description": "If one dimension high, another must be low",
+      "params": ["dim1", "threshold1", "dim2", "threshold2"],
+      "applicability": "resource competition scenarios"
+    },
+    {
+      "id": "dependency",
+      "json_expr": "(x[{trigger_dim}] >= {trigger_val}) -> (x[{dep_dim}] >= {dep_val})",
+      "description": "Conditional requirement between dimensions",
+      "params": ["trigger_dim", "trigger_val", "dep_dim", "dep_val"],
+      "applicability": "causal/hierarchical chunks"
+    },
+    {
+      "id": "prime_alignment",
+      "json_expr": "x[{dim}] % {prime} == 0",
+      "description": "Dimension divisible by monster prime",
+      "params": ["dim", "prime"],
+      "applicability": "chunks with prime structure emphasis"
+    },
+    {
+      "id": "sparsity",
+      "json_expr": "count(i in {start}..{end})(x[i] > 0) <= {max_nonzero}",
+      "description": "At most N dimensions in range are non-zero",
+      "params": ["start", "end", "max_nonzero"],
+      "applicability": "sparse allocation scenarios"
+    },
+    {
+      "id": "density",
+      "json_expr": "count(i in {start}..{end})(x[i] > 0) >= {min_nonzero}",
+      "description": "At least N dimensions in range are non-zero",
+      "params": ["start", "end", "min_nonzero"],
+      "applicability": "distributed allocation scenarios"
+    },
+    {
+      "id": "uniformity",
+      "json_expr": "forall(i in {start}..{end})(x[i] >= {min_each})",
+      "description": "All dimensions in range have minimum value",
+      "params": ["start", "end", "min_each"],
+      "applicability": "fairness/balanced allocation"
+    },
+    {
+      "id": "dominance",
+      "json_expr": "x[{dom_dim}] >= x[{sub_dim}]",
+      "description": "One dimension dominates another",
+      "params": ["dom_dim", "sub_dim"],
+      "applicability": "priority/hierarchy scenarios"
+    }
+  ],
+  "chunk_heuristics": {
+    "external": {
+      "preferred_templates": ["tract_minimum", "dimension_floor", "uniformity"],
+      "param_suggestions": {
+        "tract_minimum": {"start": 1, "end": 4, "threshold": 30},
+        "dimension_floor": {"dim": 1, "floor": 3},
+        "uniformity": {"start": 1, "end": 4, "min_each": 2}
+      }
+    },
+    "internal": {
+      "preferred_templates": ["tract_minimum", "dimension_ceiling", "sparsity"],
+      "param_suggestions": {
+        "tract_minimum": {"start": 5, "end": 8, "threshold": 20},
+        "dimension_ceiling": {"dim": 5, "ceiling": 40},
+        "sparsity": {"start": 5, "end": 8, "max_nonzero": 5}
+      }
+    },
+    "bridge": {
+      "preferred_templates": ["balance_constraint", "dependency", "dominance"],
+      "param_suggestions": {
+        "balance_constraint": {"dim1": 1, "dim2": 5, "tolerance": 10},
+        "dependency": {"trigger_dim": 1, "trigger_val": 10, "dep_dim": 5, "dep_val": 5},
+        "dominance": {"dom_dim": 1, "sub_dim": 5}
+      }
+    },
+    "boss": {
+      "preferred_templates": ["uniformity", "balance_constraint", "prime_alignment"],
+      "param_suggestions": {
+        "uniformity": {"start": 1, "end": 8, "min_each": 5},
+        "balance_constraint": {"dim1": 1, "dim2": 8, "tolerance": 20},
+        "prime_alignment": {"dim": 1, "prime": 2}
+      }
+    },
+    "default": {
+      "preferred_templates": ["dimension_floor", "tract_minimum", "uniformity"],
+      "param_suggestions": {
+        "dimension_floor": {"dim": 1, "floor": 1},
+        "tract_minimum": {"start": 1, "end": 4, "threshold": 10},
+        "uniformity": {"start": 1, "end": 8, "min_each": 1}
+      }
+    }
+  }
+}
