@@ -1,0 +1,46 @@
+{
+  "id": "60",
+  "title": "DGR Decoder \u03c6^-1 Definition",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_60_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 675-743,1281-1381"
+    },
+    {
+      "name": "proof_required",
+      "expr": "True",
+      "notes": "This chunk requires formal verification in Lean4"
+    },
+    {
+      "name": "dgr_encoding_exists",
+      "expr": "\u2203 \u03c6 : GoalSpec \u2192 Vector",
+      "notes": "DGR provides encoding function \u03c6(g)"
+    },
+    {
+      "name": "structure_well_formed",
+      "expr": "well_formed(Structure)",
+      "notes": "Data structure must be well-formed with required fields"
+    }
+  ]
+}

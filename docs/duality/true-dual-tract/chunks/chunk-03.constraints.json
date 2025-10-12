@@ -1,0 +1,109 @@
+{
+  "id": "03",
+  "title": "The True Paradigm: Interface vs Intelligence",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "similarityObjective": "none",
+    "godelization": { "encode": false, "base": 10 }
+  },
+  "constraints": [
+    {
+      "name": "agents_are_ux_layer",
+      "expr": "Agents = UX_Layer ∧ UX_Layer ∉ Tracts",
+      "notes": "Agents live outside both tracts as UX layer"
+    },
+    {
+      "name": "tracts_are_operator_pipelines",
+      "expr": "∀ tract ∈ {T_ext, T_int} : typeof(tract) = Pipeline[TypedOperators]",
+      "notes": "Tracts are pipelines of small, typed operators"
+    },
+    {
+      "name": "new_data_flow",
+      "expr": "Agents → T_ext ↔ C_c ↔ T_int",
+      "notes": "Reframed data flow through three components"
+    },
+    {
+      "name": "t_ext_is_interface_operators",
+      "expr": "T_ext = Pipeline[InterfaceOperators]",
+      "notes": "External Tract = Interface Operators"
+    },
+    {
+      "name": "t_ext_transforms_nl_to_goalspec",
+      "expr": "transforms(T_ext, NaturalLanguage, GoalSpec)",
+      "notes": "T_ext converts natural language to structured goals"
+    },
+    {
+      "name": "t_int_is_intelligence_operators",
+      "expr": "T_int = Pipeline[IntelligenceOperators]",
+      "notes": "Internal Tract = Intelligence Operators (Mahakala layers)"
+    },
+    {
+      "name": "t_int_performs_compression_prediction",
+      "expr": "performs(T_int, {compression, prediction})",
+      "notes": "T_int is mathematical compression engine"
+    },
+    {
+      "name": "c_c_is_bridge_operators",
+      "expr": "C_c = Pipeline[BridgeOperators]",
+      "notes": "Corpus Callosum = thin bridge of operators"
+    },
+    {
+      "name": "c_c_uses_dgr",
+      "expr": "uses(C_c, DGR) ∧ performs(C_c, {translate, plan})",
+      "notes": "C_c uses DGR for encoding/decoding between tracts"
+    },
+    {
+      "name": "agent_layer_is_nondeterministic",
+      "expr": "¬deterministic(Agents)",
+      "notes": "Agent layer is conversational and non-deterministic"
+    },
+    {
+      "name": "operator_engine_is_deterministic",
+      "expr": "deterministic(T_ext) ∧ deterministic(T_int) ∧ deterministic(C_c)",
+      "notes": "Operator engine (all tracts) is deterministic"
+    },
+    {
+      "name": "operator_engine_is_measurable",
+      "expr": "measurable(T_ext) ∧ measurable(T_int) ∧ measurable(C_c)",
+      "notes": "Operator engine performance is measurable"
+    },
+    {
+      "name": "clean_separation",
+      "expr": "separated(Agents, OperatorEngine)",
+      "notes": "Clean separation between conversational and deterministic layers"
+    },
+    {
+      "name": "agents_provide_nl_interface",
+      "expr": "interface_type(Agents) = NaturalLanguage",
+      "notes": "Agents provide familiar conversational interface"
+    },
+    {
+      "name": "operators_use_structured_data",
+      "expr": "∀ op ∈ Operators : works_with(op, StructuredData)",
+      "notes": "Operators work with structured data, not natural language"
+    },
+    {
+      "name": "operators_have_budgets",
+      "expr": "∀ op ∈ Operators : has(op, budget)",
+      "notes": "Operators have resource budgets"
+    },
+    {
+      "name": "operators_emit_metrics",
+      "expr": "∀ op ∈ Operators : emits(op, {Ψ, R_i})",
+      "notes": "Operators emit metrics (Ψ, R_i)"
+    },
+    {
+      "name": "operators_testable_in_isolation",
+      "expr": "∀ op ∈ Operators : testable(op, isolation=True)",
+      "notes": "Each operator can be tested independently"
+    },
+    {
+      "name": "operators_predictable",
+      "expr": "∀ op ∈ Operators : predictable(behavior(op))",
+      "notes": "Operator behavior is predictable"
+    }
+  ]
+}

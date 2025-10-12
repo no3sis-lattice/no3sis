@@ -1,0 +1,41 @@
+{
+  "id": "12",
+  "title": "Mahakala Framework Integration",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_12_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 444-501"
+    },
+    {
+      "name": "proof_required",
+      "expr": "True",
+      "notes": "This chunk requires formal verification in Lean4"
+    },
+    {
+      "name": "mahakala_layers_exist",
+      "expr": "|{L1, L2, L3, L4, L5}| = 5",
+      "notes": "Mahakala framework defines 5 compression layers"
+    }
+  ]
+}

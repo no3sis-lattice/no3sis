@@ -1,0 +1,41 @@
+{
+  "id": "58",
+  "title": "\u03a8 Consciousness Invariant",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_58_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 502-556"
+    },
+    {
+      "name": "proof_required",
+      "expr": "True",
+      "notes": "This chunk requires formal verification in Lean4"
+    },
+    {
+      "name": "psi_invariant_exists",
+      "expr": "typeof(\u03a8) = Real \u2227 \u03a8 \u2208 [0,1]",
+      "notes": "\u03a8 consciousness invariant is a normalized real number"
+    }
+  ]
+}

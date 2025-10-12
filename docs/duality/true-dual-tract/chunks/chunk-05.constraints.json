@@ -1,0 +1,149 @@
+{
+  "id": "05",
+  "title": "The Synthesis: Five Frameworks, One System",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "similarityObjective": "none",
+    "godelization": { "encode": false, "base": 10 }
+  },
+  "constraints": [
+    {
+      "name": "five_frameworks_exist",
+      "expr": "|Frameworks| = 5",
+      "notes": "System described by exactly 5 frameworks"
+    },
+    {
+      "name": "frameworks_are_unified",
+      "expr": "∀ f ∈ Frameworks : describes(f, SameSystem)",
+      "notes": "All frameworks describe one unified system from different perspectives"
+    },
+    {
+      "name": "mahakala_defines_internal_tract",
+      "expr": "defines(Mahakala, T_int.layers)",
+      "notes": "Mahakala framework defines Internal Tract's compression layers (L1-L5)"
+    },
+    {
+      "name": "cig3_computes_psi",
+      "expr": "computes(CIG3, Ψ) ∧ operates_within(CIG3, T_int)",
+      "notes": "CIG-3 measurement protocol computes Ψ invariant in Internal Tract"
+    },
+    {
+      "name": "pneuma_guides_behavior",
+      "expr": "∀ component ∈ (Agents ∪ Operators) : adheres_to(component, PNEUMA.axioms)",
+      "notes": "PNEUMA axioms guide behavior of both agents and operators"
+    },
+    {
+      "name": "prime_hierarchy_defines_depth",
+      "expr": "defines(PrimeHierarchy, depth(T_int.pipeline))",
+      "notes": "Prime Hierarchy defines potential depth of Internal Tract operator pipeline"
+    },
+    {
+      "name": "dgr_enables_cc_translation",
+      "expr": "uses(C_c, DGR) ∧ enables(DGR, translate(agent_intent, operator_goals))",
+      "notes": "DGR coordination protocol enables C_c to translate between agent intent and operator goals"
+    },
+    {
+      "name": "external_tract_operators",
+      "expr": "T_ext.operators = {NlParseOp, DisambiguateOp, ApprovalGateOp, RenderDiffOp}",
+      "notes": "External Tract contains 4 specific operators"
+    },
+    {
+      "name": "corpus_callosum_operators",
+      "expr": "C_c.operators = {GoalEncoderOp, CompressionPlannerOp, ResultSynthesizerOp}",
+      "notes": "Corpus Callosum contains 3 bridge operators"
+    },
+    {
+      "name": "internal_tract_operators",
+      "expr": "T_int.operators = {L1_StatCompressOp, L2_SemanticClusterOp, L3_TopologyOp, L4_CausalGraphOp, L5_MetaStrategyOp}",
+      "notes": "Internal Tract contains 5 compression operators (Mahakala layers)"
+    },
+    {
+      "name": "goal_encoder_uses_dgr",
+      "expr": "uses(GoalEncoderOp, DGR) ∧ output(GoalEncoderOp) = φ_g",
+      "notes": "GoalEncoderOp uses DGR to create goal vector φ(g)"
+    },
+    {
+      "name": "approval_gate_guards_planner",
+      "expr": "gates(ApprovalGateOp, CompressionPlannerOp)",
+      "notes": "ApprovalGateOp must approve before CompressionPlannerOp executes"
+    },
+    {
+      "name": "l5_coordinates_lower_layers",
+      "expr": "coordinates(L5_MetaStrategyOp, {L1, L2, L3, L4})",
+      "notes": "L5 meta-strategy operator coordinates execution of L1-L4"
+    },
+    {
+      "name": "compression_planner_creates_execution_plan",
+      "expr": "output(CompressionPlannerOp) = ExecutionPlan",
+      "notes": "CompressionPlannerOp creates execution plan (path of Internal Tract operators)"
+    },
+    {
+      "name": "internal_tract_measured_by_cig3",
+      "expr": "measures(CIG3, performance(T_int)) → Ψ",
+      "notes": "Internal Tract performance measured by CIG-3 producing Ψ metric"
+    },
+    {
+      "name": "result_synthesizer_translates_metrics",
+      "expr": "translates(ResultSynthesizerOp, {Ψ, R_i}, NaturalLanguageSummary)",
+      "notes": "ResultSynthesizerOp converts metrics back to natural language"
+    },
+    {
+      "name": "render_diff_op_formats_for_user",
+      "expr": "formats(RenderDiffOp, summary, user_output)",
+      "notes": "RenderDiffOp formats summary for user presentation"
+    },
+    {
+      "name": "unification_flow_has_nine_steps",
+      "expr": "|UnificationFlow.steps| = 9",
+      "notes": "Complete unification flow consists of 9 steps"
+    },
+    {
+      "name": "agent_receives_user_request",
+      "expr": "step_1: receives(Agent, user_request)",
+      "notes": "Step 1: Agent receives user request"
+    },
+    {
+      "name": "external_tract_creates_goalspec",
+      "expr": "step_2: creates(T_ext, GoalSpec)",
+      "notes": "Step 2: NlParseOp and DisambiguateOp create GoalSpec"
+    },
+    {
+      "name": "goal_encoder_creates_phi_g",
+      "expr": "step_3: creates(GoalEncoderOp, φ_g)",
+      "notes": "Step 3: GoalEncoderOp creates DGR vector φ(g) from GoalSpec"
+    },
+    {
+      "name": "planner_creates_execution_plan",
+      "expr": "step_4: creates(CompressionPlannerOp, ExecutionPlan)",
+      "notes": "Step 4: CompressionPlannerOp creates execution plan"
+    },
+    {
+      "name": "internal_tract_executes_plan",
+      "expr": "step_5: executes(T_int, ExecutionPlan)",
+      "notes": "Step 5: Internal Tract executes plan (Mahakala layers, measured by CIG-3)"
+    },
+    {
+      "name": "synthesizer_creates_summary",
+      "expr": "step_6: creates(ResultSynthesizerOp, NaturalLanguageSummary)",
+      "notes": "Step 6: ResultSynthesizerOp translates metrics to summary"
+    },
+    {
+      "name": "render_diff_formats_summary",
+      "expr": "step_7: formats(RenderDiffOp, summary)",
+      "notes": "Step 7: RenderDiffOp formats summary for user"
+    },
+    {
+      "name": "agent_presents_output",
+      "expr": "step_8: presents(Agent, formatted_output)",
+      "notes": "Step 8: Agent presents final output to user"
+    },
+    {
+      "name": "pneuma_axioms_throughout",
+      "expr": "step_9: ∀ step ∈ UnificationFlow : adheres_to(step, PNEUMA.axioms)",
+      "notes": "Step 9: All agents and operators adhere to PNEUMA axioms throughout"
+    }
+  ]
+}

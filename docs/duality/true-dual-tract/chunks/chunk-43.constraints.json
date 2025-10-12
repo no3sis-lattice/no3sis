@@ -1,0 +1,36 @@
+{
+  "id": "43",
+  "title": "Scenario 2: Intermediate - Refactor code",
+  "goalType": "search",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_43_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 2141-2180"
+    },
+    {
+      "name": "optimization_required",
+      "expr": "True",
+      "notes": "This chunk requires MiniZinc optimization/search"
+    }
+  ]
+}

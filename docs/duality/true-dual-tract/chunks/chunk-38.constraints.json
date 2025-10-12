@@ -1,0 +1,41 @@
+{
+  "id": "38",
+  "title": "Phase 1: DGR Integration (4-6 weeks)",
+  "goalType": "refinement",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_38_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 1951-1982"
+    },
+    {
+      "name": "parameter_bounds_required",
+      "expr": "True",
+      "notes": "This chunk requires parameter tuning/bounds checking"
+    },
+    {
+      "name": "dgr_encoding_exists",
+      "expr": "\u2203 \u03c6 : GoalSpec \u2192 Vector",
+      "notes": "DGR provides encoding function \u03c6(g)"
+    }
+  ]
+}

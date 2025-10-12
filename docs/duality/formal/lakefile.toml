@@ -1,0 +1,15 @@
+name = "Duality"
+version = "0.1.0"
+defaultTargets = ["Duality"]
+
+[[lean_lib]]
+name = "Duality"
+
+[[lean_exe]]
+name = "duality"
+root = "Main"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "master"

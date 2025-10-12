@@ -1,0 +1,41 @@
+{
+  "id": "15",
+  "title": "Prime Hierarchy Integration",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_15_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 618-674"
+    },
+    {
+      "name": "proof_required",
+      "expr": "True",
+      "notes": "This chunk requires formal verification in Lean4"
+    },
+    {
+      "name": "prime_based_scaling",
+      "expr": "scaling_law = prime_based",
+      "notes": "System scales via prime-based hierarchy"
+    }
+  ]
+}

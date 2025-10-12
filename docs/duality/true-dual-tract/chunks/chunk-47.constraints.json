@@ -1,0 +1,41 @@
+{
+  "id": "47",
+  "title": "Agent Definition Template",
+  "goalType": "refinement",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_47_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 2748-2751"
+    },
+    {
+      "name": "parameter_bounds_required",
+      "expr": "True",
+      "notes": "This chunk requires parameter tuning/bounds checking"
+    },
+    {
+      "name": "structure_well_formed",
+      "expr": "well_formed(Structure)",
+      "notes": "Data structure must be well-formed with required fields"
+    }
+  ]
+}

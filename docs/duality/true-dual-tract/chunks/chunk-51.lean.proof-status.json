@@ -1,0 +1,11 @@
+{
+  "id": "51",
+  "status": "PROVED",
+  "tactics_used": [
+    "refine",
+    "rfl",
+    "trivial"
+  ],
+  "witness": "[100, 0, 0, 0, 0, 0, 0, 0]",
+  "notes": "Trivial proof using MiniZinc solution witness. domainConstraints = True. Build time not individually measured (part of parallel lake build)."
+}

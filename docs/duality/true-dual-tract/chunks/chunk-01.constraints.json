@@ -1,0 +1,79 @@
+{
+  "id": "01",
+  "title": "Executive Summary",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "similarityObjective": "none",
+    "godelization": { "encode": false, "base": 10 }
+  },
+  "constraints": [
+    {
+      "name": "system_composed_of_operators",
+      "expr": "∀ component ∈ System : typeof(component) = Operator",
+      "notes": "System is composed of deterministic, measurable operators"
+    },
+    {
+      "name": "two_tracts_exist",
+      "expr": "|{T_ext, T_int}| = 2",
+      "notes": "Exactly two tracts: External and Internal"
+    },
+    {
+      "name": "t_ext_definition",
+      "expr": "T_ext = pipeline(InterfaceOperators)",
+      "notes": "External Tract is a pipeline of Interface Operators"
+    },
+    {
+      "name": "t_int_definition",
+      "expr": "T_int = pipeline(IntelligenceOperators)",
+      "notes": "Internal Tract is a pipeline of Intelligence Operators"
+    },
+    {
+      "name": "agents_outside_tracts",
+      "expr": "∀ agent ∈ Agents : agent ∉ T_ext ∧ agent ∉ T_int",
+      "notes": "Agents are UX layer, not part of either tract"
+    },
+    {
+      "name": "agents_call_corpus_callosum",
+      "expr": "∀ agent ∈ Agents : calls(agent, C_c)",
+      "notes": "All agents interact with system via Corpus Callosum"
+    },
+    {
+      "name": "c_c_orchestrates_operators",
+      "expr": "orchestrates(C_c, T_ext) ∧ orchestrates(C_c, T_int)",
+      "notes": "Corpus Callosum orchestrates both operator pipelines"
+    },
+    {
+      "name": "operator_has_contract",
+      "expr": "∀ op ∈ Operators : has_field(op, 'contract')",
+      "notes": "Each operator has a clear contract"
+    },
+    {
+      "name": "operator_has_budget",
+      "expr": "∀ op ∈ Operators : has_field(op, 'budget')",
+      "notes": "Each operator has a resource budget"
+    },
+    {
+      "name": "operator_has_telemetry",
+      "expr": "∀ op ∈ Operators : has_field(op, 'telemetry')",
+      "notes": "Each operator emits telemetry (latency, cost, Ψ)"
+    },
+    {
+      "name": "operators_deterministic",
+      "expr": "∀ op ∈ Operators : deterministic(op)",
+      "notes": "All operators are deterministic"
+    },
+    {
+      "name": "operators_measurable",
+      "expr": "∀ op ∈ Operators : measurable(op)",
+      "notes": "All operators have measurable performance"
+    },
+    {
+      "name": "operators_horizontally_scalable",
+      "expr": "∀ op ∈ Operators : scalable(op, 'horizontal')",
+      "notes": "Operators can scale horizontally in distributed lattice"
+    }
+  ]
+}

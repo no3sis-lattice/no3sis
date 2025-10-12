@@ -1,0 +1,94 @@
+{
+  "id": "04",
+  "title": "Why This Matters: Usability + Mathematical Rigor",
+  "goalType": "proof",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "similarityObjective": "none",
+    "godelization": { "encode": false, "base": 10 }
+  },
+  "constraints": [
+    {
+      "name": "without_t_ext_unusable",
+      "expr": "¬usable(System \\ T_ext)",
+      "notes": "Pure operator engine requires expert to manually chain operators"
+    },
+    {
+      "name": "without_t_int_no_intelligence",
+      "expr": "¬intelligent(System \\ T_int)",
+      "notes": "Pure LLM agents lack compression, pattern reuse, measurable intelligence"
+    },
+    {
+      "name": "dual_tract_achieves_both",
+      "expr": "usable(System) ∧ intelligent(System)",
+      "notes": "True Dual Tract provides both usability and intelligence"
+    },
+    {
+      "name": "complete_pipeline_stages",
+      "expr": "pipeline = Agent → NLP_Op → EncoderOp → PlannerOp → {L1_Op, L2_Op, L4_Op} → SynthesizerOp → RenderOp",
+      "notes": "Full operator pipeline from natural language to formatted output"
+    },
+    {
+      "name": "nlp_op_produces_goalspec",
+      "expr": "output(NLP_Op) = GoalSpec",
+      "notes": "NLP operator transforms text to structured GoalSpec"
+    },
+    {
+      "name": "goalspec_has_domain",
+      "expr": "has_field(GoalSpec, 'domain')",
+      "notes": "GoalSpec contains domain field (e.g., 'auth')"
+    },
+    {
+      "name": "goalspec_has_target_psi",
+      "expr": "has_field(GoalSpec, 'target_Ψ') ∧ typeof(target_Ψ) = Real",
+      "notes": "GoalSpec specifies target Ψ metric (e.g., 0.85)"
+    },
+    {
+      "name": "encoder_op_produces_phi_g",
+      "expr": "output(EncoderOp) = φ_g ∧ encoding_method(φ_g) = DGR",
+      "notes": "Encoder produces DGR vector φ_g from GoalSpec"
+    },
+    {
+      "name": "planner_op_produces_plan",
+      "expr": "output(PlannerOp) = Plan",
+      "notes": "Planner produces execution plan"
+    },
+    {
+      "name": "plan_specifies_layers",
+      "expr": "has_field(Plan, 'layers') ∧ layers ⊆ {L1, L2, L3, L4, L5}",
+      "notes": "Plan specifies which internal tract layers to execute"
+    },
+    {
+      "name": "layer_ops_produce_r_i",
+      "expr": "∀ i ∈ {1,2,3,4,5} : output(L_i_Op) contains R_i",
+      "notes": "Each layer operator produces compression ratio R_i"
+    },
+    {
+      "name": "r_i_is_compression_ratio",
+      "expr": "typeof(R_i) = Real ∧ R_i > 0",
+      "notes": "R_i is a positive real number (compression ratio)"
+    },
+    {
+      "name": "synthesizer_op_produces_summary",
+      "expr": "output(SynthesizerOp) = NaturalLanguageSummary",
+      "notes": "Synthesizer converts metrics back to NL summary"
+    },
+    {
+      "name": "render_op_formats_output",
+      "expr": "output(RenderOp) = FormattedOutput",
+      "notes": "Render operator formats summary for user presentation"
+    },
+    {
+      "name": "system_measurable",
+      "expr": "∀ stage ∈ pipeline : measurable(stage)",
+      "notes": "Every stage in pipeline has measurable performance"
+    },
+    {
+      "name": "system_optimizable",
+      "expr": "optimizable(System)",
+      "notes": "Dual Tract architecture is optimizable (measurable → improvable)"
+    }
+  ]
+}

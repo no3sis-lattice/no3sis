@@ -9,8 +9,8 @@ from __future__ import annotations
 import argparse, json, re
 from pathlib import Path
 
-MZN_TPL = (Path(__file__).parent.parent / "duality" / "templates" / "chunk.mzn").read_text()
-LEAN_TPL = (Path(__file__).parent.parent / "duality" / "templates" / "chunk.lean").read_text()
+MZN_TPL = (Path(__file__).parent.parent / "templates" / "chunk.mzn").read_text()
+LEAN_TPL = (Path(__file__).parent.parent / "templates" / "chunk.lean").read_text()
 
 def render_constraints_to_mzn(constraints: list[dict]) -> str:
     # Naive passthrough: assume expr contains valid MiniZinc fragments

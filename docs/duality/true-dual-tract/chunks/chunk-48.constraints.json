@@ -1,0 +1,41 @@
+{
+  "id": "48",
+  "title": "Compression Metrics Guide",
+  "goalType": "refinement",
+  "parameters": {
+    "eightDimManifold": true,
+    "scaleN": 100,
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
+    "similarityObjective": "none",
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
+  },
+  "constraints": [
+    {
+      "name": "chunk_48_exists",
+      "expr": "True",
+      "notes": "Placeholder: Extract formal constraints from lines 2752-2782"
+    },
+    {
+      "name": "parameter_bounds_required",
+      "expr": "True",
+      "notes": "This chunk requires parameter tuning/bounds checking"
+    },
+    {
+      "name": "internal_tract_constraint",
+      "expr": "component_of(X, T_int)",
+      "notes": "Components belong to Internal Tract (Intelligence Operators)"
+    }
+  ]
+}
