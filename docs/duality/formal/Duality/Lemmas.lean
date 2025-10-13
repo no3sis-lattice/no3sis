@@ -61,4 +61,12 @@ def noDominance (vals : List Nat) (Δ : Nat) : Prop :=
 instance (vals : List Nat) (Δ : Nat) : Decidable (noDominance vals Δ) :=
   inferInstanceAs (Decidable (∀ v1 ∈ vals, ∀ v2 ∈ vals, _))
 
+/-- Scaling law types for Chunk 15 (stub definitions) -/
+inductive ScalingLaw where
+  | prime_based : ScalingLaw
+deriving DecidableEq, Repr
+
+def scaling_law : ScalingLaw := ScalingLaw.prime_based
+def prime_based : ScalingLaw := ScalingLaw.prime_based
+
 end Duality

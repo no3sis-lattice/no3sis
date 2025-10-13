@@ -1,11 +1,7 @@
 {
   "id": "21",
-  "status": "PROVED",
-  "tactics_used": [
-    "refine",
-    "rfl",
-    "trivial"
-  ],
-  "witness": "[100, 0, 0, 0, 0, 0, 0, 0]",
-  "notes": "Trivial proof using MiniZinc solution witness. domainConstraints = True. Build time not individually measured (part of parallel lake build)."
+  "status": "DEFERRED",
+  "tactics_used": [],
+  "witness": "N/A",
+  "notes": "Deferred: Set theory notation beyond MZN/transpiler scope. Path forward: Manual Lean authoring."
 }

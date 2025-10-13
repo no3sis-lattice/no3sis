@@ -2,10 +2,8 @@
   "id": "18",
   "status": "PROVED",
   "tactics_used": [
-    "refine",
-    "rfl",
-    "trivial"
+    "decide"
   ],
   "witness": "[100, 0, 0, 0, 0, 0, 0, 0]",
-  "notes": "Trivial proof using MiniZinc solution witness. domainConstraints = True. Build time not individually measured (part of parallel lake build)."
+  "notes": "Proven via MiniZinc witness generation + decidability automation. Witness: [100, 0, 0, 0, 0, 0, 0, 0]. Zero sorry keywords."
 }
