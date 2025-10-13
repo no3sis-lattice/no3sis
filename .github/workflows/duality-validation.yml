@@ -18,6 +18,14 @@ jobs:
       - name: Setup MiniZinc
         run: |
           wget -q https://github.com/MiniZinc/MiniZincIDE/releases/download/2.8.5/minizinc-2.8.5-x86_64-linux.tar.gz
+          if ! [ -f minizinc-2.8.5-x86_64-linux.tar.gz ]; then
+            echo "❌ Download failed: minizinc-2.8.5-x86_64-linux.tar.gz not found"
+            exit 1
+          fi
+          if ! tar -tzf minizinc-2.8.5-x86_64-linux.tar.gz >/dev/null 2>&1; then
+            echo "❌ Archive is corrupted"
+            exit 1
+          fi
           tar -xzf minizinc-2.8.5-x86_64-linux.tar.gz
           echo "$PWD/minizinc-2.8.5-x86_64-linux/bin" >> $GITHUB_PATH
 
@@ -144,6 +152,14 @@ jobs:
       - name: Setup MiniZinc
         run: |
           wget -q https://github.com/MiniZinc/MiniZincIDE/releases/download/2.8.5/minizinc-2.8.5-x86_64-linux.tar.gz
+          if ! [ -f minizinc-2.8.5-x86_64-linux.tar.gz ]; then
+            echo "❌ Download failed: minizinc-2.8.5-x86_64-linux.tar.gz not found"
+            exit 1
+          fi
+          if ! tar -tzf minizinc-2.8.5-x86_64-linux.tar.gz >/dev/null 2>&1; then
+            echo "❌ Archive is corrupted"
+            exit 1
+          fi
           tar -xzf minizinc-2.8.5-x86_64-linux.tar.gz
           echo "$PWD/minizinc-2.8.5-x86_64-linux/bin" >> $GITHUB_PATH
 
