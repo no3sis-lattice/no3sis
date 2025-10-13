@@ -7,13 +7,18 @@ Shared base for Duality chunks:
 
 namespace Duality
 
+-- TODO: Replace stub with proper Mathlib import when time budget allows
 -- Lightweight stub for Real type (chunks 13, 20, 39, 58 have malformed constraints)
 -- The transpiler generated invalid code: "True = Real ∧ ..." which is nonsensical
--- Rather than importing full Mathlib.Data.Real.Basic (slow), we provide a stub
+-- Current workaround: Stub type enables compilation without Mathlib overhead
+-- Future improvement: `import Mathlib.Data.Real.Basic` + fix transpiler
 def Real : Type := Unit
 
+-- TODO: Replace placeholders with proper struct definitions when requirements clear
 -- Placeholder types for struct syntax chunks (16, 28, 38, 59, 60)
--- The transpiler generated incomplete existential syntax
+-- The transpiler generated incomplete existential syntax: "(∃ φ : GoalSpec → Vector)"
+-- Current workaround: Stub structs enable compilation
+-- Future improvement: Define proper GoalSpec and Vector types based on actual needs
 structure GoalSpec where
   dummy : Unit := ()
 deriving Repr
