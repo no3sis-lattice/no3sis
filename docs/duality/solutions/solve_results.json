@@ -1,0 +1,700 @@
+{
+  "1": {
+    "error": "Solver error: Multiple syntax errors:\n/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-01.mzn:16.14-22:\nconstraint \u2200 component  in  System : true = Operator;\n             ^^^^^^^^^\nError: syn",
+    "sat": false
+  },
+  "2": {
+    "error": "Solver error: Multiple syntax errors:\n/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-02.mzn:32.15-21:\nconstraint \u00ac\u2203 mapping : Components \u2192 {T_int, T_ext};\n              ^^^^^^^\nError: synta",
+    "sat": false
+  },
+  "3": {
+    "error": "Solver error: Multiple syntax errors:\n/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-03.mzn:16.41:\nconstraint Agents = UX_Layer \u2227 UX_Layer \u2209 Tracts;\n                                        ",
+    "sat": false
+  },
+  "4": {
+    "error": "Solver error: Multiple syntax errors:\n/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-04.mzn:16.27:\nconstraint \u00acusable(System \\ T_ext);\n                          ^\nError: syntax error, unexp",
+    "sat": false
+  },
+  "5": {
+    "error": "Solver error: Multiple syntax errors:\n/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-05.mzn:16.12:\nconstraint |Frameworks| = 5;\n           ^\nError: syntax error, unexpected '|'\n\n/home/m0xu/",
+    "sat": false
+  },
+  "6": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      91,
+      3,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "7": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "8": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "9": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      7,
+      3,
+      0,
+      90,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "10": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "11": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "12": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "13": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-13.mzn:24.26:\nconstraint true = Real \u2227 \u03a8  in  [0,1];\n                         ^\nError: syntax error, unexpected invalid token\n",
+    "sat": false
+  },
+  "14": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "15": {
+    "error": "Solver error: Error: type error: undefined identifier `prime_based'\n/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-15.mzn:24.26-36\n",
+    "sat": false
+  },
+  "16": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-16.mzn:24.14:\nconstraint \u2203 \u03c6 : GoalSpec \u2192 Vector;\n             ^\nError: syntax error, unexpected invalid token, expecting end of",
+    "sat": false
+  },
+  "17": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "18": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "19": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      6,
+      6,
+      25,
+      25,
+      23,
+      5,
+      5,
+      5
+    ]
+  },
+  "20": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-20.mzn:24.26:\nconstraint true = Real \u2227 \u03a8  in  [0,1];\n                         ^\nError: syntax error, unexpected invalid token\n",
+    "sat": false
+  },
+  "21": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-21.mzn:24.14-15:\nconstraint \u2200 op  in  Operators : true;\n             ^^\nError: syntax error, unexpected identifier, expecting en",
+    "sat": false
+  },
+  "22": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      94,
+      2,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "23": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-23.mzn:24.14-15:\nconstraint \u2200 op  in  Operators : true;\n             ^^\nError: syntax error, unexpected identifier, expecting en",
+    "sat": false
+  },
+  "24": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "25": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "26": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "27": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "28": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-28.mzn:24.14:\nconstraint \u2203 \u03c6 : GoalSpec \u2192 Vector;\n             ^\nError: syntax error, unexpected invalid token, expecting end of",
+    "sat": false
+  },
+  "29": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "30": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "31": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "32": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "33": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "34": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "35": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "36": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "37": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "38": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-38.mzn:24.14:\nconstraint \u2203 \u03c6 : GoalSpec \u2192 Vector;\n             ^\nError: syntax error, unexpected invalid token, expecting end of",
+    "sat": false
+  },
+  "39": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-39.mzn:24.26:\nconstraint true = Real \u2227 \u03a8  in  [0,1];\n                         ^\nError: syntax error, unexpected invalid token\n",
+    "sat": false
+  },
+  "40": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "41": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      80,
+      0,
+      0,
+      0,
+      0,
+      20,
+      0,
+      0
+    ]
+  },
+  "42": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "43": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "44": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "45": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "46": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "47": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "48": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "49": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "50": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      93,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "51": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "52": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "53": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "54": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "55": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "56": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "57": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "58": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-58.mzn:24.26:\nconstraint true = Real \u2227 \u03a8  in  [0,1];\n                         ^\nError: syntax error, unexpected invalid token\n",
+    "sat": false
+  },
+  "59": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-59.mzn:24.14:\nconstraint \u2203 \u03c6 : GoalSpec \u2192 Vector;\n             ^\nError: syntax error, unexpected invalid token, expecting end of",
+    "sat": false
+  },
+  "60": {
+    "error": "Solver error: /home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks/chunk-60.mzn:24.14:\nconstraint \u2203 \u03c6 : GoalSpec \u2192 Vector;\n             ^\nError: syntax error, unexpected invalid token, expecting end of",
+    "sat": false
+  },
+  "61": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "62": {
+    "sat": true,
+    "sum": 100,
+    "witness": [
+      80,
+      0,
+      0,
+      0,
+      0,
+      20,
+      0,
+      0
+    ]
+  }
+}

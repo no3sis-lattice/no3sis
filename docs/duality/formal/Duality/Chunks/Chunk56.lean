@@ -27,14 +27,12 @@ instance : Decidable (domainConstraints x) := by
   infer_instance
 
 -- Witness (to be injected from MiniZinc solution)
--- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩
+def witness : X8 := ⟨100, 0, 0, 0, 0, 0, 0, 0⟩
 
--- theorem witness_valid : unitary witness ∧ domainConstraints witness := by
---   constructor
---   · rfl  -- unitary
---   · constructor <;> omega  -- domain constraints
+theorem witness_valid : unitary witness ∧ domainConstraints witness := by
+  decide
 
--- theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
---   ⟨witness, witness_valid⟩
+theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
+  ⟨witness, witness_valid⟩
 
 end Chunk56
