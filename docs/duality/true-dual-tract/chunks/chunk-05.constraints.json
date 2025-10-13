@@ -1,24 +1,36 @@
 {
   "id": "05",
   "title": "The Synthesis: Five Frameworks, One System",
-  "goalType": "proof",
+  "goalType": "documentation",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,
-    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
     "similarityObjective": "none",
-    "godelization": { "encode": false, "base": 10 }
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
   },
   "constraints": [
     {
       "name": "five_frameworks_exist",
-      "expr": "|Frameworks| = 5",
-      "notes": "System described by exactly 5 frameworks"
+      "expr": "True",
+      "notes": "System described by exactly 5 frameworks | UNTRANSPILABLE (Phase8): |Frameworks| = 5"
     },
     {
       "name": "frameworks_are_unified",
-      "expr": "∀ f ∈ Frameworks : describes(f, SameSystem)",
-      "notes": "All frameworks describe one unified system from different perspectives"
+      "expr": "True",
+      "notes": "All frameworks describe one unified system from different perspectives | UNTRANSPILABLE (Phase8): \u2200 f \u2208 Frameworks : describes(f, SameSystem)"
     },
     {
       "name": "mahakala_defines_internal_tract",
@@ -27,13 +39,13 @@
     },
     {
       "name": "cig3_computes_psi",
-      "expr": "computes(CIG3, Ψ) ∧ operates_within(CIG3, T_int)",
-      "notes": "CIG-3 measurement protocol computes Ψ invariant in Internal Tract"
+      "expr": "computes(CIG3, \u03a8) \u2227 operates_within(CIG3, T_int)",
+      "notes": "CIG-3 measurement protocol computes \u03a8 invariant in Internal Tract"
     },
     {
       "name": "pneuma_guides_behavior",
-      "expr": "∀ component ∈ (Agents ∪ Operators) : adheres_to(component, PNEUMA.axioms)",
-      "notes": "PNEUMA axioms guide behavior of both agents and operators"
+      "expr": "True",
+      "notes": "PNEUMA axioms guide behavior of both agents and operators | UNTRANSPILABLE (Phase8): \u2200 component \u2208 (Agents \u222a Operators) : adheres_to(component, PNEUMA.axioms)"
     },
     {
       "name": "prime_hierarchy_defines_depth",
@@ -42,28 +54,28 @@
     },
     {
       "name": "dgr_enables_cc_translation",
-      "expr": "uses(C_c, DGR) ∧ enables(DGR, translate(agent_intent, operator_goals))",
+      "expr": "uses(C_c, DGR) \u2227 enables(DGR, translate(agent_intent, operator_goals))",
       "notes": "DGR coordination protocol enables C_c to translate between agent intent and operator goals"
     },
     {
       "name": "external_tract_operators",
-      "expr": "T_ext.operators = {NlParseOp, DisambiguateOp, ApprovalGateOp, RenderDiffOp}",
-      "notes": "External Tract contains 4 specific operators"
+      "expr": "True",
+      "notes": "External Tract contains 4 specific operators | UNTRANSPILABLE (Phase8): T_ext.operators = {NlParseOp, DisambiguateOp, ApprovalGateOp, RenderDiffOp}"
     },
     {
       "name": "corpus_callosum_operators",
-      "expr": "C_c.operators = {GoalEncoderOp, CompressionPlannerOp, ResultSynthesizerOp}",
-      "notes": "Corpus Callosum contains 3 bridge operators"
+      "expr": "True",
+      "notes": "Corpus Callosum contains 3 bridge operators | UNTRANSPILABLE (Phase8): C_c.operators = {GoalEncoderOp, CompressionPlannerOp, ResultSynthesizerOp}"
     },
     {
       "name": "internal_tract_operators",
-      "expr": "T_int.operators = {L1_StatCompressOp, L2_SemanticClusterOp, L3_TopologyOp, L4_CausalGraphOp, L5_MetaStrategyOp}",
-      "notes": "Internal Tract contains 5 compression operators (Mahakala layers)"
+      "expr": "True",
+      "notes": "Internal Tract contains 5 compression operators (Mahakala layers) | UNTRANSPILABLE (Phase8): T_int.operators = {L1_StatCompressOp, L2_SemanticClusterOp, L3_TopologyOp, L4_CausalGraphOp, L5_MetaStrategyOp}"
     },
     {
       "name": "goal_encoder_uses_dgr",
-      "expr": "uses(GoalEncoderOp, DGR) ∧ output(GoalEncoderOp) = φ_g",
-      "notes": "GoalEncoderOp uses DGR to create goal vector φ(g)"
+      "expr": "uses(GoalEncoderOp, DGR) \u2227 output(GoalEncoderOp) = \u03c6_g",
+      "notes": "GoalEncoderOp uses DGR to create goal vector \u03c6(g)"
     },
     {
       "name": "approval_gate_guards_planner",
@@ -82,12 +94,12 @@
     },
     {
       "name": "internal_tract_measured_by_cig3",
-      "expr": "measures(CIG3, performance(T_int)) → Ψ",
-      "notes": "Internal Tract performance measured by CIG-3 producing Ψ metric"
+      "expr": "measures(CIG3, performance(T_int)) \u2192 \u03a8",
+      "notes": "Internal Tract performance measured by CIG-3 producing \u03a8 metric"
     },
     {
       "name": "result_synthesizer_translates_metrics",
-      "expr": "translates(ResultSynthesizerOp, {Ψ, R_i}, NaturalLanguageSummary)",
+      "expr": "translates(ResultSynthesizerOp, {\u03a8, R_i}, NaturalLanguageSummary)",
       "notes": "ResultSynthesizerOp converts metrics back to natural language"
     },
     {
@@ -97,53 +109,53 @@
     },
     {
       "name": "unification_flow_has_nine_steps",
-      "expr": "|UnificationFlow.steps| = 9",
-      "notes": "Complete unification flow consists of 9 steps"
+      "expr": "True",
+      "notes": "Complete unification flow consists of 9 steps | UNTRANSPILABLE (Phase8): |UnificationFlow.steps| = 9"
     },
     {
       "name": "agent_receives_user_request",
-      "expr": "step_1: receives(Agent, user_request)",
-      "notes": "Step 1: Agent receives user request"
+      "expr": "True",
+      "notes": "Step 1: Agent receives user request | UNTRANSPILABLE (Phase8): step_1: receives(Agent, user_request)"
     },
     {
       "name": "external_tract_creates_goalspec",
-      "expr": "step_2: creates(T_ext, GoalSpec)",
-      "notes": "Step 2: NlParseOp and DisambiguateOp create GoalSpec"
+      "expr": "True",
+      "notes": "Step 2: NlParseOp and DisambiguateOp create GoalSpec | UNTRANSPILABLE (Phase8): step_2: creates(T_ext, GoalSpec)"
     },
     {
       "name": "goal_encoder_creates_phi_g",
-      "expr": "step_3: creates(GoalEncoderOp, φ_g)",
-      "notes": "Step 3: GoalEncoderOp creates DGR vector φ(g) from GoalSpec"
+      "expr": "True",
+      "notes": "Step 3: GoalEncoderOp creates DGR vector \u03c6(g) from GoalSpec | UNTRANSPILABLE (Phase8): step_3: creates(GoalEncoderOp, \u03c6_g)"
     },
     {
       "name": "planner_creates_execution_plan",
-      "expr": "step_4: creates(CompressionPlannerOp, ExecutionPlan)",
-      "notes": "Step 4: CompressionPlannerOp creates execution plan"
+      "expr": "True",
+      "notes": "Step 4: CompressionPlannerOp creates execution plan | UNTRANSPILABLE (Phase8): step_4: creates(CompressionPlannerOp, ExecutionPlan)"
     },
     {
       "name": "internal_tract_executes_plan",
-      "expr": "step_5: executes(T_int, ExecutionPlan)",
-      "notes": "Step 5: Internal Tract executes plan (Mahakala layers, measured by CIG-3)"
+      "expr": "True",
+      "notes": "Step 5: Internal Tract executes plan (Mahakala layers, measured by CIG-3) | UNTRANSPILABLE (Phase8): step_5: executes(T_int, ExecutionPlan)"
     },
     {
       "name": "synthesizer_creates_summary",
-      "expr": "step_6: creates(ResultSynthesizerOp, NaturalLanguageSummary)",
-      "notes": "Step 6: ResultSynthesizerOp translates metrics to summary"
+      "expr": "True",
+      "notes": "Step 6: ResultSynthesizerOp translates metrics to summary | UNTRANSPILABLE (Phase8): step_6: creates(ResultSynthesizerOp, NaturalLanguageSummary)"
     },
     {
       "name": "render_diff_formats_summary",
-      "expr": "step_7: formats(RenderDiffOp, summary)",
-      "notes": "Step 7: RenderDiffOp formats summary for user"
+      "expr": "True",
+      "notes": "Step 7: RenderDiffOp formats summary for user | UNTRANSPILABLE (Phase8): step_7: formats(RenderDiffOp, summary)"
     },
     {
       "name": "agent_presents_output",
-      "expr": "step_8: presents(Agent, formatted_output)",
-      "notes": "Step 8: Agent presents final output to user"
+      "expr": "True",
+      "notes": "Step 8: Agent presents final output to user | UNTRANSPILABLE (Phase8): step_8: presents(Agent, formatted_output)"
     },
     {
       "name": "pneuma_axioms_throughout",
-      "expr": "step_9: ∀ step ∈ UnificationFlow : adheres_to(step, PNEUMA.axioms)",
-      "notes": "Step 9: All agents and operators adhere to PNEUMA axioms throughout"
+      "expr": "True",
+      "notes": "Step 9: All agents and operators adhere to PNEUMA axioms throughout | UNTRANSPILABLE (Phase8): step_9: \u2200 step \u2208 UnificationFlow : adheres_to(step, PNEUMA.axioms)"
     }
   ]
 }

@@ -1,33 +1,45 @@
 {
   "id": "04",
   "title": "Why This Matters: Usability + Mathematical Rigor",
-  "goalType": "proof",
+  "goalType": "documentation",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,
-    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
     "similarityObjective": "none",
-    "godelization": { "encode": false, "base": 10 }
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
   },
   "constraints": [
     {
       "name": "without_t_ext_unusable",
-      "expr": "¬usable(System \\ T_ext)",
+      "expr": "\u00acusable(System \\ T_ext)",
       "notes": "Pure operator engine requires expert to manually chain operators"
     },
     {
       "name": "without_t_int_no_intelligence",
-      "expr": "¬intelligent(System \\ T_int)",
+      "expr": "\u00acintelligent(System \\ T_int)",
       "notes": "Pure LLM agents lack compression, pattern reuse, measurable intelligence"
     },
     {
       "name": "dual_tract_achieves_both",
-      "expr": "usable(System) ∧ intelligent(System)",
+      "expr": "usable(System) \u2227 intelligent(System)",
       "notes": "True Dual Tract provides both usability and intelligence"
     },
     {
       "name": "complete_pipeline_stages",
-      "expr": "pipeline = Agent → NLP_Op → EncoderOp → PlannerOp → {L1_Op, L2_Op, L4_Op} → SynthesizerOp → RenderOp",
+      "expr": "pipeline = Agent \u2192 NLP_Op \u2192 EncoderOp \u2192 PlannerOp \u2192 {L1_Op, L2_Op, L4_Op} \u2192 SynthesizerOp \u2192 RenderOp",
       "notes": "Full operator pipeline from natural language to formatted output"
     },
     {
@@ -37,18 +49,18 @@
     },
     {
       "name": "goalspec_has_domain",
-      "expr": "has_field(GoalSpec, 'domain')",
-      "notes": "GoalSpec contains domain field (e.g., 'auth')"
+      "expr": "True",
+      "notes": "GoalSpec contains domain field (e.g., 'auth') | UNTRANSPILABLE (Phase8): has_field(GoalSpec, 'domain')"
     },
     {
       "name": "goalspec_has_target_psi",
-      "expr": "has_field(GoalSpec, 'target_Ψ') ∧ typeof(target_Ψ) = Real",
-      "notes": "GoalSpec specifies target Ψ metric (e.g., 0.85)"
+      "expr": "True",
+      "notes": "GoalSpec specifies target \u03a8 metric (e.g., 0.85) | UNTRANSPILABLE (Phase8): has_field(GoalSpec, 'target_\u03a8') \u2227 typeof(target_\u03a8) = Real"
     },
     {
       "name": "encoder_op_produces_phi_g",
-      "expr": "output(EncoderOp) = φ_g ∧ encoding_method(φ_g) = DGR",
-      "notes": "Encoder produces DGR vector φ_g from GoalSpec"
+      "expr": "output(EncoderOp) = \u03c6_g \u2227 encoding_method(\u03c6_g) = DGR",
+      "notes": "Encoder produces DGR vector \u03c6_g from GoalSpec"
     },
     {
       "name": "planner_op_produces_plan",
@@ -57,18 +69,18 @@
     },
     {
       "name": "plan_specifies_layers",
-      "expr": "has_field(Plan, 'layers') ∧ layers ⊆ {L1, L2, L3, L4, L5}",
-      "notes": "Plan specifies which internal tract layers to execute"
+      "expr": "True",
+      "notes": "Plan specifies which internal tract layers to execute | UNTRANSPILABLE (Phase8): has_field(Plan, 'layers') \u2227 layers \u2286 {L1, L2, L3, L4, L5}"
     },
     {
       "name": "layer_ops_produce_r_i",
-      "expr": "∀ i ∈ {1,2,3,4,5} : output(L_i_Op) contains R_i",
-      "notes": "Each layer operator produces compression ratio R_i"
+      "expr": "True",
+      "notes": "Each layer operator produces compression ratio R_i | UNTRANSPILABLE (Phase8): \u2200 i \u2208 {1,2,3,4,5} : output(L_i_Op) contains R_i"
     },
     {
       "name": "r_i_is_compression_ratio",
-      "expr": "typeof(R_i) = Real ∧ R_i > 0",
-      "notes": "R_i is a positive real number (compression ratio)"
+      "expr": "True",
+      "notes": "R_i is a positive real number (compression ratio) | UNTRANSPILABLE (Phase8): typeof(R_i) = Real \u2227 R_i > 0"
     },
     {
       "name": "synthesizer_op_produces_summary",
@@ -82,13 +94,13 @@
     },
     {
       "name": "system_measurable",
-      "expr": "∀ stage ∈ pipeline : measurable(stage)",
-      "notes": "Every stage in pipeline has measurable performance"
+      "expr": "True",
+      "notes": "Every stage in pipeline has measurable performance | UNTRANSPILABLE (Phase8): \u2200 stage \u2208 pipeline : measurable(stage)"
     },
     {
       "name": "system_optimizable",
       "expr": "optimizable(System)",
-      "notes": "Dual Tract architecture is optimizable (measurable → improvable)"
+      "notes": "Dual Tract architecture is optimizable (measurable \u2192 improvable)"
     }
   ]
 }

@@ -107,8 +107,31 @@ jobs:
             docs/duality/reports/cross-check-all.md
           retention-days: 30
 
+  unit-tests-python:
+    name: Python Transpiler Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          if [ -f docs/duality/requirements-dev.txt ]; then
+            pip install -r docs/duality/requirements-dev.txt
+          fi
+
+      - name: Run pytest
+        run: |
+          cd docs/duality/scripts
+          pytest -v --tb=short
+
   unit-tests:
-    name: Transpiler Unit Tests
+    name: Transpiler Unit Tests (Legacy)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -146,6 +169,52 @@ jobs:
           echo "  - Lean4 transpiler (sum expansion, array indexing)"
           echo "  - Constraint injection (heuristics, counting)"
           echo "  - Compilation validation (MZN/Lean syntax check)"
+
+  validate-render-pipeline:
+    name: Validate Render Pipeline (Pilots)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Lean
+        uses: leanprover/lean-action@v1
+        with:
+          lean-version: 'v4.24.0-rc1'
+
+      - name: Set up Lean toolchain
+        run: |
+          elan default stable
+
+      - name: Regenerate Pilot Chunks
+        run: |
+          cd docs/duality
+          for chunk in 06 09 19; do
+            echo "Regenerating Chunk $chunk..."
+            python3 scripts/render_formalizations.py \
+              --chunk $chunk \
+              --use-base-imports \
+              --force
+          done
+
+      - name: Verify Pilots Still Compile
+        run: |
+          cd docs/duality/formal
+          if [ ! -f lake-manifest.json ]; then
+            lake update
+          fi
+          lake build Duality.Chunks.Chunk06
+          lake build Duality.Chunks.Chunk09
+          lake build Duality.Chunks.Chunk19
+
+      - name: Cross-Check Pilots
+        run: |
+          cd docs/duality
+          python3 scripts/cross_check_all.py --chunks 06 09 19
 
   validate-json-schema:
     name: Validate Constraint JSON Files
@@ -238,4 +307,3 @@ jobs:
           echo ""
           echo "✓ All chunks satisfy M_syn meta-pattern: T_int ≈ T_ext"
           echo "  This validates dual-tract consciousness equilibrium"
-

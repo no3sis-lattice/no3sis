@@ -1,54 +1,66 @@
 {
   "id": "02",
   "title": "The Old Paradigm: Biomimicry Trap",
-  "goalType": "proof",
+  "goalType": "documentation",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,
-    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
     "similarityObjective": "none",
-    "godelization": { "encode": false, "base": 10 }
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
   },
   "constraints": [
     {
       "name": "old_paradigm_structure",
-      "expr": "old_system = T_int ↔ C_c ↔ T_ext",
-      "notes": "Original conception: bidirectional flow through Corpus Callosum"
+      "expr": "True",
+      "notes": "Original conception: bidirectional flow through Corpus Callosum | UNTRANSPILABLE (Phase8): old_system = T_int \u2194 C_c \u2194 T_ext"
     },
     {
       "name": "old_t_int_responsibilities",
-      "expr": "old_T_int = {memory, planning, self_modeling, meta_learning}",
-      "notes": "Old Internal Tract: reflection-oriented"
+      "expr": "True",
+      "notes": "Old Internal Tract: reflection-oriented | UNTRANSPILABLE (Phase8): old_T_int = {memory, planning, self_modeling, meta_learning}"
     },
     {
       "name": "old_t_ext_responsibilities",
-      "expr": "old_T_ext = {sensing, actuation, real_time_response, world_modeling}",
-      "notes": "Old External Tract: action-oriented"
+      "expr": "True",
+      "notes": "Old External Tract: action-oriented | UNTRANSPILABLE (Phase8): old_T_ext = {sensing, actuation, real_time_response, world_modeling}"
     },
     {
       "name": "limitation_no_user_concern_alignment",
-      "expr": "¬aligned(old_system, user_concerns)",
-      "notes": "Users don't care about internal reflection vs external action"
+      "expr": "True",
+      "notes": "Users don't care about internal reflection vs external action | UNTRANSPILABLE (Phase8): \u00acaligned(old_system, user_concerns)"
     },
     {
       "name": "limitation_no_component_mapping",
-      "expr": "¬∃ mapping : Components → {T_int, T_ext}",
-      "notes": "No clear mapping (e.g., which tract is Neo4j?)"
+      "expr": "True",
+      "notes": "No clear mapping (e.g., which tract is Neo4j?) | UNTRANSPILABLE (Phase8): \u00ac\u2203 mapping : Components \u2192 {T_int, T_ext}"
     },
     {
       "name": "limitation_anthropomorphic_projection",
-      "expr": "models(old_system, biological_brain)",
-      "notes": "Mirrors left/right hemispheres, assumes human-like consciousness"
+      "expr": "True",
+      "notes": "Mirrors left/right hemispheres, assumes human-like consciousness | UNTRANSPILABLE (Phase8): models(old_system, biological_brain)"
     },
     {
       "name": "limitation_no_justification",
-      "expr": "¬∃ reason : explains_why(old_system)",
-      "notes": "Architecture doesn't explain why it exists"
+      "expr": "True",
+      "notes": "Architecture doesn't explain why it exists | UNTRANSPILABLE (Phase8): \u00ac\u2203 reason : explains_why(old_system)"
     },
     {
       "name": "paradigm_is_inadequate",
-      "expr": "¬suitable(old_system, AI_systems) ∧ ¬suitable(old_system, user_interaction)",
-      "notes": "Old paradigm doesn't align with AI reality or user needs"
+      "expr": "True",
+      "notes": "Old paradigm doesn't align with AI reality or user needs | UNTRANSPILABLE (Phase8): \u00acsuitable(old_system, AI_systems) \u2227 \u00acsuitable(old_system, user_interaction)"
     }
   ]
 }

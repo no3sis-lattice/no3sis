@@ -214,6 +214,22 @@
 **Goal**: Prove ≥30 chunks (50%+ of theorems)
 **Status**: ✅ **COMPLETE** - 45/62 proved (150% of target)
 
+**Results**: 
+- 45/62 chunks formally proven (72.6%)
+- 55/62 chunks compilable (88.7%)
+- Full report: [PHASE6_RESULTS.md](./PHASE6_RESULTS.md)
+
+**Phase 6b: Corrections** ✅
+- Blocker fixes: [BLOCKER_FIXES.md](./BLOCKER_FIXES.md)
+- Corrected results: [PHASE6B_RESULTS_CORRECTED.md](./PHASE6B_RESULTS_CORRECTED.md)
+- Code Hound score: 62/100 → 78/100
+- Key changes:
+  - pytest: 50/50 tests pass (pygments dependency fixed)
+  - Equivalence lemmas → spec_documentation (honest naming)
+  - render_formalizations.py: Added `--use-base-imports` flag
+  - CI: pytest and render pipeline validation added
+
+
 ### Tasks
 - [x] Prioritize chunks for proving
   - Solved 45 chunks via MiniZinc witness generation

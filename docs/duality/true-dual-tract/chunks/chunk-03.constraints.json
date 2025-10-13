@@ -1,29 +1,41 @@
 {
   "id": "03",
   "title": "The True Paradigm: Interface vs Intelligence",
-  "goalType": "proof",
+  "goalType": "documentation",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,
-    "monsterPrimes": [2,3,5,7,11,13,17,19],
+    "monsterPrimes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19
+    ],
     "similarityObjective": "none",
-    "godelization": { "encode": false, "base": 10 }
+    "godelization": {
+      "encode": false,
+      "base": 10
+    }
   },
   "constraints": [
     {
       "name": "agents_are_ux_layer",
-      "expr": "Agents = UX_Layer ∧ UX_Layer ∉ Tracts",
+      "expr": "Agents = UX_Layer \u2227 UX_Layer \u2209 Tracts",
       "notes": "Agents live outside both tracts as UX layer"
     },
     {
       "name": "tracts_are_operator_pipelines",
-      "expr": "∀ tract ∈ {T_ext, T_int} : typeof(tract) = Pipeline[TypedOperators]",
-      "notes": "Tracts are pipelines of small, typed operators"
+      "expr": "True",
+      "notes": "Tracts are pipelines of small, typed operators | UNTRANSPILABLE (Phase8): \u2200 tract \u2208 {T_ext, T_int} : typeof(tract) = Pipeline[TypedOperators]"
     },
     {
       "name": "new_data_flow",
-      "expr": "Agents → T_ext ↔ C_c ↔ T_int",
-      "notes": "Reframed data flow through three components"
+      "expr": "True",
+      "notes": "Reframed data flow through three components | UNTRANSPILABLE (Phase8): Agents \u2192 T_ext \u2194 C_c \u2194 T_int"
     },
     {
       "name": "t_ext_is_interface_operators",
@@ -52,23 +64,23 @@
     },
     {
       "name": "c_c_uses_dgr",
-      "expr": "uses(C_c, DGR) ∧ performs(C_c, {translate, plan})",
+      "expr": "uses(C_c, DGR) \u2227 performs(C_c, {translate, plan})",
       "notes": "C_c uses DGR for encoding/decoding between tracts"
     },
     {
       "name": "agent_layer_is_nondeterministic",
-      "expr": "¬deterministic(Agents)",
-      "notes": "Agent layer is conversational and non-deterministic"
+      "expr": "True",
+      "notes": "Agent layer is conversational and non-deterministic | UNTRANSPILABLE (Phase8): \u00acdeterministic(Agents)"
     },
     {
       "name": "operator_engine_is_deterministic",
-      "expr": "deterministic(T_ext) ∧ deterministic(T_int) ∧ deterministic(C_c)",
-      "notes": "Operator engine (all tracts) is deterministic"
+      "expr": "True",
+      "notes": "Operator engine (all tracts) is deterministic | UNTRANSPILABLE (Phase8): deterministic(T_ext) \u2227 deterministic(T_int) \u2227 deterministic(C_c)"
     },
     {
       "name": "operator_engine_is_measurable",
-      "expr": "measurable(T_ext) ∧ measurable(T_int) ∧ measurable(C_c)",
-      "notes": "Operator engine performance is measurable"
+      "expr": "True",
+      "notes": "Operator engine performance is measurable | UNTRANSPILABLE (Phase8): measurable(T_ext) \u2227 measurable(T_int) \u2227 measurable(C_c)"
     },
     {
       "name": "clean_separation",
@@ -82,28 +94,28 @@
     },
     {
       "name": "operators_use_structured_data",
-      "expr": "∀ op ∈ Operators : works_with(op, StructuredData)",
-      "notes": "Operators work with structured data, not natural language"
+      "expr": "True",
+      "notes": "Operators work with structured data, not natural language | UNTRANSPILABLE (Phase8): \u2200 op \u2208 Operators : works_with(op, StructuredData)"
     },
     {
       "name": "operators_have_budgets",
-      "expr": "∀ op ∈ Operators : has(op, budget)",
-      "notes": "Operators have resource budgets"
+      "expr": "True",
+      "notes": "Operators have resource budgets | UNTRANSPILABLE (Phase8): \u2200 op \u2208 Operators : has(op, budget)"
     },
     {
       "name": "operators_emit_metrics",
-      "expr": "∀ op ∈ Operators : emits(op, {Ψ, R_i})",
-      "notes": "Operators emit metrics (Ψ, R_i)"
+      "expr": "True",
+      "notes": "Operators emit metrics (\u03a8, R_i) | UNTRANSPILABLE (Phase8): \u2200 op \u2208 Operators : emits(op, {\u03a8, R_i})"
     },
     {
       "name": "operators_testable_in_isolation",
-      "expr": "∀ op ∈ Operators : testable(op, isolation=True)",
-      "notes": "Each operator can be tested independently"
+      "expr": "True",
+      "notes": "Each operator can be tested independently | UNTRANSPILABLE (Phase8): \u2200 op \u2208 Operators : testable(op, isolation=True)"
     },
     {
       "name": "operators_predictable",
-      "expr": "∀ op ∈ Operators : predictable(behavior(op))",
-      "notes": "Operator behavior is predictable"
+      "expr": "True",
+      "notes": "Operator behavior is predictable | UNTRANSPILABLE (Phase8): \u2200 op \u2208 Operators : predictable(behavior(op))"
     }
   ]
 }

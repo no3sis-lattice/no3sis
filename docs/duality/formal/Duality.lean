@@ -1,6 +1,7 @@
 -- This module serves as the root of the `Duality` library.
 -- Import base module and all 62 formalized chunks from TRUE_DUAL_TRACT
 import Duality.Base
+import Duality.Transpiler
 import Duality.Chunks.Chunk01
 import Duality.Chunks.Chunk02
 import Duality.Chunks.Chunk03

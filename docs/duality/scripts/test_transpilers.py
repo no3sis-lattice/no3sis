@@ -605,7 +605,16 @@ class TestAddConstraints:
             ]
         }
 
-        templates_data = {"templates": [], "chunk_heuristics": {"default": {}}}
+        # Fix: Provide complete heuristics structure with required keys
+        templates_data = {
+            "templates": [],
+            "chunk_heuristics": {
+                "default": {
+                    "preferred_templates": [],
+                    "param_suggestions": {}
+                }
+            }
+        }
 
         updated_chunk, num_added = add_constraints_to_chunk(
             chunk_data, templates_data, target_count=2

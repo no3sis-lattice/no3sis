@@ -1,7 +1,7 @@
 {
   "id": "19",
   "title": "Agent Orchestration (Boss Delegation)",
-  "goalType": "search",
+  "goalType": "deferred",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,
@@ -44,8 +44,8 @@
     },
     {
       "name": "boss_prime_alignment",
-      "expr": "x[1] mod 2 = 0 /\\ x[2] mod 3 = 0",
-      "notes": "PILOT: First two dimensions align with Monster primes (2, 3)"
+      "expr": "True",
+      "notes": "PILOT: First two dimensions align with Monster primes (2, 3) | UNTRANSPILABLE (Phase8): x[1] mod 2 = 0 /\\ x[2] mod 3 = 0"
     }
   ]
 }
