@@ -9,6 +9,7 @@ import Duality.Lemmas
 namespace Chunk15
 open Duality
 
+-- Domain constraints
 def domainConstraints (x : X8) : Prop :=
   -- constraint: chunk_15_exists
   (True) ∧
@@ -17,9 +18,9 @@ def domainConstraints (x : X8) : Prop :=
   -- constraint: prime_based_scaling
   (scaling_law = prime_based) ∧
   -- constraint: dimension_floor_dim1
-  (dimensionFloor x.x1 1) ∧
+  (x.x1 >= 1) ∧
   -- constraint: tract_minimum_start1_end4
-  (tractMinimum x 1 4 10)
+  ((x.x1 + x.x2 + x.x3 + x.x4) >= 10)
 
 -- Decidability instance (required for computational verification)
 instance : Decidable (domainConstraints x) := by

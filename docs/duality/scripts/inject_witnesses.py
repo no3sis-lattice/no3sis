@@ -2,6 +2,7 @@
 """
 Inject MZN witnesses into Lean4 chunks and uncomment proof theorems.
 Phase 6 Track 2: Lean4 Witness Injection
+Phase 8.5.1: Updated proof tactic to handle True clauses
 """
 
 import json
@@ -57,18 +58,19 @@ def inject_witness_into_chunk(chunk_num: int, witness: List[int]) -> bool:
         return False
 
     # Pattern 2: Uncomment witness_valid theorem
+    # PHASE 8.5.1: Updated proof tactic to handle True clauses
     # Replace: -- theorem witness_valid : unitary witness ∧ domainConstraints witness := by
     #          --   constructor
     #          --   · rfl  -- unitary
     #          --   · constructor <;> omega  -- domain constraints
-    # With: (uncommented version)
+    # With: (uncommented version with improved tactic)
 
     witness_valid_pattern = r'-- theorem witness_valid : unitary witness ∧ domainConstraints witness := by\n--   constructor\n--   · rfl  -- unitary\n--   · constructor <;> omega  -- domain constraints'
     witness_valid_replacement = '''theorem witness_valid : unitary witness ∧ domainConstraints witness := by
   constructor
   · rfl  -- unitary
   · unfold domainConstraints
-    constructor <;> try (unfold dimensionFloor tractMinimum uniformityConstraint tractBalance; omega)'''
+    repeat (first | trivial | decide | omega)'''
 
     content_new = re.sub(witness_valid_pattern, witness_valid_replacement, content_new)
 

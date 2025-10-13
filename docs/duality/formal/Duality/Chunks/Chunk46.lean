@@ -9,17 +9,18 @@ import Duality.Lemmas
 namespace Chunk46
 open Duality
 
+-- Domain constraints
 def domainConstraints (x : X8) : Prop :=
   -- constraint: chunk_46_exists
   (True) ∧
   -- constraint: parameter_bounds_required
   (True) ∧
   -- constraint: dimension_floor_dim1
-  (dimensionFloor x.x1 1) ∧
+  (x.x1 >= 1) ∧
   -- constraint: tract_minimum_start1_end4
-  (tractMinimum x 1 4 10) ∧
+  ((x.x1 + x.x2 + x.x3 + x.x4) >= 10) ∧
   -- constraint: uniformity_start1_end8
-  (uniformityConstraint x 1 8 1)
+  ((x.x1 >= 1 ∧ x.x2 >= 1 ∧ x.x3 >= 1 ∧ x.x4 >= 1 ∧ x.x5 >= 1 ∧ x.x6 >= 1 ∧ x.x7 >= 1 ∧ x.x8 >= 1))
 
 -- Decidability instance (required for computational verification)
 instance : Decidable (domainConstraints x) := by
@@ -30,7 +31,10 @@ instance : Decidable (domainConstraints x) := by
 def witness : X8 := ⟨93, 1, 1, 1, 1, 1, 1, 1⟩
 
 theorem witness_valid : unitary witness ∧ domainConstraints witness := by
-  decide
+  constructor
+  · rfl  -- unitary
+  · unfold domainConstraints
+    repeat (first | trivial | decide | omega)
 
 theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
   ⟨witness, witness_valid⟩

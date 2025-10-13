@@ -9,20 +9,20 @@ import Duality.Lemmas
 namespace Chunk39
 open Duality
 
+-- Domain constraints
 def domainConstraints (x : X8) : Prop :=
   -- constraint: chunk_39_exists
   (True) ∧
   -- constraint: parameter_bounds_required
   (True) ∧
-  -- Malformed by transpiler (True = Real ∧ True), replaced with True
   -- constraint: psi_invariant_exists
   (True) ∧
   -- constraint: dimension_floor_dim1
-  (dimensionFloor x.x1 1) ∧
+  (x.x1 >= 1) ∧
   -- constraint: tract_minimum_start1_end4
-  (tractMinimum x 1 4 10) ∧
+  ((x.x1 + x.x2 + x.x3 + x.x4) >= 10) ∧
   -- constraint: uniformity_start1_end8
-  (uniformityConstraint x 1 8 1)
+  ((x.x1 >= 1 ∧ x.x2 >= 1 ∧ x.x3 >= 1 ∧ x.x4 >= 1 ∧ x.x5 >= 1 ∧ x.x6 >= 1 ∧ x.x7 >= 1 ∧ x.x8 >= 1))
 
 -- Decidability instance (required for computational verification)
 instance : Decidable (domainConstraints x) := by

@@ -9,6 +9,7 @@ import Duality.Lemmas
 namespace Chunk55
 open Duality
 
+-- Domain constraints
 def domainConstraints (x : X8) : Prop :=
   -- constraint: chunk_55_exists
   (True) ∧
@@ -17,9 +18,9 @@ def domainConstraints (x : X8) : Prop :=
   -- constraint: structure_well_formed
   (True) ∧
   -- constraint: dimension_floor_dim1
-  (dimensionFloor x.x1 1) ∧
+  (x.x1 >= 1) ∧
   -- constraint: tract_minimum_start1_end4
-  (tractMinimum x 1 4 10)
+  ((x.x1 + x.x2 + x.x3 + x.x4) >= 10)
 
 -- Decidability instance (required for computational verification)
 instance : Decidable (domainConstraints x) := by
@@ -30,7 +31,10 @@ instance : Decidable (domainConstraints x) := by
 def witness : X8 := ⟨100, 0, 0, 0, 0, 0, 0, 0⟩
 
 theorem witness_valid : unitary witness ∧ domainConstraints witness := by
-  decide
+  constructor
+  · rfl  -- unitary
+  · unfold domainConstraints
+    repeat (first | trivial | decide | omega)
 
 theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
   ⟨witness, witness_valid⟩
