@@ -14,7 +14,8 @@ def domainConstraints (x : X8) : Prop :=
   (True) ∧
   -- constraint: parameter_bounds_required
   (True) ∧
-  -- constraint: dgr_encoding_exists (malformed by transpiler, replaced with True)
+  -- Malformed by transpiler (∃ φ : GoalSpec → Vector), replaced with True
+  -- constraint: dgr_encoding_exists
   (True) ∧
   -- constraint: dimension_floor_dim1
   (dimensionFloor x.x1 1) ∧

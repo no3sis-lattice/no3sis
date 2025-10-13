@@ -14,7 +14,8 @@ def domainConstraints (x : X8) : Prop :=
   (True) ∧
   -- constraint: proof_required
   (True) ∧
-  -- constraint: dgr_encoding_exists (malformed by transpiler, replaced with True)
+  -- Malformed by transpiler (∃ φ : GoalSpec → Vector), replaced with True
+  -- constraint: dgr_encoding_exists
   (True) ∧
   -- constraint: structure_well_formed
   (True) ∧

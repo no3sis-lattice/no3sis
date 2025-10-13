@@ -14,7 +14,8 @@ def domainConstraints (x : X8) : Prop :=
   (True) ∧
   -- constraint: parameter_bounds_required
   (True) ∧
-  -- constraint: psi_invariant_exists (malformed by transpiler, replaced with True)
+  -- Malformed by transpiler (True = Real ∧ True), replaced with True
+  -- constraint: psi_invariant_exists
   (True) ∧
   -- constraint: dimension_floor_dim1
   (dimensionFloor x.x1 1) ∧
