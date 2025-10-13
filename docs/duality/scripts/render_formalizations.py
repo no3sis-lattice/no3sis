@@ -2,31 +2,20 @@
 """
 Render MiniZinc (.mzn) and Lean4 (.lean) files from a chunk constraints JSON.
 
+Phase 6b: Unified with real transpiler logic from transpile_to_lean.py
+Phase 6b Hotfix: Support base import mode for existing Duality project
+
 Usage:
   python scripts/duality/render_formalizations.py path/to/chunk-NN.constraints.json
+  python scripts/duality/render_formalizations.py path/to/chunk-NN.constraints.json --use-base-imports
 """
 from __future__ import annotations
 import argparse, json, re
 from pathlib import Path
 
-MZN_TPL = (Path(__file__).parent.parent / "templates" / "chunk.mzn").read_text()
-LEAN_TPL = (Path(__file__).parent.parent / "templates" / "chunk.lean").read_text()
-
-def render_constraints_to_mzn(constraints: list[dict]) -> str:
-    # Naive passthrough: assume expr contains valid MiniZinc fragments
-    lines = []
-    for c in constraints:
-        lines.append(f"% constraint: {c.get('name','')}")
-        lines.append(f"constraint {c['expr']};")
-    return "\n".join(lines)
-
-def render_constraints_to_lean(constraints: list[dict]) -> str:
-    # Naive placeholder: join as True ∧ True ... for now
-    if not constraints:
-        return "True"
-    props = " ∧ ".join([ "(" + (c["expr"]) + ")" for c in constraints ])
-    # In practice, translate DSL to Lean propositions here.
-    return props
+# Import real transpilers (Phase 6b unification)
+from transpile_to_mzn import generate_mzn_from_json
+from transpile_to_lean import generate_lean_from_json
 
 def main():
     ap = argparse.ArgumentParser(description="Render MiniZinc and Lean4 files from JSON constraints")
@@ -37,26 +26,17 @@ def main():
                     help="Also write to chunks/ directory for reference")
     ap.add_argument("--force", action="store_true",
                     help="Overwrite existing files (default: preserve existing Lean proofs)")
+    ap.add_argument("--use-base-imports", action="store_true",
+                    help="Generate Lean with Duality.Base imports (for existing project) instead of inline definitions")
     args = ap.parse_args()
 
+    # Load JSON data
     data = json.loads(args.json_path.read_text())
-    nn = data["id"]
-    scale = data.get("parameters", {}).get("scaleN", 100)
-    primes = data.get("parameters", {}).get("monsterPrimes", [2,3,5,7,11,13,17,19])
+    chunk_id = data["id"]
 
-    mzn_constraints = render_constraints_to_mzn(data["constraints"])
-    lean_constraints = render_constraints_to_lean(data["constraints"])
-
-    mzn = (MZN_TPL
-           .replace("{{SCALE_N}}", str(scale))
-           .replace("{{MONSTER_PRIME_SET}}", ", ".join(str(p) for p in primes))
-           .replace("{{CONSTRAINTS}}", mzn_constraints or "% none")
-           .replace("{{OBJECTIVE}}", "% none"))
-
-    lean = (LEAN_TPL
-            .replace("ChunkNN", f"Chunk{nn}")
-            .replace("{{SCALE_N}}", str(scale))
-            .replace("{{DOMAIN_CONSTRAINTS}}", lean_constraints))
+    # Generate using real transpilers (Phase 6b)
+    mzn_content = generate_mzn_from_json(data)
+    lean_content = generate_lean_from_json(data, use_base_imports=args.use_base_imports)
 
     # Determine output directory
     if args.output_dir:
@@ -69,27 +49,27 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Write to formal/ directory (primary output)
-    lean_path = out_dir / f"Chunk{nn}.lean"
-    mzn_path = out_dir / f"Chunk{nn}.mzn"
+    lean_path = out_dir / f"Chunk{chunk_id}.lean"
+    mzn_path = out_dir / f"Chunk{chunk_id}.mzn"
 
     # Always write MZN (constraint changes)
-    mzn_path.write_text(mzn)
+    mzn_path.write_text(mzn_content)
     print(f"Rendered: {mzn_path}")
 
     # Preserve existing Lean proofs unless --force
     if lean_path.exists() and not args.force:
         print(f"Preserved existing Lean proof: {lean_path} (use --force to overwrite)")
     else:
-        lean_path.write_text(lean)
+        lean_path.write_text(lean_content)
         print(f"Rendered: {lean_path}")
 
     # Optionally also write to chunks/ for reference
     if args.also_to_chunks:
         chunks_dir = args.json_path.parent
-        (chunks_dir / f"chunk-{nn}.mzn").write_text(mzn)
-        (chunks_dir / f"chunk-{nn}.lean").write_text(lean)
-        print(f"Also copied to: {chunks_dir / f'chunk-{nn}.mzn'}")
-        print(f"Also copied to: {chunks_dir / f'chunk-{nn}.lean'}")
+        (chunks_dir / f"chunk-{chunk_id}.mzn").write_text(mzn_content)
+        (chunks_dir / f"chunk-{chunk_id}.lean").write_text(lean_content)
+        print(f"Also copied to: {chunks_dir / f'chunk-{chunk_id}.mzn'}")
+        print(f"Also copied to: {chunks_dir / f'chunk-{chunk_id}.lean'}")
 
 if __name__ == "__main__":
     main()

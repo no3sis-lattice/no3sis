@@ -1,0 +1,42 @@
+# Phase 6b: Unified Lean Generation + Equivalence Lemmas
+
+## Task 1: Wire render_formalizations.py to Real Transpiler [PRIORITY:HIGH]
+- [ ] Import transpile_to_lean functions (translate_expr_to_lean, generate_lean_from_json)
+- [ ] Replace render_constraints_to_lean placeholder with real transpiler call
+- [ ] Update template logic to use generate_lean_from_json
+- [ ] Test: Regenerate Chunk06 and verify identical output
+- [ ] Test: Run with --force flag on all pilots
+
+## Task 2: Add Equivalence Lemmas to Pilot Chunks [PRIORITY:HIGH]
+- [ ] Chunk06: Add jsonSpec_equiv_domain theorem stub
+- [ ] Chunk09: Add jsonSpec_equiv_domain theorem stub
+- [ ] Chunk19: Add jsonSpec_equiv_domain theorem stub
+- [ ] Validate: lake build Duality.Chunks.Chunk06
+- [ ] Validate: lake build Duality.Chunks.Chunk09
+- [ ] Validate: lake build Duality.Chunks.Chunk19
+
+## Task 3: Create PilotEquivalence Test Module [PRIORITY:MEDIUM]
+- [ ] Create Tests/PilotEquivalence.lean file
+- [ ] Add imports for Chunk06, Chunk09, Chunk19
+- [ ] Add test: verify no 'sum' artifacts in constraints
+- [ ] Add test: verify no 'forall' artifacts in constraints
+- [ ] Add test: verify witness proofs compile
+- [ ] Validate: lake build Duality.Tests.PilotEquivalence
+
+## Task 4: Extend Transpiler Unit Tests [PRIORITY:MEDIUM]
+- [ ] Add test_forall_two_var_with_complex_body
+- [ ] Add test_abs_with_int_cast_in_complex_expr
+- [ ] Add test_count_with_complex_predicate
+- [ ] Validate: python3 run_tests.py
+- [ ] Validate: pytest test_transpilers.py -v
+
+## Task 5: Review CI Workflow [PRIORITY:LOW]
+- [ ] Verify pilot chunks in strict mode (lines 93-94)
+- [ ] Add PilotEquivalence to validate-lean job
+- [ ] Document any needed changes
+
+## Task 6: Generate PHASE6B_RESULTS.md [PRIORITY:HIGH]
+- [ ] Collect metrics: compilation status, test results
+- [ ] Document: transpiler coverage, proof count
+- [ ] Generate: final validation report with all measurements
+- [ ] Include: before/after comparison for render_formalizations.py

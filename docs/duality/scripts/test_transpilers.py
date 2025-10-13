@@ -2,6 +2,7 @@
 """
 Unit tests for Phase 3 transpiler scripts.
 Tests TDD principles: operator mappings, edge cases, and regression tests.
+Phase 6b: Extended with additional complexity tests
 
 Usage:
   pytest test_transpilers.py -v
@@ -332,6 +333,80 @@ class TestTranspileToLean:
         assert "x.x3 + x.x4 + x.x5" in result
         assert "∧" in result
         assert "∨" in result
+
+    # PHASE 6b: New test cases
+
+    def test_forall_two_var_with_complex_body(self):
+        """
+        PHASE 6b: Test forall(i,j) with nested boolean operations in body.
+
+        Verifies correct expansion when body contains compound expressions.
+        """
+        expr = "forall(i, j in 1..2 where i < j)((x[i] >= 5 && x[j] <= 20) || x[i] + x[j] >= 15)"
+        result = translate_expr_to_lean(expr)
+
+        # Should expand forall to single pair (1,2)
+        assert "x.x1" in result
+        assert "x.x2" in result
+
+        # Body should be present with proper operators
+        assert "∧" in result  # From &&
+        assert "∨" in result  # From ||
+
+        # Compound operations preserved
+        assert ">= 5" in result
+        assert "<= 20" in result
+        assert ">= 15" in result
+
+        # No forall left over
+        assert "forall" not in result
+
+    def test_abs_with_int_cast_in_complex_expr(self):
+        """
+        PHASE 6b: Test abs() within larger expression with multiple operators.
+
+        Verifies Int casting works correctly when abs is part of compound constraint.
+        """
+        expr = "x[1] >= 10 && abs(x[1] - x[2]) <= 5 && x[3] <= 50"
+        result = translate_expr_to_lean(expr)
+
+        # abs should be expanded with Int casts
+        assert "Int" in result
+        assert "abs" not in result
+
+        # All three parts of conjunction present
+        assert "x.x1 >= 10" in result
+        assert "x.x3 <= 50" in result
+
+        # Bidirectional constraint from abs
+        assert result.count("∧") >= 3  # At least 3 conjunctions (x1>=10 ∧ abs_part1 ∧ abs_part2 ∧ x3<=50)
+
+    def test_count_with_complex_predicate(self):
+        """
+        PHASE 6b: Test count() with compound boolean conditions.
+
+        Verifies count expansion handles nested boolean logic correctly.
+        """
+        expr = "count(i in 1..4)(x[i] > 5 && x[i] < 20) >= 2"
+        result = translate_expr_to_lean(expr)
+
+        # count should be expanded to List.sum/List.map
+        assert "List.sum" in result
+        assert "List.map" in result
+        assert "count" not in result
+
+        # Predicate with compound condition
+        assert "if" in result
+        assert "then 1 else 0" in result
+
+        # All dimensions present
+        assert "x.x1" in result
+        assert "x.x2" in result
+        assert "x.x3" in result
+        assert "x.x4" in result
+
+        # Comparison operator preserved
+        assert ">= 2" in result
 
     def test_generate_lean_from_json(self):
         """Test full JSON → Lean4 generation."""

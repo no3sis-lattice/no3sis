@@ -1,1 +1,4 @@
 redis
+pytest>=8.0
+pytest-cov
+pygments>=2.17,<2.18
