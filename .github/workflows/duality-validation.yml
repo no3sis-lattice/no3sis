@@ -8,6 +8,9 @@ on:
     paths:
       - 'docs/duality/**'
 
+env:
+  MINIZINC_VERSION: "2.8.7"
+
 jobs:
   validate-minizinc:
     name: Validate MiniZinc Models
@@ -18,10 +21,10 @@ jobs:
       - name: Cache MiniZinc
         uses: actions/cache@v4
         with:
-          path: ~/.local/minizinc/2.8.7
-          key: minizinc-2.8.7-${{ runner.os }}
+          path: ~/.local/minizinc/${{ env.MINIZINC_VERSION }}
+          key: minizinc-${{ env.MINIZINC_VERSION }}-${{ runner.os }}
 
-      - name: Install MiniZinc 2.8.7
+      - name: Install MiniZinc ${{ env.MINIZINC_VERSION }}
         run: bash docs/duality/scripts/install_minizinc.sh
 
       - name: Verify MiniZinc Installation
@@ -141,10 +144,10 @@ jobs:
       - name: Cache MiniZinc
         uses: actions/cache@v4
         with:
-          path: ~/.local/minizinc/2.8.7
-          key: minizinc-2.8.7-${{ runner.os }}
+          path: ~/.local/minizinc/${{ env.MINIZINC_VERSION }}
+          key: minizinc-${{ env.MINIZINC_VERSION }}-${{ runner.os }}
 
-      - name: Install MiniZinc 2.8.7
+      - name: Install MiniZinc ${{ env.MINIZINC_VERSION }}
         run: bash docs/duality/scripts/install_minizinc.sh
 
       - name: Verify MiniZinc Installation

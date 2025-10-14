@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Robust MiniZinc installer for CI and local dev
-# - Downloads a pinned release
+# - Downloads a pinned release with dual-URL fallback
 # - Verifies archive integrity (and optional SHA256)
 # - Installs into $HOME/.local/minizinc/<version> and exports PATH
 # - Idempotent: skips if exact version already installed
@@ -8,7 +8,14 @@ set -euo pipefail
 
 VER="${MINIZINC_VERSION:-2.8.7}"
 TARBALL="MiniZincIDE-${VER}-bundle-linux-x86_64.tgz"
-URL="https://github.com/MiniZinc/MiniZincIDE/releases/download/${VER}/${TARBALL}"
+
+# Primary: Official MiniZinc releases
+# Fallback: Synapse repo mirror (for CDN outages)
+URLS=(
+  "https://github.com/MiniZinc/MiniZincIDE/releases/download/${VER}/${TARBALL}"
+  "https://github.com/noesis-lattice/synapse/releases/download/deps-v1/${TARBALL}"
+)
+
 INSTALL_BASE="${HOME}/.local/minizinc"
 PREFIX="${INSTALL_BASE}/${VER}"
 BIN_LINK_DIR="${HOME}/.local/bin"
@@ -29,11 +36,28 @@ mkdir -p "${TMP}"
 trap 'rm -rf "${TMP}"' EXIT
 
 echo "⬇️  Downloading MiniZinc ${VER} for linux-x86_64"
-# Use curl with retries; fall back to wget if curl missing
-if command -v curl >/dev/null 2>&1; then
-  curl -fsSL --retry 5 --retry-delay 2 -o "${TMP}/${TARBALL}" "${URL}"
-else
-  wget -q -O "${TMP}/${TARBALL}" "${URL}"
+
+# Try each URL in sequence with retries
+DOWNLOAD_SUCCESS=false
+for url in "${URLS[@]}"; do
+  echo "  Trying: ${url}"
+  if command -v curl >/dev/null 2>&1; then
+    if curl -fsSL --retry 3 --retry-delay 2 -o "${TMP}/${TARBALL}" "${url}" 2>/dev/null; then
+      DOWNLOAD_SUCCESS=true
+      break
+    fi
+  else
+    if wget -q -O "${TMP}/${TARBALL}" "${url}" 2>/dev/null; then
+      DOWNLOAD_SUCCESS=true
+      break
+    fi
+  fi
+  echo "  ❌ Failed, trying next mirror..."
+done
+
+if [[ "${DOWNLOAD_SUCCESS}" != "true" ]]; then
+  echo "❌ All download sources failed"
+  exit 1
 fi
 
 # Basic existence check
