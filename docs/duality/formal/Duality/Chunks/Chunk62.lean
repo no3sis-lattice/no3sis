@@ -23,9 +23,8 @@ def domainConstraints (x : X8) : Prop :=
   ((List.sum (List.map (fun xi => if xi > 0 then 1 else 0) [x.x5, x.x6, x.x7, x.x8])) <= 5)
 
 -- Decidability instance (required for computational verification)
-instance (x : X8) : Decidable (domainConstraints x) := by
-  unfold domainConstraints
-  infer_instance
+instance (x : X8) : Decidable (domainConstraints x) :=
+  inferInstanceAs (Decidable (domainConstraints x))
 
 -- Witness (to be injected from MiniZinc solution)
 -- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩

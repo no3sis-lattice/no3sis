@@ -145,10 +145,16 @@ def sanitize_meta_constructs_lean(expr: str) -> str:
         r'\boutput\s*\([^)]*\)',  # Added
         r'\bdepth\s*\([^)]*\)',   # Added
         r'\bperformance\s*\([^)]*\)',  # Added
+        r'\bencoding_method\s*\([^)]*\)',  # Added
+        r'\boptimizable\s*\([^)]*\)',  # Added
+        r'\btranslate\s*\([^)]*\)',  # Added (not translates)
     ]
 
-    for pattern in meta_predicates:
-        result = re.sub(pattern, 'True', result)
+    # Apply meta predicate replacements multiple times to handle nested cases
+    # e.g., defines(X, depth(...)) needs depth replaced first
+    for _ in range(3):  # Multiple passes for nested predicates
+        for pattern in meta_predicates:
+            result = re.sub(pattern, 'True', result)
 
     # Replace architectural identifiers (not defined in Base.lean)
     # These appear in expressions like "Agents = UX_Layer" or "T_ext = Pipeline[...]"
@@ -192,6 +198,10 @@ def sanitize_meta_constructs_lean(expr: str) -> str:
     # Ψ (Psi), φ (phi), etc.
     result = re.sub(r'[ΨΦφψ](_[a-z]+)?', 'True', result)
 
+    # Clean up arrow chains (e.g., "True → NLP_Op → EncoderOp → ...")
+    # Replace any sequence with arrows between identifiers with True
+    result = re.sub(r'\b\w+\s*→[^∧∨)]+', 'True', result)
+
     # Clean up artifacts from nested parentheses (e.g., "True) →" from measures(...))
     result = re.sub(r'True\s*\)\s*[→∧∨]', 'True ∧', result)
 
@@ -199,9 +209,24 @@ def sanitize_meta_constructs_lean(expr: str) -> str:
     result = re.sub(r'\b\w+\s*=\s*True\b', 'True', result)
     result = re.sub(r'\bTrue\s*=\s*\w+\b', 'True', result)
 
+    # Clean up artifacts from incomplete predicate matching
+    # e.g., "defines(X, depth(Y))" becomes "defines(X, True).Z)" where extra ) and .Z remain
+    # Pattern: True followed by .[word]) - remove the stray parts
+    result = re.sub(r'True\.[^)]*\)', 'True', result)
+    # Pattern: True) where True is followed directly by ) without (
+    result = re.sub(r'True\s*\)', 'True', result)
+
     # Clean up: True && True → True, (True) → True
     result = re.sub(r'True\s*[∧&]{1,2}\s*True', 'True', result)
     result = re.sub(r'\(\s*True\s*\)', 'True', result)
+
+    # Clean up extra closing parens in sequences like "(True)) ∧"
+    # Look for patterns where we have (expr)) with an extra closing paren
+    for _ in range(5):  # Repeat to handle deeply nested cases
+        # Pattern: close-paren followed by another close-paren (with optional whitespace)
+        result = re.sub(r'\)\s*\)\s*([∧∨])', r') \1', result)
+        # Also handle just )) without following operator
+        result = re.sub(r'\)\s*\)(?!\s*[∧∨])', ')', result)
 
     return result
 
@@ -414,9 +439,8 @@ def generate_lean_decidability() -> List[str]:
     """Generate decidability instance."""
     lines = [
         "-- Decidability instance (required for computational verification)",
-        "instance (x : X8) : Decidable (domainConstraints x) := by",
-        "  unfold domainConstraints",
-        "  infer_instance",
+        "instance (x : X8) : Decidable (domainConstraints x) :=",
+        "  inferInstanceAs (Decidable (domainConstraints x))",
         "",
     ]
     return lines

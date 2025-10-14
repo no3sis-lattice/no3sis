@@ -18,7 +18,7 @@ def domainConstraints (x : X8) : Prop :=
   -- constraint: dual_tract_achieves_both
   (True) ∧
   -- constraint: complete_pipeline_stages
-  (True → NLP_Op → EncoderOp → PlannerOp → True → SynthesizerOp → RenderOp) ∧
+  (True) ∧
   -- constraint: nlp_op_produces_goalspec
   (True) ∧
   -- constraint: goalspec_has_domain
@@ -26,7 +26,7 @@ def domainConstraints (x : X8) : Prop :=
   -- constraint: goalspec_has_target_psi
   (True) ∧
   -- constraint: encoder_op_produces_phi_g
-  (True ∧ encoding_method(True) ∧
+  (True) ∧
   -- constraint: planner_op_produces_plan
   (True) ∧
   -- constraint: plan_specifies_layers
@@ -42,12 +42,11 @@ def domainConstraints (x : X8) : Prop :=
   -- constraint: system_measurable
   (True) ∧
   -- constraint: system_optimizable
-  (optimizable(System))
+  (True)
 
 -- Decidability instance (required for computational verification)
-instance (x : X8) : Decidable (domainConstraints x) := by
-  unfold domainConstraints
-  infer_instance
+instance (x : X8) : Decidable (domainConstraints x) :=
+  inferInstanceAs (Decidable (domainConstraints x))
 
 -- Witness (to be injected from MiniZinc solution)
 -- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩

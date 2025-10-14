@@ -22,9 +22,9 @@ def domainConstraints (x : X8) : Prop :=
   -- constraint: pneuma_guides_behavior
   (True) ∧
   -- constraint: prime_hierarchy_defines_depth
-  (True)) ∧
+  (True) ∧
   -- constraint: dgr_enables_cc_translation
-  (True)) ∧
+  (True) ∧
   -- constraint: external_tract_operators
   (True) ∧
   -- constraint: corpus_callosum_operators
@@ -67,9 +67,8 @@ def domainConstraints (x : X8) : Prop :=
   (True)
 
 -- Decidability instance (required for computational verification)
-instance (x : X8) : Decidable (domainConstraints x) := by
-  unfold domainConstraints
-  infer_instance
+instance (x : X8) : Decidable (domainConstraints x) :=
+  inferInstanceAs (Decidable (domainConstraints x))
 
 -- Witness (to be injected from MiniZinc solution)
 -- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩
