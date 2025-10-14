@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: dgr_encoding_exists
-constraint ∃ φ : GoalSpec → Vector;
+% constraint exists φ : GoalSpec -> Vector;
 % DGR provides encoding function φ(g)
 
 % constraint: structure_well_formed

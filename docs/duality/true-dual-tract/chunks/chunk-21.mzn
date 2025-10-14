@@ -21,7 +21,8 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: operator_contract_required
-constraint ∀ op  in  Operators : true;
+%constraint ∀ op  in  Operators : true;
+constraint true;
 % All operators must have defined contracts
 
 % constraint: tract_minimum_start1_end4

@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires formal verification in Lean4
 
 % constraint: prime_based_scaling
-constraint scaling_law = prime_based;
+% constraint scaling_law = prime_based;
 % System scales via prime-based hierarchy
 
 % constraint: dimension_floor_dim1

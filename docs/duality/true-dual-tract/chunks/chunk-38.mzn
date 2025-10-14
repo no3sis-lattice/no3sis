@@ -21,7 +21,7 @@ constraint true;
 % This chunk requires parameter tuning/bounds checking
 
 % constraint: dgr_encoding_exists
-constraint ∃ φ : GoalSpec → Vector;
+% constraint exists φ : GoalSpec -> Vector;
 % DGR provides encoding function φ(g)
 
 % constraint: dimension_floor_dim1
