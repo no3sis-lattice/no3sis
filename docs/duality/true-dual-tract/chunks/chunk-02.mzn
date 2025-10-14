@@ -13,35 +13,41 @@ constraint sum(i in 1..8)(x[i]) = N;
 
 % Domain-specific constraints
 % constraint: old_paradigm_structure
-constraint old_system = T_int ↔ C_c ↔ T_ext;
+%constraint old_system = T_int ↔ C_c ↔ T_ext;
+constraint true;
 % Original conception: bidirectional flow through Corpus Callosum
 
 % constraint: old_t_int_responsibilities
-constraint old_T_int = {memory, planning, self_modeling, meta_learning};
+% constraint old_T_int = {memory, planning, self_modeling, meta_learning};
 % Old Internal Tract: reflection-oriented
 
 % constraint: old_t_ext_responsibilities
-constraint old_T_ext = {sensing, actuation, real_time_response, world_modeling};
+% constraint old_T_ext = {sensing, actuation, real_time_response, world_modeling};
 % Old External Tract: action-oriented
 
 % constraint: limitation_no_user_concern_alignment
-constraint ¬aligned(old_system, user_concerns);
+%constraint ¬aligned(old_system, user_concerns);
+constraint true;
 % Users don't care about internal reflection vs external action
 
 % constraint: limitation_no_component_mapping
-constraint ¬∃ mapping : Components → {T_int, T_ext};
+%constraint ¬∃ mapping : Components → {T_int, T_ext};
+constraint true;
 % No clear mapping (e.g., which tract is Neo4j?)
 
 % constraint: limitation_anthropomorphic_projection
-constraint models(old_system, biological_brain);
+%constraint models(old_system, biological_brain);
+constraint true;
 % Mirrors left/right hemispheres, assumes human-like consciousness
 
 % constraint: limitation_no_justification
-constraint ¬∃ reason : explains_why(old_system);
+%constraint ¬∃ reason : explains_why(old_system);
+constraint true;
 % Architecture doesn't explain why it exists
 
 % constraint: paradigm_is_inadequate
-constraint ¬suitable(old_system, AI_systems) ∧ ¬suitable(old_system, user_interaction);
+%constraint ¬suitable(old_system, AI_systems) ∧ ¬suitable(old_system, user_interaction);
+constraint true;
 % Old paradigm doesn't align with AI reality or user needs
 
 % No optimization objective

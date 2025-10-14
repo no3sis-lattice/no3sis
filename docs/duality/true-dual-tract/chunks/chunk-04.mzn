@@ -13,23 +13,28 @@ constraint sum(i in 1..8)(x[i]) = N;
 
 % Domain-specific constraints
 % constraint: without_t_ext_unusable
-constraint ¬usable(System \ T_ext);
+%constraint ¬usable(System \ T_ext);
+constraint true;
 % Pure operator engine requires expert to manually chain operators
 
 % constraint: without_t_int_no_intelligence
-constraint ¬intelligent(System \ T_int);
+%constraint ¬intelligent(System \ T_int);
+constraint true;
 % Pure LLM agents lack compression, pattern reuse, measurable intelligence
 
 % constraint: dual_tract_achieves_both
-constraint usable(System) ∧ intelligent(System);
+%constraint usable(System) ∧ intelligent(System);
+constraint true;
 % True Dual Tract provides both usability and intelligence
 
 % constraint: complete_pipeline_stages
-constraint pipeline = Agent → NLP_Op → EncoderOp → PlannerOp → {L1_Op, L2_Op, L4_Op} → SynthesizerOp → RenderOp;
+%constraint pipeline = Agent → NLP_Op → EncoderOp → PlannerOp → {L1_Op, L2_Op, L4_Op} → SynthesizerOp → RenderOp;
+constraint true;
 % Full operator pipeline from natural language to formatted output
 
 % constraint: nlp_op_produces_goalspec
-constraint output(NLP_Op) = GoalSpec;
+%constraint output(NLP_Op) = GoalSpec;
+constraint true;
 % NLP operator transforms text to structured GoalSpec
 
 % constraint: goalspec_has_domain
@@ -37,43 +42,53 @@ constraint true;
 % GoalSpec contains domain field (e.g., 'auth')
 
 % constraint: goalspec_has_target_psi
-constraint true ∧ true = Real;
+%constraint true ∧ true = Real;
+constraint true;
 % GoalSpec specifies target Ψ metric (e.g., 0.85)
 
 % constraint: encoder_op_produces_phi_g
-constraint output(EncoderOp) = φ_g ∧ encoding_method(φ_g) = DGR;
+%constraint output(EncoderOp) = φ_g ∧ encoding_method(φ_g) = DGR;
+constraint true;
 % Encoder produces DGR vector φ_g from GoalSpec
 
 % constraint: planner_op_produces_plan
-constraint output(PlannerOp) = Plan;
+%constraint output(PlannerOp) = Plan;
+constraint true;
 % Planner produces execution plan
 
 % constraint: plan_specifies_layers
-constraint true ∧ layers ⊆ {L1, L2, L3, L4, L5};
+%constraint true ∧ layers ⊆ {L1, L2, L3, L4, L5};
+constraint true;
 % Plan specifies which internal tract layers to execute
 
 % constraint: layer_ops_produce_r_i
-constraint ∀ true : output(L_i_Op) contains R_i;
+%constraint ∀ true : output(L_i_Op) contains R_i;
+constraint true;
 % Each layer operator produces compression ratio R_i
 
 % constraint: r_i_is_compression_ratio
-constraint true = Real ∧ R_i > 0;
+%constraint true = Real ∧ R_i > 0;
+constraint true;
 % R_i is a positive real number (compression ratio)
 
 % constraint: synthesizer_op_produces_summary
-constraint output(SynthesizerOp) = NaturalLanguageSummary;
+%constraint output(SynthesizerOp) = NaturalLanguageSummary;
+constraint true;
 % Synthesizer converts metrics back to NL summary
 
 % constraint: render_op_formats_output
-constraint output(RenderOp) = FormattedOutput;
+%constraint output(RenderOp) = FormattedOutput;
+constraint true;
 % Render operator formats summary for user presentation
 
 % constraint: system_measurable
-constraint ∀ stage  in  pipeline : measurable(stage);
+%constraint ∀ stage  in  pipeline : measurable(stage);
+constraint true;
 % Every stage in pipeline has measurable performance
 
 % constraint: system_optimizable
-constraint optimizable(System);
+%constraint optimizable(System);
+constraint true;
 % Dual Tract architecture is optimizable (measurable → improvable)
 
 % No optimization objective

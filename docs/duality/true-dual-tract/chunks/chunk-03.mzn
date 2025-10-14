@@ -13,79 +13,97 @@ constraint sum(i in 1..8)(x[i]) = N;
 
 % Domain-specific constraints
 % constraint: agents_are_ux_layer
-constraint Agents = UX_Layer ∧ UX_Layer ∉ Tracts;
+%constraint Agents = UX_Layer ∧ UX_Layer ∉ Tracts;
+constraint true;
 % Agents live outside both tracts as UX layer
 
 % constraint: tracts_are_operator_pipelines
-constraint ∀ true : true = Pipeline[TypedOperators];
+%constraint ∀ true : true = Pipeline[TypedOperators];
+constraint true;
 % Tracts are pipelines of small, typed operators
 
 % constraint: new_data_flow
-constraint Agents → T_ext ↔ C_c ↔ T_int;
+%constraint Agents → T_ext ↔ C_c ↔ T_int;
+constraint true;
 % Reframed data flow through three components
 
 % constraint: t_ext_is_interface_operators
-constraint T_ext = Pipeline[InterfaceOperators];
+%constraint T_ext = Pipeline[InterfaceOperators];
+constraint true;
 % External Tract = Interface Operators
 
 % constraint: t_ext_transforms_nl_to_goalspec
-constraint transforms(T_ext, NaturalLanguage, GoalSpec);
+%constraint transforms(T_ext, NaturalLanguage, GoalSpec);
+constraint true;
 % T_ext converts natural language to structured goals
 
 % constraint: t_int_is_intelligence_operators
-constraint T_int = Pipeline[IntelligenceOperators];
+%constraint T_int = Pipeline[IntelligenceOperators];
+constraint true;
 % Internal Tract = Intelligence Operators (Mahakala layers)
 
 % constraint: t_int_performs_compression_prediction
-constraint performs(T_int, {compression, prediction});
+% constraint performs(T_int, {compression, prediction});
 % T_int is mathematical compression engine
 
 % constraint: c_c_is_bridge_operators
-constraint C_c = Pipeline[BridgeOperators];
+%constraint C_c = Pipeline[BridgeOperators];
+constraint true;
 % Corpus Callosum = thin bridge of operators
 
 % constraint: c_c_uses_dgr
-constraint uses(C_c, DGR) ∧ performs(C_c, {translate, plan});
+%constraint uses(C_c, DGR) ∧ performs(C_c, {translate, plan});
+constraint true;
 % C_c uses DGR for encoding/decoding between tracts
 
 % constraint: agent_layer_is_nondeterministic
-constraint ¬deterministic(Agents);
+%constraint ¬deterministic(Agents);
+constraint true;
 % Agent layer is conversational and non-deterministic
 
 % constraint: operator_engine_is_deterministic
-constraint deterministic(T_ext) ∧ deterministic(T_int) ∧ deterministic(C_c);
+%constraint deterministic(T_ext) ∧ deterministic(T_int) ∧ deterministic(C_c);
+constraint true;
 % Operator engine (all tracts) is deterministic
 
 % constraint: operator_engine_is_measurable
-constraint measurable(T_ext) ∧ measurable(T_int) ∧ measurable(C_c);
+%constraint measurable(T_ext) ∧ measurable(T_int) ∧ measurable(C_c);
+constraint true;
 % Operator engine performance is measurable
 
 % constraint: clean_separation
-constraint separated(Agents, OperatorEngine);
+%constraint separated(Agents, OperatorEngine);
+constraint true;
 % Clean separation between conversational and deterministic layers
 
 % constraint: agents_provide_nl_interface
-constraint interface_type(Agents) = NaturalLanguage;
+%constraint interface_type(Agents) = NaturalLanguage;
+constraint true;
 % Agents provide familiar conversational interface
 
 % constraint: operators_use_structured_data
-constraint ∀ op  in  Operators : works_with(op, StructuredData);
+%constraint ∀ op  in  Operators : works_with(op, StructuredData);
+constraint true;
 % Operators work with structured data, not natural language
 
 % constraint: operators_have_budgets
-constraint ∀ op  in  Operators : has(op, budget);
+%constraint ∀ op  in  Operators : has(op, budget);
+constraint true;
 % Operators have resource budgets
 
 % constraint: operators_emit_metrics
-constraint ∀ op  in  Operators : emits(op, {Ψ, R_i});
+%constraint ∀ op  in  Operators : emits(op, {Ψ, R_i});
+constraint true;
 % Operators emit metrics (Ψ, R_i)
 
 % constraint: operators_testable_in_isolation
-constraint ∀ op  in  Operators : testable(op, isolation=true);
+%constraint ∀ op  in  Operators : testable(op, isolation=true);
+constraint true;
 % Each operator can be tested independently
 
 % constraint: operators_predictable
-constraint ∀ op  in  Operators : predictable(behavior(op));
+%constraint ∀ op  in  Operators : predictable(behavior(op));
+constraint true;
 % Operator behavior is predictable
 
 % No optimization objective

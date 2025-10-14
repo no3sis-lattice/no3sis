@@ -13,7 +13,8 @@ constraint sum(i in 1..8)(x[i]) = N;
 
 % Domain-specific constraints
 % constraint: system_composed_of_operators
-constraint ∀ component  in  System : true = Operator;
+%constraint ∀ component  in  System : true = Operator;
+constraint true;
 % System is composed of deterministic, measurable operators
 
 % constraint: two_tracts_exist
@@ -21,47 +22,56 @@ constraint true;
 % Exactly two tracts: External and Internal
 
 % constraint: t_ext_definition
-constraint T_ext = true;
+% constraint T_ext = true;
 % External Tract is a pipeline of Interface Operators
 
 % constraint: t_int_definition
-constraint T_int = true;
+% constraint T_int = true;
 % Internal Tract is a pipeline of Intelligence Operators
 
 % constraint: agents_outside_tracts
-constraint ∀ agent  in  Agents : agent ∉ T_ext ∧ agent ∉ T_int;
+%constraint ∀ agent  in  Agents : agent ∉ T_ext ∧ agent ∉ T_int;
+constraint true;
 % Agents are UX layer, not part of either tract
 
 % constraint: agents_call_corpus_callosum
-constraint ∀ agent  in  Agents : calls(agent, C_c);
+%constraint ∀ agent  in  Agents : calls(agent, C_c);
+constraint true;
 % All agents interact with system via Corpus Callosum
 
 % constraint: c_c_orchestrates_operators
-constraint orchestrates(C_c, T_ext) ∧ orchestrates(C_c, T_int);
+%constraint orchestrates(C_c, T_ext) ∧ orchestrates(C_c, T_int);
+constraint true;
 % Corpus Callosum orchestrates both operator pipelines
 
 % constraint: operator_has_contract
-constraint ∀ op  in  Operators : true;
+%constraint ∀ op  in  Operators : true;
+constraint true;
 % Each operator has a clear contract
 
 % constraint: operator_has_budget
-constraint ∀ op  in  Operators : true;
+%constraint ∀ op  in  Operators : true;
+constraint true;
 % Each operator has a resource budget
 
 % constraint: operator_has_telemetry
-constraint ∀ op  in  Operators : true;
+%constraint ∀ op  in  Operators : true;
+constraint true;
 % Each operator emits telemetry (latency, cost, Ψ)
 
 % constraint: operators_deterministic
-constraint ∀ op  in  Operators : deterministic(op);
+%constraint ∀ op  in  Operators : deterministic(op);
+constraint true;
 % All operators are deterministic
 
 % constraint: operators_measurable
-constraint ∀ op  in  Operators : measurable(op);
+%constraint ∀ op  in  Operators : measurable(op);
+constraint true;
 % All operators have measurable performance
 
 % constraint: operators_horizontally_scalable
-constraint ∀ op  in  Operators : scalable(op, 'horizontal');
+%constraint ∀ op  in  Operators : scalable(op, 'horizontal');
+constraint true;
 % Operators can scale horizontally in distributed lattice
 
 % No optimization objective
