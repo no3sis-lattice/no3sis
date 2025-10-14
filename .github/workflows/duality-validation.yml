@@ -196,7 +196,7 @@ jobs:
           for chunk in 06 09 19; do
             echo "Regenerating Chunk $chunk..."
             python3 scripts/render_formalizations.py \
-              --chunk $chunk \
+              true-dual-tract/chunks/chunk-${chunk}.constraints.json \
               --use-base-imports \
               --force
           done
