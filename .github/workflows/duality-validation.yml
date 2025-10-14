@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - 'docs/duality/**'
+      - '.github/workflows/duality-validation.yml'
   pull_request:
     paths:
       - 'docs/duality/**'
+      - '.github/workflows/duality-validation.yml'
 
 env:
   MINIZINC_VERSION: "2.8.7"
