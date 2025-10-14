@@ -1,7 +1,7 @@
 {
   "id": "19",
   "title": "Agent Orchestration (Boss Delegation)",
-  "goalType": "deferred",
+  "goalType": "search",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,

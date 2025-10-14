@@ -1,7 +1,7 @@
 {
   "id": "04",
   "title": "Why This Matters: Usability + Mathematical Rigor",
-  "goalType": "documentation",
+  "goalType": "proof",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,

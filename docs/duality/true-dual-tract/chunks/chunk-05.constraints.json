@@ -1,7 +1,7 @@
 {
   "id": "05",
   "title": "The Synthesis: Five Frameworks, One System",
-  "goalType": "documentation",
+  "goalType": "proof",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,

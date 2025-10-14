@@ -6,9 +6,8 @@
 # - Idempotent: skips if exact version already installed
 set -euo pipefail
 
-VER="${MINIZINC_VERSION:-2.8.5}"
-PLATFORM="${MINIZINC_PLATFORM:-x86_64-linux}"
-TARBALL="minizinc-${VER}-${PLATFORM}.tar.gz"
+VER="${MINIZINC_VERSION:-2.8.7}"
+TARBALL="MiniZincIDE-${VER}-bundle-linux-x86_64.tgz"
 URL="https://github.com/MiniZinc/MiniZincIDE/releases/download/${VER}/${TARBALL}"
 INSTALL_BASE="${HOME}/.local/minizinc"
 PREFIX="${INSTALL_BASE}/${VER}"
@@ -29,7 +28,7 @@ TMP="${TMPDIR:-/tmp}/minizinc-install.$$"
 mkdir -p "${TMP}"
 trap 'rm -rf "${TMP}"' EXIT
 
-echo "⬇️  Downloading MiniZinc ${VER} for ${PLATFORM}"
+echo "⬇️  Downloading MiniZinc ${VER} for linux-x86_64"
 # Use curl with retries; fall back to wget if curl missing
 if command -v curl >/dev/null 2>&1; then
   curl -fsSL --retry 5 --retry-delay 2 -o "${TMP}/${TARBALL}" "${URL}"
