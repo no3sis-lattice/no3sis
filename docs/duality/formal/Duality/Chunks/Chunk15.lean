@@ -23,7 +23,7 @@ def domainConstraints (x : X8) : Prop :=
   ((x.x1 + x.x2 + x.x3 + x.x4) >= 10)
 
 -- Decidability instance (required for computational verification)
-instance : Decidable (domainConstraints x) := by
+instance (x : X8) : Decidable (domainConstraints x) := by
   unfold domainConstraints
   infer_instance
 

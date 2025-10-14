@@ -39,7 +39,7 @@ def domainConstraints (x : X8) : Prop :=
   (True)
 
 -- Decidability instance (required for computational verification)
-instance : Decidable (domainConstraints x) := by
+instance (x : X8) : Decidable (domainConstraints x) := by
   unfold domainConstraints
   infer_instance
 

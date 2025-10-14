@@ -49,4 +49,9 @@ instance (x : X8) : Decidable (unitary x) :=
 @[simp] def T_ext (x : X8) : Nat := x.x1 + x.x2 + x.x3 + x.x4
 @[simp] def T_int (x : X8) : Nat := x.x5 + x.x6 + x.x7 + x.x8
 
+-- Standard witness: ⟨100, 0, 0, 0, 0, 0, 0, 0⟩
+def standardWitness : X8 := ⟨100, 0, 0, 0, 0, 0, 0, 0⟩
+
+theorem standardWitness_unitary : unitary standardWitness := rfl
+
 end Duality

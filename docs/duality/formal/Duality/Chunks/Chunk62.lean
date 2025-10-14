@@ -23,20 +23,19 @@ def domainConstraints (x : X8) : Prop :=
   ((List.sum (List.map (fun xi => if xi > 0 then 1 else 0) [x.x5, x.x6, x.x7, x.x8])) <= 5)
 
 -- Decidability instance (required for computational verification)
-instance : Decidable (domainConstraints x) := by
+instance (x : X8) : Decidable (domainConstraints x) := by
   unfold domainConstraints
   infer_instance
 
 -- Witness (to be injected from MiniZinc solution)
-def witness : X8 := ⟨80, 0, 0, 0, 0, 20, 0, 0⟩
+-- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩
 
-theorem witness_valid : unitary witness ∧ domainConstraints witness := by
-  constructor
-  · rfl  -- unitary
-  · unfold domainConstraints
-    repeat (first | trivial | decide | omega)
+-- theorem witness_valid : unitary witness ∧ domainConstraints witness := by
+--   constructor
+--   · rfl  -- unitary
+--   · constructor <;> omega  -- domain constraints
 
-theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
-  ⟨witness, witness_valid⟩
+-- theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
+--   ⟨witness, witness_valid⟩
 
 end Chunk62

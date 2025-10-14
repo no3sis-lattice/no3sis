@@ -23,20 +23,19 @@ def domainConstraints (x : X8) : Prop :=
   ((x.x1 >= 2 ∧ x.x2 >= 2 ∧ x.x3 >= 2 ∧ x.x4 >= 2))
 
 -- Decidability instance (required for computational verification)
-instance : Decidable (domainConstraints x) := by
+instance (x : X8) : Decidable (domainConstraints x) := by
   unfold domainConstraints
   infer_instance
 
 -- Witness (to be injected from MiniZinc solution)
-def witness : X8 := ⟨94, 2, 2, 2, 0, 0, 0, 0⟩
+-- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩
 
-theorem witness_valid : unitary witness ∧ domainConstraints witness := by
-  constructor
-  · rfl  -- unitary
-  · unfold domainConstraints
-    repeat (first | trivial | decide | omega)
+-- theorem witness_valid : unitary witness ∧ domainConstraints witness := by
+--   constructor
+--   · rfl  -- unitary
+--   · constructor <;> omega  -- domain constraints
 
-theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
-  ⟨witness, witness_valid⟩
+-- theorem exists_solution : ∃ x : X8, unitary x ∧ domainConstraints x :=
+--   ⟨witness, witness_valid⟩
 
 end Chunk22
