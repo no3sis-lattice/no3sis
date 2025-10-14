@@ -51,8 +51,9 @@ def domainConstraints (x : X8) : Prop :=
   (True)
 
 -- Decidability instance (required for computational verification)
-instance (x : X8) : Decidable (domainConstraints x) :=
-  inferInstanceAs (Decidable (domainConstraints x))
+instance (x : X8) : Decidable (domainConstraints x) := by
+  unfold domainConstraints
+  infer_instance
 
 -- Witness (to be injected from MiniZinc solution)
 -- def witness : X8 := ⟨?, ?, ?, ?, ?, ?, ?, ?⟩

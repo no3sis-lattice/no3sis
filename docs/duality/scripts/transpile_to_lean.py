@@ -439,8 +439,9 @@ def generate_lean_decidability() -> List[str]:
     """Generate decidability instance."""
     lines = [
         "-- Decidability instance (required for computational verification)",
-        "instance (x : X8) : Decidable (domainConstraints x) :=",
-        "  inferInstanceAs (Decidable (domainConstraints x))",
+        "instance (x : X8) : Decidable (domainConstraints x) := by",
+        "  unfold domainConstraints",
+        "  infer_instance",
         "",
     ]
     return lines
