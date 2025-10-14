@@ -15,19 +15,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup MiniZinc
+      - name: Cache MiniZinc
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/minizinc/2.8.5
+          key: minizinc-2.8.5-${{ runner.os }}
+
+      - name: Install MiniZinc 2.8.5
+        run: bash docs/duality/scripts/install_minizinc.sh
+
+      - name: Verify MiniZinc Installation
         run: |
-          wget -q https://github.com/MiniZinc/MiniZincIDE/releases/download/2.8.5/minizinc-2.8.5-x86_64-linux.tar.gz
-          if ! [ -f minizinc-2.8.5-x86_64-linux.tar.gz ]; then
-            echo "❌ Download failed: minizinc-2.8.5-x86_64-linux.tar.gz not found"
-            exit 1
-          fi
-          if ! tar -tzf minizinc-2.8.5-x86_64-linux.tar.gz >/dev/null 2>&1; then
-            echo "❌ Archive is corrupted"
-            exit 1
-          fi
-          tar -xzf minizinc-2.8.5-x86_64-linux.tar.gz
-          echo "$PWD/minizinc-2.8.5-x86_64-linux/bin" >> $GITHUB_PATH
+          minizinc --version
+          echo "✓ MiniZinc installed: $(minizinc --version | head -1)"
+          # Quick syntax check on pilot chunk
+          minizinc --check-only docs/duality/true-dual-tract/chunks/chunk-06.mzn
 
       - name: Validate MiniZinc Syntax
         run: |
@@ -149,19 +151,19 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Setup MiniZinc
+      - name: Cache MiniZinc
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/minizinc/2.8.5
+          key: minizinc-2.8.5-${{ runner.os }}
+
+      - name: Install MiniZinc 2.8.5
+        run: bash docs/duality/scripts/install_minizinc.sh
+
+      - name: Verify MiniZinc Installation
         run: |
-          wget -q https://github.com/MiniZinc/MiniZincIDE/releases/download/2.8.5/minizinc-2.8.5-x86_64-linux.tar.gz
-          if ! [ -f minizinc-2.8.5-x86_64-linux.tar.gz ]; then
-            echo "❌ Download failed: minizinc-2.8.5-x86_64-linux.tar.gz not found"
-            exit 1
-          fi
-          if ! tar -tzf minizinc-2.8.5-x86_64-linux.tar.gz >/dev/null 2>&1; then
-            echo "❌ Archive is corrupted"
-            exit 1
-          fi
-          tar -xzf minizinc-2.8.5-x86_64-linux.tar.gz
-          echo "$PWD/minizinc-2.8.5-x86_64-linux/bin" >> $GITHUB_PATH
+          minizinc --version
+          echo "✓ MiniZinc installed: $(minizinc --version | head -1)"
 
       - name: Setup Lean
         uses: leanprover/lean-action@v1
