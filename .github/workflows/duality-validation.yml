@@ -28,8 +28,6 @@ jobs:
         run: |
           minizinc --version
           echo "✓ MiniZinc installed: $(minizinc --version | head -1)"
-          # Quick syntax check on pilot chunk
-          minizinc --check-only docs/duality/true-dual-tract/chunks/chunk-06.mzn
 
       - name: Validate MiniZinc Syntax
         run: |
@@ -45,7 +43,7 @@ jobs:
           total=0
           for f in "${files[@]}"; do
             total=$((total + 1))
-            if minizinc --check-only "$f" 2>&1; then
+            if minizinc -e "$f" 2>&1; then
               success=$((success + 1))
             else
               echo "❌ Failed: $f"
@@ -63,21 +61,7 @@ jobs:
       - name: Setup Lean
         uses: leanprover/lean-action@v1
         with:
-          lean-version: 'v4.24.0-rc1'
-
-      - name: Configure Lean toolchain and PATH
-        run: |
-          # Ensure elan is in PATH (lean-action adds it to GITHUB_PATH)
-          export PATH="${HOME}/.elan/bin:${PATH}"
-          elan default stable
-          echo "${HOME}/.elan/bin" >> "${GITHUB_PATH}"
-
-      - name: Generate lake-manifest.json if missing
-        run: |
-          cd docs/duality/formal
-          if [ ! -f lake-manifest.json ]; then
-            lake update
-          fi
+          lake-package-directory: 'docs/duality/formal'
 
       - name: Build Lean Project
         run: |
@@ -171,13 +155,7 @@ jobs:
       - name: Setup Lean
         uses: leanprover/lean-action@v1
         with:
-          lean-version: 'v4.24.0-rc1'
-
-      - name: Configure Lean toolchain and PATH
-        run: |
-          export PATH="${HOME}/.elan/bin:${PATH}"
-          elan default stable
-          echo "${HOME}/.elan/bin" >> "${GITHUB_PATH}"
+          lake-package-directory: 'docs/duality/formal'
 
       - name: Run Transpiler Unit Tests
         run: |
@@ -207,13 +185,7 @@ jobs:
       - name: Setup Lean
         uses: leanprover/lean-action@v1
         with:
-          lean-version: 'v4.24.0-rc1'
-
-      - name: Configure Lean toolchain and PATH
-        run: |
-          export PATH="${HOME}/.elan/bin:${PATH}"
-          elan default stable
-          echo "${HOME}/.elan/bin" >> "${GITHUB_PATH}"
+          lake-package-directory: 'docs/duality/formal'
 
       - name: Regenerate Pilot Chunks
         run: |
