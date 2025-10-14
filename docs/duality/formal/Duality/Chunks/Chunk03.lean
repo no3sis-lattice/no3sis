@@ -53,6 +53,8 @@ def domainConstraints (x : X8) : Prop :=
 -- Decidability instance (required for computational verification)
 instance (x : X8) : Decidable (domainConstraints x) := by
   unfold domainConstraints
+  -- Simplify True conjunctions to reduce instance search complexity
+  simp only [true_and, and_true]
   infer_instance
 
 -- Witness (to be injected from MiniZinc solution)

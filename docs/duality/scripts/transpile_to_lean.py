@@ -4,6 +4,7 @@ JSON→Lean4 Transpiler for Synapse Duality Formalization
 Phase 3: Automated constraint translation with decidability
 Phase 5.5: Enhanced for two-variable forall and MiniZinc operators
 Phase 6b Hotfix: Support base import mode for existing projects
+Phase 2.5: CI Hardening - Robust decidability synthesis for complex constraints
 
 Usage:
   python3 transpile_to_lean.py --chunk 06
@@ -436,11 +437,18 @@ def generate_lean_constraints(constraints: List[Dict]) -> List[str]:
 
 
 def generate_lean_decidability() -> List[str]:
-    """Generate decidability instance."""
+    """
+    Generate decidability instance with robust synthesis strategy.
+
+    PHASE 2.5 (CI Hardening): Uses simp to normalize conjunction structure
+    before instance synthesis, handling complex nested constraints.
+    """
     lines = [
         "-- Decidability instance (required for computational verification)",
         "instance (x : X8) : Decidable (domainConstraints x) := by",
         "  unfold domainConstraints",
+        "  -- Simplify True conjunctions to reduce instance search complexity",
+        "  simp only [true_and, and_true]",
         "  infer_instance",
         "",
     ]
