@@ -33,9 +33,19 @@ def main():
     # Load JSON data
     data = json.loads(args.json_path.read_text())
     chunk_id = data["id"]
+    goal_type = data.get("goalType", "refinement")
+
+    # Skip MiniZinc for documentation/proof chunks (architectural decision)
+    # Proof chunks use Lean for formal verification, not MiniZinc for constraint solving
+    should_generate_mzn = goal_type in ["search", "refinement"]
 
     # Generate using real transpilers (Phase 6b)
-    mzn_content = generate_mzn_from_json(data)
+    if should_generate_mzn:
+        mzn_content = generate_mzn_from_json(data)
+    else:
+        print(f"Skipping MiniZinc for chunk {chunk_id} (goalType: {goal_type})")
+        mzn_content = None
+
     lean_content = generate_lean_from_json(data, use_base_imports=args.use_base_imports)
 
     # Determine output directory
@@ -52,9 +62,10 @@ def main():
     lean_path = out_dir / f"Chunk{chunk_id}.lean"
     mzn_path = out_dir / f"Chunk{chunk_id}.mzn"
 
-    # Always write MZN (constraint changes)
-    mzn_path.write_text(mzn_content)
-    print(f"Rendered: {mzn_path}")
+    # Write MZN only if generated (skip for goalType: proof)
+    if mzn_content:
+        mzn_path.write_text(mzn_content)
+        print(f"Rendered: {mzn_path}")
 
     # Preserve existing Lean proofs unless --force
     if lean_path.exists() and not args.force:
@@ -66,9 +77,10 @@ def main():
     # Optionally also write to chunks/ for reference
     if args.also_to_chunks:
         chunks_dir = args.json_path.parent
-        (chunks_dir / f"chunk-{chunk_id}.mzn").write_text(mzn_content)
+        if mzn_content:
+            (chunks_dir / f"chunk-{chunk_id}.mzn").write_text(mzn_content)
+            print(f"Also copied to: {chunks_dir / f'chunk-{chunk_id}.mzn'}")
         (chunks_dir / f"chunk-{chunk_id}.lean").write_text(lean_content)
-        print(f"Also copied to: {chunks_dir / f'chunk-{chunk_id}.mzn'}")
         print(f"Also copied to: {chunks_dir / f'chunk-{chunk_id}.lean'}")
 
 if __name__ == "__main__":
