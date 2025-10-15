@@ -34,6 +34,8 @@ def main():
                     help="Overwrite existing files (default: preserve existing Lean proofs)")
     ap.add_argument("--use-base-imports", action="store_true",
                     help="Generate Lean with Duality.Base imports (for existing project) instead of inline definitions")
+    ap.add_argument("--with-ipv6", action="store_true",
+                    help="[Phase 5] Include IPv6 encoding for Chunk 06 (pilot demo, OFF by default)")
     args = ap.parse_args()
 
     # Load JSON data
@@ -56,11 +58,18 @@ def main():
 
     # Skip MiniZinc for documentation/proof chunks (architectural decision)
     # Proof chunks use Lean for formal verification, not MiniZinc for constraint solving
+    # EXCEPTION: Phase 5 IPv6 demo for Chunk 06 forces MZN generation when flag enabled
     should_generate_mzn = goal_type in ["search", "refinement"]
+
+    # Phase 5: Force MZN generation for Chunk 06 when IPv6 demo enabled
+    if args.with_ipv6 and chunk_id == "06":
+        should_generate_mzn = True
+        print(f"[Phase 5 IPv6 Demo] Forcing MZN generation for Chunk 06")
 
     # Generate using real transpilers (Phase 6b)
     if should_generate_mzn:
-        mzn_content = generate_mzn_from_json(data)
+        # Phase 5: Pass IPv6 flag and chunk_id to transpiler
+        mzn_content = generate_mzn_from_json(data, with_ipv6=args.with_ipv6, chunk_id=chunk_id)
     else:
         print(f"Skipping MiniZinc for chunk {chunk_id} (goalType: {goal_type})")
         mzn_content = None

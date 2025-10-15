@@ -22,8 +22,7 @@ from pathlib import Path
 from typing import Literal
 
 MONSTER_PRIMES = [2,3,5,7,11,13,17,19,23,29,31,41,47,59,71]
-MONSTER_PRIMES_ODD = [3,5,7,11,13,17,19,23,29,31,41,47,59,71]  # Exclude 2
-MONSTER_PRIMES_EVEN_ODD = [2,3,5,7,11,13,17,19,23,29,31,41,47,59,71]  # All (same as MONSTER_PRIMES)
+MONSTER_PRIMES_ODD = [p for p in MONSTER_PRIMES if p != 2]  # Exclude 2
 
 TractType = Literal["internal", "external", "bridge", "unknown"]
 
@@ -81,11 +80,8 @@ def assign_for_chunk(cid: str, k: int, base_dir: Path) -> list[int]:
     if tract == "internal":
         # Internal: prefer odd primes (exclude 2)
         prime_pool = MONSTER_PRIMES_ODD
-    elif tract == "external":
-        # External: include 2 + odd (all primes)
-        prime_pool = MONSTER_PRIMES_EVEN_ODD
     else:
-        # Bridge/unknown: balanced (all primes)
+        # External/Bridge/unknown: all primes (including 2)
         prime_pool = MONSTER_PRIMES
 
     # Create deterministic seed: chunk_id + lemurian_zone

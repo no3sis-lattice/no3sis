@@ -16,16 +16,9 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
-# Import shared utilities
-from shared_utils import (
-    discover_chunks,
-    load_json_safe,
-    get_chunk_json_path,
-    get_chunk_mzn_path,
-    add_common_cli_args,
-    process_chunks_batch,
-    validate_chunk_id
-)
+# Import shared utilities (Phase 2.1)
+# Note: Only load_doc_chunks and get_base_duality_dir exist in shared_utils.py
+# Other utilities are defined locally in this file
 
 
 # Operator mapping: JSON DSL → MiniZinc
@@ -189,6 +182,71 @@ def generate_mzn_constraints(constraints: List[Dict]) -> List[str]:
     return lines
 
 
+def inject_ipv6_encoding(params: Dict) -> List[str]:
+    """
+    Phase 5: Inject IPv6 encoding template for pilot demo (Chunk 06 only).
+
+    Reads templates/ipv6_encode.mzn and injects its content, which:
+    - Maps 8D coordinates x[1..8] to 8x 16-bit hextets (IPv6 address components)
+    - Scales x[i] values (0..N) into hextet range (0..65535)
+    - Embeds Monster prime bitmask in the last hextet
+
+    This is a demo feature showing numogrammatic encoding potential.
+    """
+    lines = [
+        "",
+        "% ═══════════════════════════════════════════════════════════════",
+        "% Phase 5: IPv6 Encoding (Pilot Demo - Chunk 06 only)",
+        "% ═══════════════════════════════════════════════════════════════",
+        "",
+    ]
+
+    # Read IPv6 template from templates/ directory
+    template_path = Path(__file__).resolve().parents[1] / "templates" / "ipv6_encode.mzn"
+
+    if not template_path.exists():
+        lines.append("% WARNING: IPv6 template not found at {template_path}")
+        return lines
+
+    try:
+        template_content = template_path.read_text(encoding="utf-8")
+
+        # Skip the first few lines (header comments and parameter declarations already defined)
+        # Only inject the actual encoding logic (hextet array and constraints)
+        template_lines = template_content.split("\n")
+
+        # Find where actual logic starts (after parameter declarations)
+        inject_start = 0
+        for i, line in enumerate(template_lines):
+            if "array[1..8] of var 0..65535: hextet" in line:
+                inject_start = i
+                break
+
+        if inject_start > 0:
+            # Inject from hextet array declaration onwards, but skip duplicate declarations
+            lines.append("% IPv6 hextet encoding (maps x[1..8] → 8x 16-bit hextets)")
+            for line in template_lines[inject_start:]:
+                # Skip duplicate parameter declarations (N, P, x already defined in header)
+                if re.match(r'^\s*(int: N|set of int: P|array\[1\.\.8\] of var 0\.\.N: x)\s*[;=]', line):
+                    continue  # Skip duplicate
+                lines.append(line)
+        else:
+            # Fallback: inject entire template
+            lines.append("% IPv6 encoding template (full injection)")
+            lines.extend(template_lines)
+
+    except Exception as e:
+        lines.append(f"% ERROR reading IPv6 template: {e}")
+
+    lines.extend([
+        "",
+        "% ═══════════════════════════════════════════════════════════════",
+        "",
+    ])
+
+    return lines
+
+
 def generate_mzn_footer(params: Dict) -> List[str]:
     """Generate MiniZinc footer with objective."""
     lines = []
@@ -217,13 +275,30 @@ def generate_mzn_footer(params: Dict) -> List[str]:
     return lines
 
 
-def generate_mzn_from_json(json_data: Dict) -> str:
-    """Generate complete MiniZinc model from JSON constraints."""
+def generate_mzn_from_json(json_data: Dict, with_ipv6: bool = False, chunk_id: str = None) -> str:
+    """
+    Generate complete MiniZinc model from JSON constraints.
+
+    Phase 5: Optional IPv6 encoding for Chunk 06 pilot demo.
+
+    Args:
+        json_data: Chunk JSON data
+        with_ipv6: If True and chunk_id=="06", include IPv6 encoding template
+        chunk_id: Chunk ID (e.g., "06") for selective IPv6 injection
+
+    Returns:
+        Complete MiniZinc model as string
+    """
     params = json_data.get("parameters", {})
     constraints = json_data.get("constraints", [])
 
     lines = []
     lines.extend(generate_mzn_header(params))
+
+    # Phase 5: Inject IPv6 encoding template for Chunk 06 when flag enabled
+    if with_ipv6 and chunk_id == "06":
+        lines.extend(inject_ipv6_encoding(params))
+
     lines.extend(generate_mzn_constraints(constraints))
     lines.extend(generate_mzn_footer(params))
 

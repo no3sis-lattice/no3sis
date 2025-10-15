@@ -39,7 +39,7 @@
           cd "''${DUALITY_ROOT:-$(pwd)}"
 
           echo "=== Rendering Duality Pilots ==="
-          for chunk in 06 09 19 41; do
+          for chunk in 06 08 09 19; do
             echo "Rendering Chunk $chunk..."
             ${pythonEnv}/bin/python3 scripts/render_formalizations.py \
               true-dual-tract/chunks/chunk-''${chunk}.constraints.json \
@@ -58,7 +58,7 @@
 
           # 1. MiniZinc syntax validation
           echo "Step 1/3: MiniZinc syntax validation"
-          for chunk in 06 09 19 41; do
+          for chunk in 06 08 09 19; do
             mzn_file="true-dual-tract/chunks/chunk-''${chunk}.mzn"
             if [ -f "$mzn_file" ]; then
               ${minizinc}/bin/minizinc -e "$mzn_file" || {
@@ -72,7 +72,7 @@
           # 2. Cross-check (JSON ↔ MZN ↔ Lean)
           echo "Step 2/3: Cross-check constraint equivalence"
           ${pythonEnv}/bin/python3 scripts/cross_check_all.py \
-            --chunks 06 09 19 41 \
+            --chunks 06 08 09 19 \
             --report reports/cross-check-pilots.md || {
             echo "❌ Cross-check failed"
             exit 1
@@ -84,14 +84,14 @@
           cd formal
           ${lean}/bin/lake update || true
           ${lean}/bin/lake build Duality.Chunks.Chunk06 \
+                                  Duality.Chunks.Chunk08 \
                                   Duality.Chunks.Chunk09 \
-                                  Duality.Chunks.Chunk19 \
-                                  Duality.Chunks.Chunk41 || {
+                                  Duality.Chunks.Chunk19 || {
             echo "⚠️  Lean4 compilation had warnings (non-fatal)"
           }
 
           # Check for errors (fatal)
-          if grep -qR "error:" Duality/Chunks/Chunk0{6,9}.lean Duality/Chunks/Chunk{19,41}.lean 2>/dev/null; then
+          if grep -qR "error:" Duality/Chunks/Chunk0{6,8,9}.lean Duality/Chunks/Chunk19.lean 2>/dev/null; then
             echo "❌ Lean4 errors detected in pilots"
             exit 1
           fi
