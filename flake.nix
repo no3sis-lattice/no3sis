@@ -66,6 +66,13 @@
       url = "github:sub0xdai/synapse-system?dir=nix/flakes/synapse-core";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Duality subsystem - dual-tract formalization (MiniZinc + Lean4)
+    duality = {
+      url = "path:./docs/duality";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, pip2nix, ... }@inputs:
@@ -147,6 +154,11 @@
           synapse-health = neo4jTools.tools.health;
           synapse-search = neo4jTools.tools.search;
           synapse-ingest = neo4jTools.tools.ingest;
+
+          # Duality subsystem
+          inherit (inputs.duality.packages.${system}) duality-render-pilots;
+          inherit (inputs.duality.packages.${system}) duality-validate-pilots;
+          inherit (inputs.duality.packages.${system}) duality-agent-step;
         };
 
         devShells.default = pkgs.mkShell {
@@ -187,6 +199,9 @@
             echo "  nix build .#synapse-core           - Build core framework"
             echo "  nix build .#mojo-libraries         - Build all Mojo components"
             echo "  nix run .#lean4-verification-test  - Run formal verification"
+            echo "  nix develop .#duality              - Enter duality devShell"
+            echo "  nix run .#duality-render-pilots    - Render duality pilots"
+            echo "  nix run .#duality-validate-pilots  - Validate duality pilots"
             echo "  cd formal/lean4 && lake build      - Build Lean4 locally"
             echo "  cd .synapse/neo4j && make          - Build pattern search locally"
             echo "  synapse start                      - Start Neo4j/Redis services"
@@ -223,6 +238,15 @@
         };
 
         devShells.lean4-dev = inputs.lean4-verification.devShells.${system}.default;
+
+        devShells.duality = inputs.duality.devShells.${system}.default;
+
+        apps = {
+          # Duality subsystem apps
+          duality-render-pilots = inputs.duality.apps.${system}.duality-render-pilots;
+          duality-validate-pilots = inputs.duality.apps.${system}.duality-validate-pilots;
+          duality-agent-step = inputs.duality.apps.${system}.duality-agent-step;
+        };
 
         defaultPackage = self.devShells.${system}.default;
 
