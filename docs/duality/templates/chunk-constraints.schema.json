@@ -14,8 +14,8 @@
         "scaleN": { "type": "integer", "minimum": 1, "default": 100, "description": "Discrete scaling for unit-sum (sum(x)=N)" },
         "monsterPrimes": {
           "type": "array",
-          "items": { "type": "integer", "enum": [2,3,5,7,11,13,17,19] },
-          "description": "Subset of first 8 primes used for mapping/alignment"
+          "items": { "type": "integer", "enum": [2,3,5,7,11,13,17,19,23,29,31,41,47,59,71] },
+          "description": "Phase 3: k=3 primes per chunk from 15 Monster primes, Blake2b-assigned with tract bias"
         },
         "emojiPrimeMapping": {
           "type": "object",
