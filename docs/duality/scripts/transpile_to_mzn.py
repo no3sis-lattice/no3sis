@@ -17,8 +17,12 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 # Import shared utilities (Phase 2.1)
-# Note: Only load_doc_chunks and get_base_duality_dir exist in shared_utils.py
-# Other utilities are defined locally in this file
+from shared_utils import (
+    discover_chunks,
+    load_json_safe,
+    get_chunk_json_path,
+    get_chunk_mzn_path,
+)
 
 
 # Operator mapping: JSON DSL → MiniZinc

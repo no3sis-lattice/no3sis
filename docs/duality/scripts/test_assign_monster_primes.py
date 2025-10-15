@@ -7,11 +7,15 @@ Code Hound Priority 1 requirement: 90%+ coverage, all critical paths tested.
 from __future__ import annotations
 import json
 import hashlib
+import sys
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 import tempfile
 import shutil
 import pytest
+
+# Add scripts directory to path for imports (CI compatibility)
+sys.path.insert(0, str(Path(__file__).parent.resolve()))
 
 # Import functions under test
 from assign_monster_primes import (

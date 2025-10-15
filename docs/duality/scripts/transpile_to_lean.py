@@ -19,15 +19,12 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-# Import shared utilities
+# Import shared utilities (Phase 2.1)
 from shared_utils import (
     discover_chunks,
     load_json_safe,
     get_chunk_json_path,
     get_chunk_lean_path,
-    add_common_cli_args,
-    process_chunks_batch,
-    validate_chunk_id
 )
 
 

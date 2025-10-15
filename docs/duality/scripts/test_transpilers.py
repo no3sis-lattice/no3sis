@@ -13,9 +13,13 @@ import json
 import pytest
 import random
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Dict
+
+# Add scripts directory to path for imports (CI compatibility)
+sys.path.insert(0, str(Path(__file__).parent.resolve()))
 
 # Import functions to test
 from transpile_to_mzn import (
