@@ -6,14 +6,9 @@
     "eightDimManifold": true,
     "scaleN": 100,
     "monsterPrimes": [
-      2,
-      3,
-      5,
-      7,
       11,
-      13,
-      17,
-      19
+      19,
+      23
     ],
     "similarityObjective": "none",
     "godelization": {

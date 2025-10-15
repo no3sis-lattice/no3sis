@@ -1,19 +1,14 @@
 {
   "id": "20",
-  "title": "Progress Visualization (Human-Readable \u03a8)",
+  "title": "Progress Visualization (Human-Readable Ψ)",
   "goalType": "refinement",
   "parameters": {
     "eightDimManifold": true,
     "scaleN": 100,
     "monsterPrimes": [
-      2,
-      3,
       5,
-      7,
       11,
-      13,
-      17,
-      19
+      29
     ],
     "similarityObjective": "none",
     "godelization": {
@@ -35,7 +30,7 @@
     {
       "name": "psi_invariant_exists",
       "expr": "True",
-      "notes": "\u03a8 consciousness invariant is a normalized real number | UNTRANSPILABLE (Phase8): typeof(\u03a8) = Real \u2227 \u03a8 \u2208 [0,1]"
+      "notes": "Ψ consciousness invariant is a normalized real number | UNTRANSPILABLE (Phase8): typeof(Ψ) = Real ∧ Ψ ∈ [0,1]"
     },
     {
       "name": "dimension_floor_dim1",
