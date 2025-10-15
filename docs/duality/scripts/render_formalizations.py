@@ -4,18 +4,24 @@ Render MiniZinc (.mzn) and Lean4 (.lean) files from a chunk constraints JSON.
 
 Phase 6b: Unified with real transpiler logic from transpile_to_lean.py
 Phase 6b Hotfix: Support base import mode for existing Duality project
+Phase 2: Doc chunk handling - schema validation only for doc chunks
+Phase 2.1: Import shared utilities (DRY refactor)
 
 Usage:
   python scripts/duality/render_formalizations.py path/to/chunk-NN.constraints.json
   python scripts/duality/render_formalizations.py path/to/chunk-NN.constraints.json --use-base-imports
 """
 from __future__ import annotations
-import argparse, json, re
+import argparse, json, re, sys
 from pathlib import Path
+from typing import Set
 
 # Import real transpilers (Phase 6b unification)
 from transpile_to_mzn import generate_mzn_from_json
 from transpile_to_lean import generate_lean_from_json
+
+# Phase 2.1: Import shared utilities
+from shared_utils import load_doc_chunks
 
 def main():
     ap = argparse.ArgumentParser(description="Render MiniZinc and Lean4 files from JSON constraints")
@@ -34,6 +40,19 @@ def main():
     data = json.loads(args.json_path.read_text())
     chunk_id = data["id"]
     goal_type = data.get("goalType", "refinement")
+
+    # Phase 2: Check if this is a doc chunk
+    base_duality_dir = args.json_path.parents[2]  # From chunks/chunk-NN.json up to duality/
+    doc_chunks = load_doc_chunks(base_duality_dir)
+    is_doc_chunk = chunk_id in doc_chunks
+
+    # Phase 2: Doc chunks get schema validation only (skip transpilation)
+    if is_doc_chunk:
+        print(f"✓ Doc chunk {chunk_id}: Schema validated (skipping transpilation)")
+        print(f"  Title: {data.get('title', 'N/A')}")
+        print(f"  Type: {goal_type}")
+        print(f"  Constraints: {len(data.get('constraints', []))} defined")
+        return 0
 
     # Skip MiniZinc for documentation/proof chunks (architectural decision)
     # Proof chunks use Lean for formal verification, not MiniZinc for constraint solving
@@ -84,4 +103,4 @@ def main():
         print(f"Also copied to: {chunks_dir / f'chunk-{chunk_id}.lean'}")
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

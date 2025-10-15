@@ -24,6 +24,9 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set, Tuple
 import hashlib
 
+# Phase 2.1: Import shared utilities
+from shared_utils import load_doc_chunks
+
 
 # --------------------------
 # Utilities
@@ -433,6 +436,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     parser.add_argument("--warn-only", action="store_true", help="Exit 0 even when mismatches/errors occur")
     parser.add_argument("--chunks", nargs="*", help="Specific chunk ids to process (e.g., 04 06 09). Default: auto-discover all")
     parser.add_argument("--report", type=Path, default=None, help="Write Markdown report to path (text mode only)")
+    parser.add_argument("--exclude-doc-chunks", action="store_true", help="Exclude documentation chunks (from doc_chunks.json)")
     return parser.parse_args(argv)
 
 
@@ -450,8 +454,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         chunk_ids = discover_chunks(base_chunks)
 
+    # Phase 2: Filter out doc chunks if requested
+    if args.exclude_doc_chunks:
+        doc_chunks = load_doc_chunks(base_dir)
+        original_count = len(chunk_ids)
+        chunk_ids = [cid for cid in chunk_ids if cid not in doc_chunks]
+        excluded_count = original_count - len(chunk_ids)
+        if excluded_count > 0:
+            print(f"Excluded {excluded_count} doc chunks: {sorted(doc_chunks)}")
+
     if not chunk_ids:
-        print("No chunks discovered.", file=sys.stderr)
+        print("No chunks to process (all excluded).", file=sys.stderr)
         return 1
 
     results: List[ChunkResult] = []

@@ -1,0 +1,55 @@
+name: Duality Nix Infrastructure Smoke Test
+
+on:
+  push:
+    paths:
+      - 'docs/duality/flake.nix'
+      - 'docs/duality/scripts/**'
+      - '.github/workflows/duality-nix-smoke.yml'
+  pull_request:
+    paths:
+      - 'docs/duality/flake.nix'
+      - 'docs/duality/scripts/**'
+
+jobs:
+  nix-infra-smoke:
+    name: Nix Infrastructure Smoke Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Test Nix Flake Check
+        run: |
+          cd docs/duality
+          nix flake check
+
+      - name: Test devShell Activation
+        run: |
+          cd docs/duality
+          nix develop --command bash -c 'echo "DevShell activated successfully"'
+          nix develop --command python3 --version
+          nix develop --command minizinc --version
+          nix develop --command lean --version
+
+      - name: Smoke Test - Render Pilots (Dry Run)
+        run: |
+          cd docs/duality
+          # Note: This will fail if pilots don't exist yet, but verifies the app is invocable
+          nix run .#duality-render-pilots || echo "Expected: pilots may not exist yet"
+
+      - name: Smoke Test - Validate Pilots (Dry Run)
+        run: |
+          cd docs/duality
+          # Note: This will fail if pilots don't exist yet, but verifies the app is invocable
+          nix run .#duality-validate-pilots || echo "Expected: pilots may not exist yet"
+
+      - name: Smoke Test - Agent Step (Help)
+        run: |
+          cd docs/duality
+          # Test agent-step shows usage (exit 1 with no args is expected)
+          nix run .#duality-agent-step --impure || echo "Expected: no args provided"

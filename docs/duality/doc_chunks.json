@@ -1,0 +1,4 @@
+{
+  "doc_chunks": ["01", "02", "03", "04", "05", "21"],
+  "notes": "Documentation chunks excluded from MiniZinc/Lean validation. These chunks describe high-level architecture and meta-properties rather than concrete 8D manifold constraints. JSON schema validation still enforced. Chunk 19 removed from this list (Phase 2.5: proven compilable via decidability synthesis fix)."
+}

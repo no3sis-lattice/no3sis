@@ -2,6 +2,8 @@
 """
 Solve all 62 MZN models in parallel and extract witnesses for Lean4 injection.
 Phase 8 Update: Support excluding documentation/deferred chunks.
+Phase 2: Automatically exclude doc chunks from doc_chunks.json.
+Phase 2.1: Fixed hardcoded paths, added --base-dir flag.
 """
 
 import argparse
@@ -12,17 +14,16 @@ from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from typing import Dict, List, Optional, Set, Tuple
 
-# Paths
-MZN_DIR = Path("/home/m0xu/1-projects/synapse/docs/duality/true-dual-tract/chunks")
-OUTPUT_DIR = Path("/home/m0xu/1-projects/synapse/docs/duality/solutions")
-OUTPUT_DIR.mkdir(exist_ok=True)
+# Phase 2.1: Import shared utilities
+from shared_utils import load_doc_chunks, get_base_duality_dir
 
-def solve_chunk(chunk_num: int, timeout: float = 5.0) -> Tuple[int, Dict]:
+def solve_chunk(chunk_num: int, mzn_dir: Path, timeout: float = 5.0) -> Tuple[int, Dict]:
     """
     Solve a single MZN chunk and return witness data.
 
     Args:
         chunk_num: Chunk number (1-62)
+        mzn_dir: Path to MiniZinc chunks directory
         timeout: Solver timeout in seconds
 
     Returns:
@@ -32,7 +33,7 @@ def solve_chunk(chunk_num: int, timeout: float = 5.0) -> Tuple[int, Dict]:
             "error": str           # Only if ERROR
         })
     """
-    mzn_file = MZN_DIR / f"chunk-{chunk_num:02d}.mzn"
+    mzn_file = mzn_dir / f"chunk-{chunk_num:02d}.mzn"
 
     if not mzn_file.exists():
         return (chunk_num, {
@@ -109,13 +110,24 @@ def solve_chunk(chunk_num: int, timeout: float = 5.0) -> Tuple[int, Dict]:
 def main():
     """Solve MZN chunks in parallel with optional exclusions."""
     parser = argparse.ArgumentParser(
-        description="Solve MZN chunks in parallel (Phase 8: exclude documentation chunks)"
+        description="Solve MZN chunks in parallel (Phase 2.1: configurable paths)"
+    )
+    parser.add_argument(
+        "--base-dir",
+        type=Path,
+        default=None,
+        help="Base duality directory (default: auto-detect from script location)"
     )
     parser.add_argument(
         "--exclude",
         type=str,
         default="",
-        help="Comma-separated chunk IDs to exclude (e.g., '01,02,19')"
+        help="Additional comma-separated chunk IDs to exclude (e.g., '01,02,19')"
+    )
+    parser.add_argument(
+        "--include-doc-chunks",
+        action="store_true",
+        help="Include doc chunks (default: auto-exclude from doc_chunks.json)"
     )
     parser.add_argument(
         "--workers",
@@ -138,10 +150,25 @@ def main():
 
     args = parser.parse_args()
 
-    # Parse exclusions
+    # Phase 2.1: Compute base directory (no hardcoded paths)
+    if args.base_dir:
+        base_dir = args.base_dir
+    else:
+        base_dir = get_base_duality_dir(Path(__file__))
+
+    mzn_dir = base_dir / "true-dual-tract" / "chunks"
+    output_dir = base_dir / "solutions"
+    output_dir.mkdir(exist_ok=True)
+
+    # Phase 2: Auto-exclude doc chunks unless --include-doc-chunks specified
     excluded: Set[int] = set()
+    if not args.include_doc_chunks:
+        doc_chunks_str = load_doc_chunks(base_dir)
+        excluded.update({int(cid) for cid in doc_chunks_str})
+
+    # Parse additional exclusions from --exclude flag
     if args.exclude:
-        excluded = {int(x.strip()) for x in args.exclude.split(",")}
+        excluded.update({int(x.strip()) for x in args.exclude.split(",")})
 
     # Determine chunks to solve
     all_chunks = set(range(1, 63))
@@ -150,8 +177,9 @@ def main():
     print("=" * 70)
     print("Phase 8: Solving MZN Models (Computational Chunks Only)")
     print("=" * 70)
-    print(f"MZN directory:      {MZN_DIR}")
-    print(f"Output directory:   {OUTPUT_DIR}")
+    print(f"Base directory:     {base_dir}")
+    print(f"MZN directory:      {mzn_dir}")
+    print(f"Output directory:   {output_dir}")
     print(f"Total chunks:       62")
     print(f"Excluded:           {len(excluded)} ({sorted(excluded)})")
     print(f"To solve:           {len(chunks_to_solve)}")
@@ -167,7 +195,7 @@ def main():
     # Solve in parallel
     with ProcessPoolExecutor(max_workers=args.workers) as executor:
         futures = {
-            executor.submit(solve_chunk, chunk_num, args.timeout): chunk_num
+            executor.submit(solve_chunk, chunk_num, mzn_dir, args.timeout): chunk_num
             for chunk_num in chunks_to_solve
         }
 
@@ -200,7 +228,7 @@ def main():
     print()
 
     # Save results
-    output_file = OUTPUT_DIR / args.output
+    output_file = output_dir / args.output
     with open(output_file, 'w') as f:
         json.dump({
             "metadata": {
@@ -208,7 +236,8 @@ def main():
                 "excluded_chunks": sorted(excluded),
                 "solved_chunks": sorted(chunks_to_solve),
                 "timeout": args.timeout,
-                "workers": args.workers
+                "workers": args.workers,
+                "base_dir": str(base_dir)
             },
             "results": results
         }, f, indent=2, sort_keys=True)
@@ -219,7 +248,7 @@ def main():
     witness_count = 0
     for chunk_num, result in results.items():
         if result["status"] == "SAT" and "witness" in result:
-            witness_file = OUTPUT_DIR / f"chunk{chunk_num:02d}_witness.json"
+            witness_file = output_dir / f"chunk{chunk_num:02d}_witness.json"
             with open(witness_file, 'w') as f:
                 json.dump({
                     "chunk": chunk_num,
@@ -228,7 +257,7 @@ def main():
                 }, f, indent=2)
             witness_count += 1
 
-    print(f"Individual witness files: {witness_count} saved to {OUTPUT_DIR}/")
+    print(f"Individual witness files: {witness_count} saved to {output_dir}/")
     print()
 
     # Identify problems
