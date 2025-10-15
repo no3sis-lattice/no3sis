@@ -21,9 +21,9 @@ from typing import Dict
 from transpile_to_mzn import (
     translate_expr_to_mzn,
     generate_mzn_from_json,
-    discover_chunks,
     OPERATOR_MAP as MZN_OPERATOR_MAP,
 )
+# Note: discover_chunks removed (Phase 5 - not in transpile_to_mzn anymore)
 from transpile_to_lean import (
     translate_expr_to_lean,
     generate_lean_from_json,
@@ -631,25 +631,7 @@ class TestAddConstraints:
 class TestIntegration:
     """Integration tests for end-to-end workflows."""
 
-    def test_discover_chunks_with_temp_dir(self, tmp_path):
-        """Test chunk discovery in a temporary directory structure."""
-        # Create temp structure
-        chunks_dir = tmp_path / "true-dual-tract" / "chunks"
-        chunks_dir.mkdir(parents=True)
-
-        # Create some test files
-        (chunks_dir / "chunk-01.constraints.json").write_text('{"id":"01"}')
-        (chunks_dir / "chunk-09.constraints.json").write_text('{"id":"09"}')
-        (chunks_dir / "chunk-19.constraints.json").write_text('{"id":"19"}')
-        (chunks_dir / "other-file.json").write_text('{}')
-
-        # Test discovery
-        discovered = discover_chunks(tmp_path)
-
-        assert len(discovered) == 3
-        assert "01" in discovered
-        assert "09" in discovered
-        assert "19" in discovered
+    # Note: discover_chunks test removed (Phase 5 - function moved/removed from transpile_to_mzn)
 
     def test_json_to_mzn_to_lean_consistency(self):
         """
