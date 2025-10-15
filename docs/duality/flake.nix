@@ -31,7 +31,7 @@
         minizinc = pkgs.minizinc;
 
         # Lean4 from flake input (pinned to v4.15.0 for mathlib compatibility)
-        lean = lean4.packages.${system}.lean;
+        lean = lean4.packages.${system}.default or lean4.defaultPackage.${system} or pkgs.lean4;
 
         # Helper script for rendering pilots
         render-pilots = pkgs.writeShellScriptBin "duality-render-pilots" ''
