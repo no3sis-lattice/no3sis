@@ -70,7 +70,7 @@
 
     # Duality subsystem - dual-tract formalization (MiniZinc + Lean4)
     duality = {
-      url = "path:./docs/duality";
+      url = "github:noesis-lattice/synapse?dir=docs/duality";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

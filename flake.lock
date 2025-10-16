@@ -11,11 +11,11 @@
       },
       "locked": {
         "dir": "nix/flakes/architect",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -36,11 +36,11 @@
       },
       "locked": {
         "dir": "nix/flakes/base-agent",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -61,11 +61,11 @@
       },
       "locked": {
         "dir": "nix/flakes/boss",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -86,11 +86,11 @@
       },
       "locked": {
         "dir": "nix/flakes/clarity-judge",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -111,11 +111,11 @@
       },
       "locked": {
         "dir": "nix/flakes/code-hound",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -136,11 +136,11 @@
       },
       "locked": {
         "dir": "nix/flakes/devops-engineer",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -161,11 +161,11 @@
       },
       "locked": {
         "dir": "nix/flakes/docs-writer",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -186,14 +186,20 @@
         ]
       },
       "locked": {
-        "path": "./docs/duality",
-        "type": "path"
+        "dir": "docs/duality",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
+        "owner": "noesis-lattice",
+        "repo": "synapse",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
+        "type": "github"
       },
       "original": {
-        "path": "./docs/duality",
-        "type": "path"
-      },
-      "parent": []
+        "dir": "docs/duality",
+        "owner": "noesis-lattice",
+        "repo": "synapse",
+        "type": "github"
+      }
     },
     "file-creator": {
       "inputs": {
@@ -206,11 +212,11 @@
       },
       "locked": {
         "dir": "nix/flakes/file-creator",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -357,11 +363,11 @@
       },
       "locked": {
         "dir": "nix/flakes/git-workflow",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -382,11 +388,11 @@
       },
       "locked": {
         "dir": "nix/flakes/golang-specialist",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -427,11 +433,11 @@
       },
       "locked": {
         "dir": "nix/flakes/lean4-verification",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -453,11 +459,11 @@
       },
       "locked": {
         "dir": "nix/flakes/mojo-message-router",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -479,11 +485,11 @@
       },
       "locked": {
         "dir": "nix/flakes/mojo-pattern-search",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -502,11 +508,11 @@
       },
       "locked": {
         "dir": "nix/flakes/mojo-runtime",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -618,11 +624,11 @@
       },
       "locked": {
         "dir": "nix/flakes/pneuma",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -643,11 +649,11 @@
       },
       "locked": {
         "dir": "nix/flakes/python-specialist",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -699,11 +705,11 @@
       },
       "locked": {
         "dir": "nix/flakes/rust-specialist",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -724,11 +730,11 @@
       },
       "locked": {
         "dir": "nix/flakes/security-specialist",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -747,11 +753,11 @@
       },
       "locked": {
         "dir": "nix/flakes/synapse-core",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -877,11 +883,11 @@
       },
       "locked": {
         "dir": "nix/flakes/test-runner",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -902,11 +908,11 @@
       },
       "locked": {
         "dir": "nix/flakes/tool-runner",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -927,11 +933,11 @@
       },
       "locked": {
         "dir": "nix/flakes/typescript-specialist",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
@@ -952,11 +958,11 @@
       },
       "locked": {
         "dir": "nix/flakes/ux-designer",
-        "lastModified": 1760592274,
-        "narHash": "sha256-94tVEpqHb7BPMKYK7MUm5z7XpyVzDFsZ7uHFmTLthNU=",
+        "lastModified": 1760593563,
+        "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
         "owner": "noesis-lattice",
         "repo": "synapse",
-        "rev": "970869599a3336afa4332a7a84ffdcf9e721e3b2",
+        "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
