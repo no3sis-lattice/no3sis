@@ -1,0 +1,63 @@
+name: Duality Nix CI (Simplified)
+
+# Simplified version using reusable workflow
+# Demonstrates DRY principle by delegating to shared logic
+
+on:
+  push:
+    paths:
+      - 'docs/duality/**'
+      - '.github/workflows/duality-nix-simplified.yml'
+  pull_request:
+    paths:
+      - 'docs/duality/**'
+      - '.github/workflows/duality-nix-simplified.yml'
+
+jobs:
+  # Setup job
+  setup-nix:
+    name: Setup Infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-nix
+      - name: Nix Flake Check
+        run: |
+          cd docs/duality
+          nix flake check --show-trace
+
+  # Render pilots first
+  render-pilots:
+    name: Render Pilot Chunks
+    needs: setup-nix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-nix
+
+      - name: Render Pilots via Nix
+        run: |
+          cd docs/duality
+          for chunk in 06 08 09 19; do
+            nix develop --command python3 scripts/render_formalizations.py \
+              true-dual-tract/chunks/chunk-${chunk}.constraints.json --use-base-imports --force
+          done
+
+      - name: Upload Rendered Pilots
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-pilots
+          path: |
+            docs/duality/true-dual-tract/chunks/chunk-*.mzn
+            docs/duality/formal/Duality/Chunks/Chunk*.lean
+          retention-days: 7
+
+  # Call reusable workflow for validation
+  validate-pilots:
+    name: Validate Pilots
+    needs: render-pilots
+    uses: ./.github/workflows/reusable-validate-duality.yml
+    with:
+      scope: pilots
+      strict-mode: true
+      timeout-minutes: 15

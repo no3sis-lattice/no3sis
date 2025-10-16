@@ -1,0 +1,262 @@
+name: Duality Nix CI (Pilots Only)
+
+# Phase 6: 100% Nix-based CI workflow for duality subsystem
+# Pilots: [06, 08, 09, 19] - External + Internal + 2 Bridge
+# Zero manual dependency installation (apt/pip eliminated)
+# SOPS-encrypted secrets for future integrations
+
+on:
+  push:
+    paths:
+      - 'docs/duality/**'
+      - '.github/workflows/duality-nix.yml'
+  pull_request:
+    paths:
+      - 'docs/duality/**'
+      - '.github/workflows/duality-nix.yml'
+
+jobs:
+  # ============================================================================
+  # Job 1: Setup Nix and SOPS (shared infrastructure)
+  # ============================================================================
+  setup-nix:
+    name: Setup Nix + SOPS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Setup SOPS (for secret management)
+        uses: mdgreenwald/mozilla-sops-action@v1.6.0
+
+      - name: Decrypt CI Secrets (Phase 6 - Placeholders)
+        run: |
+          if [ -f .github/workflows/secrets/duality-ci.sops.yaml ]; then
+            sops -d .github/workflows/secrets/duality-ci.sops.yaml > /tmp/secrets.yaml
+            echo "✓ Secrets decrypted successfully"
+          else
+            echo "⚠ No encrypted secrets found (expected in Phase 6 initial setup)"
+            touch /tmp/secrets.yaml
+          fi
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        continue-on-error: true
+
+      - name: Nix Flake Check
+        run: |
+          cd docs/duality
+          nix flake check --show-trace
+
+  # ============================================================================
+  # Job 2: Render Pilots (Pure Nix)
+  # ============================================================================
+  render-pilots:
+    name: Render 4 Pilot Chunks
+    runs-on: ubuntu-latest
+    needs: setup-nix
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Render Pilots via Nix
+        run: |
+          cd docs/duality
+          nix develop --command python3 scripts/render_formalizations.py \
+            true-dual-tract/chunks/chunk-06.constraints.json --use-base-imports --force
+          nix develop --command python3 scripts/render_formalizations.py \
+            true-dual-tract/chunks/chunk-08.constraints.json --use-base-imports --force
+          nix develop --command python3 scripts/render_formalizations.py \
+            true-dual-tract/chunks/chunk-09.constraints.json --use-base-imports --force
+          nix develop --command python3 scripts/render_formalizations.py \
+            true-dual-tract/chunks/chunk-19.constraints.json --use-base-imports --force
+
+      - name: Upload Rendered Pilots
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-pilots
+          path: |
+            docs/duality/true-dual-tract/chunks/chunk-06.mzn
+            docs/duality/true-dual-tract/chunks/chunk-08.mzn
+            docs/duality/true-dual-tract/chunks/chunk-09.mzn
+            docs/duality/true-dual-tract/chunks/chunk-19.mzn
+            docs/duality/formal/Duality/Chunks/Chunk06.lean
+            docs/duality/formal/Duality/Chunks/Chunk08.lean
+            docs/duality/formal/Duality/Chunks/Chunk09.lean
+            docs/duality/formal/Duality/Chunks/Chunk19.lean
+          retention-days: 7
+
+  # ============================================================================
+  # Job 3: Validate MiniZinc Syntax (Pure Nix)
+  # ============================================================================
+  validate-minizinc:
+    name: Validate MiniZinc Models
+    runs-on: ubuntu-latest
+    needs: render-pilots
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Download Rendered Pilots
+        uses: actions/download-artifact@v4
+        with:
+          name: rendered-pilots
+          path: docs/duality
+
+      - name: Validate MiniZinc Syntax (Pilots Only)
+        run: |
+          cd docs/duality
+          for chunk in 06 08 09 19; do
+            echo "=== Validating Chunk $chunk MiniZinc ==="
+            nix develop --command minizinc -e true-dual-tract/chunks/chunk-${chunk}.mzn
+          done
+
+  # ============================================================================
+  # Job 4: Validate Lean4 Proofs (Pure Nix)
+  # ============================================================================
+  validate-lean:
+    name: Validate Lean4 Proofs
+    runs-on: ubuntu-latest
+    needs: render-pilots
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Download Rendered Pilots
+        uses: actions/download-artifact@v4
+        with:
+          name: rendered-pilots
+          path: docs/duality
+
+      - name: Build Lean4 Pilots
+        run: |
+          cd docs/duality/formal
+          nix develop ..#duality --command bash -c '
+            if [ ! -f lake-manifest.json ]; then
+              lake update
+            fi
+            lake build Duality.Chunks.Chunk06
+            lake build Duality.Chunks.Chunk08
+            lake build Duality.Chunks.Chunk09
+            lake build Duality.Chunks.Chunk19
+          '
+
+  # ============================================================================
+  # Job 5: Cross-Check Constraint Equivalence (Pure Nix)
+  # ============================================================================
+  cross-check:
+    name: Cross-Check Pilot Equivalence
+    runs-on: ubuntu-latest
+    needs: [validate-minizinc, validate-lean]
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Download Rendered Pilots
+        uses: actions/download-artifact@v4
+        with:
+          name: rendered-pilots
+          path: docs/duality
+
+      - name: Run Cross-Check (Strict Mode)
+        run: |
+          cd docs/duality
+          nix develop --command python3 scripts/cross_check_all.py \
+            --chunks 06 08 09 19 \
+            --report reports/cross-check-pilots-nix.md
+
+      - name: Upload Cross-Check Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cross-check-report
+          path: docs/duality/reports/cross-check-pilots-nix.md
+          retention-days: 30
+
+  # ============================================================================
+  # Job 6: JSON Schema Validation (Pure Nix)
+  # ============================================================================
+  validate-json-schema:
+    name: Validate JSON Schema
+    runs-on: ubuntu-latest
+    needs: setup-nix
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate Pilot Chunk JSON Schema
+        run: |
+          cd docs/duality
+          nix develop --command python3 -c "
+          import json, jsonschema, sys
+          from pathlib import Path
+
+          schema = json.loads(Path('templates/chunk-constraints.schema.json').read_text())
+          pilots = ['06', '08', '09', '19']
+          errors = []
+          success = 0
+
+          for pilot_id in pilots:
+              f = Path(f'true-dual-tract/chunks/chunk-{pilot_id}.constraints.json')
+              try:
+                  data = json.loads(f.read_text())
+                  jsonschema.validate(data, schema)
+                  success += 1
+                  print(f'✓ {f.name} valid')
+              except jsonschema.ValidationError as e:
+                  errors.append(f'❌ {f.name}: {e.message}')
+              except Exception as e:
+                  errors.append(f'❌ {f.name}: {str(e)}')
+
+          if errors:
+              print('\n'.join(errors))
+              print(f'\n✗ Schema validation: {success}/{len(pilots)} pilots passed')
+              sys.exit(1)
+
+          print(f'\n✓ Schema validation: {success}/{len(pilots)} pilots passed')
+          "
+
+  # ============================================================================
+  # Job 7: Summary Report
+  # ============================================================================
+  summary:
+    name: Phase 6 Nix CI Summary
+    runs-on: ubuntu-latest
+    needs: [render-pilots, validate-minizinc, validate-lean, cross-check, validate-json-schema]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Summary
+        run: |
+          echo "## Phase 6: Nix CI Pipeline Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Pilots Validated: [06, 08, 09, 19]" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Render Pilots | ${{ needs.render-pilots.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| MiniZinc Validation | ${{ needs.validate-minizinc.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Lean4 Validation | ${{ needs.validate-lean.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Cross-Check | ${{ needs.cross-check.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| JSON Schema | ${{ needs.validate-json-schema.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Infrastructure**: 100% Nix (zero manual deps)" >> $GITHUB_STEP_SUMMARY
+          echo "**SOPS**: Ready for encrypted secrets" >> $GITHUB_STEP_SUMMARY

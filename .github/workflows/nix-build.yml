@@ -16,9 +16,12 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Install Nix
-        uses: cachix/install-nix-action@v27
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
         with:
-          install_url: https://releases.nixos.org/nix/nix-2.18.0/install
+          cache-key-prefix: 'nix-build'
+
       - name: Build the flake
         run: nix build

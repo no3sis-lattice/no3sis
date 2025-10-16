@@ -1,0 +1,176 @@
+name: Reusable Duality Validation Workflow
+
+# Reusable workflow for validating duality chunks
+# Reduces duplication between pilot and nightly validation
+
+on:
+  workflow_call:
+    inputs:
+      scope:
+        description: 'Validation scope: pilots or all'
+        required: true
+        type: string
+      strict-mode:
+        description: 'Fail on cross-check warnings'
+        required: false
+        type: boolean
+        default: true
+      timeout-minutes:
+        description: 'Job timeout in minutes'
+        required: false
+        type: number
+        default: 15
+
+jobs:
+  # ============================================================================
+  # Validate MiniZinc
+  # ============================================================================
+  validate-minizinc:
+    name: Validate MiniZinc Models (${{ inputs.scope }})
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate MiniZinc Files
+        run: |
+          cd docs/duality
+          if [ "${{ inputs.scope }}" == "pilots" ]; then
+            nix develop --command bash scripts/ci/validate_minizinc.sh pilots
+          else
+            nix develop --command bash scripts/ci/validate_minizinc.sh all
+          fi
+
+  # ============================================================================
+  # Validate Lean4
+  # ============================================================================
+  validate-lean:
+    name: Validate Lean4 Proofs (${{ inputs.scope }})
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Build Lean4 Chunks
+        run: |
+          cd docs/duality
+          if [ "${{ inputs.scope }}" == "pilots" ]; then
+            nix develop --command bash scripts/ci/build_lean.sh pilots
+          else
+            nix develop --command bash scripts/ci/build_lean.sh all
+          fi
+
+  # ============================================================================
+  # Validate JSON Schema
+  # ============================================================================
+  validate-json-schema:
+    name: Validate JSON Schema (${{ inputs.scope }})
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate JSON Schemas
+        run: |
+          cd docs/duality
+          if [ "${{ inputs.scope }}" == "pilots" ]; then
+            nix develop --command python3 scripts/ci/validate_json_schema.py --pilots 06 08 09 19
+          else
+            nix develop --command python3 scripts/ci/validate_json_schema.py
+          fi
+
+  # ============================================================================
+  # Cross-Check
+  # ============================================================================
+  cross-check:
+    name: Cross-Check Equivalence (${{ inputs.scope }})
+    runs-on: ubuntu-latest
+    needs: [validate-minizinc, validate-lean]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Run Cross-Check
+        run: |
+          cd docs/duality
+          if [ "${{ inputs.scope }}" == "pilots" ]; then
+            nix develop --command python3 scripts/cross_check_all.py \
+              --chunks 06 08 09 19 \
+              --report reports/cross-check-${{ inputs.scope }}.md
+          else
+            WARN_FLAG=""
+            if [ "${{ inputs.strict-mode }}" != "true" ]; then
+              WARN_FLAG="--warn-only"
+            fi
+            nix develop --command python3 scripts/cross_check_all.py \
+              $WARN_FLAG \
+              --report reports/cross-check-${{ inputs.scope }}.md
+          fi
+
+      - name: Upload Cross-Check Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cross-check-${{ inputs.scope }}-report
+          path: docs/duality/reports/cross-check-${{ inputs.scope }}.md
+          retention-days: 30
+
+  # ============================================================================
+  # Tract Balance (only for full corpus)
+  # ============================================================================
+  validate-tract-balance:
+    name: Validate Tract Balance
+    if: inputs.scope == 'all'
+    runs-on: ubuntu-latest
+    needs: validate-json-schema
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate Tract Balance (M_syn meta-pattern)
+        run: |
+          cd docs/duality
+          nix develop --command python3 scripts/validate_tract_balance.py \
+            --threshold 100 \
+            --fail-on-violation
+
+  # ============================================================================
+  # Summary
+  # ============================================================================
+  summary:
+    name: Validation Summary (${{ inputs.scope }})
+    runs-on: ubuntu-latest
+    needs: [validate-minizinc, validate-lean, validate-json-schema, cross-check]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Summary
+        run: |
+          echo "## Duality Validation Results - ${{ inputs.scope }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp**: $(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Scope**: ${{ inputs.scope }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Validation | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| MiniZinc Syntax | ${{ needs.validate-minizinc.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Lean4 Compilation | ${{ needs.validate-lean.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| JSON Schema | ${{ needs.validate-json-schema.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Cross-Check | ${{ needs.cross-check.result == 'success' && '✅ Pass' || '⚠️ Check Report' }} |" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ inputs.scope }}" == "all" ]; then
+            echo "| Tract Balance | ${{ needs.validate-tract-balance.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          fi

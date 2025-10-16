@@ -1,0 +1,207 @@
+name: Duality Nix CI (Full Corpus - Nightly)
+
+# Phase 6: Nightly validation of all 62 chunks
+# Runs at 00:00 UTC daily
+# 100% Nix-based (zero manual deps)
+# Timeout: 30 minutes
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 00:00 UTC daily
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  # ============================================================================
+  # Job 1: Validate All Chunks - MiniZinc Syntax
+  # ============================================================================
+  validate-all-minizinc:
+    name: Validate All MiniZinc Models (62 chunks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate All MiniZinc Files
+        run: |
+          cd docs/duality/true-dual-tract/chunks
+          success=0
+          total=0
+          failed_chunks=""
+
+          for f in chunk-*.mzn; do
+            total=$((total + 1))
+            chunk_id=$(echo "$f" | sed 's/chunk-\([0-9]*\)\.mzn/\1/')
+
+            echo "=== Validating $f ==="
+            if nix develop ../.. --command minizinc -e "$f" 2>&1; then
+              success=$((success + 1))
+            else
+              echo "❌ Failed: $f"
+              failed_chunks="$failed_chunks $chunk_id"
+            fi
+          done
+
+          echo "✓ MiniZinc validation: $success/$total files passed"
+
+          if [ $success -ne $total ]; then
+            echo "Failed chunks:$failed_chunks"
+            exit 1
+          fi
+
+  # ============================================================================
+  # Job 2: Validate All Chunks - Lean4 Compilation
+  # ============================================================================
+  validate-all-lean:
+    name: Validate All Lean4 Proofs (62 chunks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Build All Lean4 Chunks
+        run: |
+          cd docs/duality/formal
+          nix develop ..#duality --command bash -c '
+            if [ ! -f lake-manifest.json ]; then
+              lake update
+            fi
+
+            echo "=== Building Duality.lean (imports all chunks) ==="
+            lake build Duality
+          '
+
+  # ============================================================================
+  # Job 3: Cross-Check All Chunks (Warn-Only Mode)
+  # ============================================================================
+  cross-check-all:
+    name: Cross-Check All Chunks (Warn-Only)
+    runs-on: ubuntu-latest
+    needs: [validate-all-minizinc, validate-all-lean]
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Run Cross-Check (All Chunks, Warn-Only)
+        run: |
+          cd docs/duality
+          nix develop --command python3 scripts/cross_check_all.py \
+            --warn-only \
+            --report reports/cross-check-nightly.md
+
+      - name: Upload Cross-Check Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cross-check-nightly-report
+          path: docs/duality/reports/cross-check-nightly.md
+          retention-days: 30
+
+  # ============================================================================
+  # Job 4: JSON Schema Validation (All Chunks)
+  # ============================================================================
+  validate-all-json-schema:
+    name: Validate All JSON Schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate All Chunk JSON Schemas
+        run: |
+          cd docs/duality
+          nix develop --command python3 -c "
+          import json, jsonschema, sys
+          from pathlib import Path
+
+          schema = json.loads(Path('templates/chunk-constraints.schema.json').read_text())
+          errors = []
+          success = 0
+          total = 0
+
+          for f in sorted(Path('true-dual-tract/chunks').glob('chunk-*.constraints.json')):
+              total += 1
+              try:
+                  data = json.loads(f.read_text())
+                  jsonschema.validate(data, schema)
+                  success += 1
+              except jsonschema.ValidationError as e:
+                  errors.append(f'❌ {f.name}: {e.message}')
+              except Exception as e:
+                  errors.append(f'❌ {f.name}: {str(e)}')
+
+          if errors:
+              print('\n'.join(errors))
+              print(f'\n✗ Schema validation: {success}/{total} chunks passed')
+              sys.exit(1)
+
+          print(f'✓ Schema validation: {success}/{total} chunks passed')
+          "
+
+  # ============================================================================
+  # Job 5: Tract Balance Validation
+  # ============================================================================
+  validate-tract-balance:
+    name: Validate Universal Tract Balance
+    runs-on: ubuntu-latest
+    needs: validate-all-json-schema
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use composite action for Nix setup
+      - name: Setup Nix Environment
+        uses: ./.github/actions/setup-nix
+
+      - name: Validate Tract Balance (M_syn meta-pattern)
+        run: |
+          cd docs/duality
+          nix develop --command python3 scripts/validate_tract_balance.py \
+            --threshold 100 \
+            --fail-on-violation
+
+  # ============================================================================
+  # Job 6: Nightly Summary Report
+  # ============================================================================
+  summary:
+    name: Nightly Validation Summary
+    runs-on: ubuntu-latest
+    needs: [validate-all-minizinc, validate-all-lean, cross-check-all, validate-all-json-schema, validate-tract-balance]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Nightly Summary
+        run: |
+          echo "## Duality Nix CI - Nightly Full Corpus Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date**: $(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Scope**: All 62 chunks" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Validation Stage | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| MiniZinc Syntax (62 chunks) | ${{ needs.validate-all-minizinc.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Lean4 Compilation (62 chunks) | ${{ needs.validate-all-lean.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Cross-Check Equivalence | ${{ needs.cross-check-all.result == 'success' && '✅ Pass' || '⚠️ Warnings' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| JSON Schema Validation | ${{ needs.validate-all-json-schema.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tract Balance (M_syn) | ${{ needs.validate-tract-balance.result == 'success' && '✅ Pass' || '❌ Fail' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Infrastructure**: 100% Nix-based (deterministic, reproducible)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify on Failure (Future: Could add Slack/Discord webhook)
+        if: failure()
+        run: |
+          echo "⚠️ Nightly validation failed - see summary for details"
+          echo "Future: Add notification webhook here"

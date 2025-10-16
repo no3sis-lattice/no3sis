@@ -1,14 +1,20 @@
-name: Duality Formalization Validation
+# DEPRECATED: This workflow will be removed by 2025-01-31
+# Use duality-nix.yml instead
+# See: docs/duality/PHASE6_NIX_CI_SOPS_REPORT.md for migration details
+
+name: Duality Formalization Validation (DEPRECATED)
+
+# NOTE: This workflow is being migrated to 100% Nix-based CI (duality-nix.yml)
+# This legacy workflow will be deprecated after Phase 6 validation period completes
+# See: docs/duality/NIX_HARD_ENCODING_PLAN.md Phase 6
 
 on:
-  push:
-    paths:
-      - 'docs/duality/**'
-      - '.github/workflows/duality-validation.yml'
-  pull_request:
-    paths:
-      - 'docs/duality/**'
-      - '.github/workflows/duality-validation.yml'
+  workflow_dispatch:  # Manual trigger only during deprecation period
+    inputs:
+      reason:
+        description: 'Reason for running deprecated workflow'
+        required: true
+        type: string
 
 env:
   MINIZINC_VERSION: "2.8.7"
@@ -93,7 +99,7 @@ jobs:
         run: |
           cd docs/duality
           echo "=== Validating pilot chunks (strict mode) ==="
-          python3 scripts/cross_check_all.py --chunks 06 09 19 --report reports/cross-check-pilots.md
+          python3 scripts/cross_check_all.py --chunks 06 08 09 19 --report reports/cross-check-pilots.md
 
           echo ""
           echo "=== Validating all chunks (warn-only mode) ==="
@@ -195,7 +201,7 @@ jobs:
       - name: Regenerate Pilot Chunks
         run: |
           cd docs/duality
-          for chunk in 06 09 19; do
+          for chunk in 06 08 09 19; do
             echo "Regenerating Chunk $chunk..."
             python3 scripts/render_formalizations.py \
               true-dual-tract/chunks/chunk-${chunk}.constraints.json \
@@ -210,13 +216,14 @@ jobs:
             lake update
           fi
           lake build Duality.Chunks.Chunk06
+          lake build Duality.Chunks.Chunk08
           lake build Duality.Chunks.Chunk09
           lake build Duality.Chunks.Chunk19
 
       - name: Cross-Check Pilots
         run: |
           cd docs/duality
-          python3 scripts/cross_check_all.py --chunks 06 09 19
+          python3 scripts/cross_check_all.py --chunks 06 08 09 19
 
   validate-json-schema:
     name: Validate Constraint JSON Files
