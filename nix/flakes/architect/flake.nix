@@ -1,10 +1,15 @@
 {
   description = "Architect Agent with design and architecture tools";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
       # Python environment for the agent runner
       pythonEnv = pkgs.python312.withPackages (ps: with ps; [
@@ -91,21 +96,23 @@
         exec ${pythonEnv}/bin/python architect_agent.py "$@"
       '';
 
-    in
-    {
-      packages.${system} = {
-        architect = pkgs.writeShellScriptBin "architect" ''
-          exec ${agentScript} "$@"
-        '';
+      in
+      {
+        packages = {
+          architect = pkgs.writeShellScriptBin "architect" ''
+            exec ${agentScript} "$@"
+          '';
 
-        default = self.packages.${system}.architect;
+          default = pkgs.writeShellScriptBin "architect" ''
+            exec ${agentScript} "$@"
+          '';
 
-        # Architecture tools environment
-        architect-env = architectEnv;
-      };
+          # Architecture tools environment
+          architect-env = architectEnv;
+        };
 
-      # Development shell with complete architecture toolchain
-      devShells.${system}.default = pkgs.mkShell {
+        # Development shell with complete architecture toolchain
+        devShells.default = pkgs.mkShell {
         buildInputs = with pkgs; [
           pythonEnv
           architectEnv
@@ -138,11 +145,13 @@
         # Set environment variables for architecture work
         PLANTUML_JAR = "${pkgs.plantuml}/lib/plantuml.jar";
         GRAPHVIZ_DOT = "${pkgs.graphviz}/bin/dot";
-      };
+        };
 
-      # Checks to validate the agent and architecture environment
-      checks.${system} = {
-        architect-build = self.packages.${system}.architect;
+        # Checks to validate the agent and architecture environment
+        checks = {
+          architect-build = pkgs.writeShellScriptBin "architect" ''
+            exec ${agentScript} "$@"
+          '';
 
         architecture-tools-check = pkgs.runCommand "architecture-tools-check" {
           buildInputs = [ architectEnv ];
@@ -170,6 +179,7 @@
           fi
           touch $out
         '';
-      };
-    };
+        };
+      }
+    );
 }

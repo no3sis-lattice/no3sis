@@ -1,138 +1,144 @@
 {
   description = "DevOps Engineer Agent with infrastructure and deployment tools";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-      # Python environment for the agent runner
-      pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-        # Core agent dependencies
-        asyncio-mqtt
-        aiofiles
-        rich
-        pyyaml
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-        # Synapse System integration
-        neo4j
-        redis
-        numpy
-        requests
+        # Python environment for the agent runner
+        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
+          # Core agent dependencies
+          asyncio-mqtt
+          aiofiles
+          rich
+          pyyaml
 
-        # Infrastructure as Code
-        ansible
-        jinja2
-      ]);
-
-      # DevOps tools environment
-      devopsEnv = pkgs.buildEnv {
-        name = "devops-engineer-env";
-        paths = with pkgs; [
-          # Core utilities
-          git
-          curl
-          jq
-          yq
-
-          # Container tools
-          docker
-          docker-compose
-          podman
-          buildah
-
-          # Kubernetes tools
-          kubectl
-          kubernetes-helm
-          kustomize
-          k9s
-          kubectx
+          # Synapse System integration
+          neo4j
+          redis
+          numpy
+          requests
 
           # Infrastructure as Code
-          terraform
-          terragrunt
           ansible
-          packer
-          vagrant
+          jinja2
+        ]);
 
-          # Cloud CLI tools
-          awscli2
-          google-cloud-sdk
-          azure-cli
+        # DevOps tools environment
+        devopsEnv = pkgs.buildEnv {
+          name = "devops-engineer-env";
+          paths = with pkgs; [
+            # Core utilities
+            git
+            curl
+            jq
+            yq
 
-          # Monitoring and observability
-          prometheus
-          grafana
+            # Container tools
+            docker
+            docker-compose
+            podman
+            buildah
 
-          # CI/CD tools
-          github-cli
-          gitlab-runner
+            # Kubernetes tools
+            kubectl
+            kubernetes-helm
+            kustomize
+            k9s
+            kubectx
 
-          # Configuration management
-          consul
-          vault
+            # Infrastructure as Code
+            terraform
+            terragrunt
+            ansible
+            packer
+            vagrant
 
-          # Networking
-          dig
-          netcat
-          curl
-          wget
+            # Cloud CLI tools
+            awscli2
+            google-cloud-sdk
+            azure-cli
 
-          # System monitoring
-          htop
-          iotop
-          lsof
-        ];
-      };
+            # Monitoring and observability
+            prometheus
+            grafana
 
-      # Agent script
-      agentScript = pkgs.writeShellScript "devops-engineer-script" ''
-        #!${pkgs.bash}/bin/bash
-        set -euo pipefail
+            # CI/CD tools
+            github-cli
+            gitlab-runner
 
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/devops-engineer"
+            # Configuration management
+            consul
+            vault
 
-        if [[ ! -f "$AGENT_DIR/devops_engineer_agent.py" ]]; then
-          echo "❌ DevOps Engineer agent not found at $AGENT_DIR"
-          exit 1
-        fi
+            # Networking
+            dig
+            netcat
+            curl
+            wget
 
-        echo "🚀 Starting DevOps Engineer Agent..."
-        cd "$AGENT_DIR"
+            # System monitoring
+            htop
+            iotop
+            lsof
+          ];
+        };
 
-        export PATH="${devopsEnv}/bin:$PATH"
-        exec ${pythonEnv}/bin/python devops_engineer_agent.py "$@"
-      '';
+        # Agent script
+        agentScript = pkgs.writeShellScript "devops-engineer-script" ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
 
-    in
-    {
-      packages.${system} = {
-        devops-engineer = pkgs.writeShellScriptBin "devops-engineer" ''
-          exec ${agentScript} "$@"
+          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/devops-engineer"
+
+          if [[ ! -f "$AGENT_DIR/devops_engineer_agent.py" ]]; then
+            echo "❌ DevOps Engineer agent not found at $AGENT_DIR"
+            exit 1
+          fi
+
+          echo "🚀 Starting DevOps Engineer Agent..."
+          cd "$AGENT_DIR"
+
+          export PATH="${devopsEnv}/bin:$PATH"
+          exec ${pythonEnv}/bin/python devops_engineer_agent.py "$@"
         '';
 
-        default = self.packages.${system}.devops-engineer;
-        devops-env = devopsEnv;
-      };
+      in
+      {
+        packages = {
+          devops-engineer = pkgs.writeShellScriptBin "devops-engineer" ''
+            exec ${agentScript} "$@"
+          '';
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ devopsEnv pythonEnv ];
+          default = self.packages.devops-engineer;
+          devops-env = devopsEnv;
+        };
 
-        shellHook = ''
-          echo "🚀 DevOps Engineer Development Environment"
-          echo "Available tools:"
-          echo "  - Containers: docker, podman, buildah"
-          echo "  - Kubernetes: kubectl, helm, k9s"
-          echo "  - IaC: terraform, ansible, packer"
-          echo "  - Cloud: aws, gcloud, az"
-          echo "  - Monitoring: prometheus, grafana"
-          echo ""
-          echo "To run the agent: devops-engineer"
-        '';
-      };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ devopsEnv pythonEnv ];
 
-      checks.${system} = {
-        devops-engineer-build = self.packages.${system}.devops-engineer;
-      };
-    };
+          shellHook = ''
+            echo "🚀 DevOps Engineer Development Environment"
+            echo "Available tools:"
+            echo "  - Containers: docker, podman, buildah"
+            echo "  - Kubernetes: kubectl, helm, k9s"
+            echo "  - IaC: terraform, ansible, packer"
+            echo "  - Cloud: aws, gcloud, az"
+            echo "  - Monitoring: prometheus, grafana"
+            echo ""
+            echo "To run the agent: devops-engineer"
+          '';
+        };
+
+        checks = {
+          devops-engineer-build = self.packages.devops-engineer;
+        };
+      }
+    );
 }

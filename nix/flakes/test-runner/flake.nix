@@ -1,127 +1,133 @@
 {
   description = "Test Runner Agent with multi-language testing frameworks";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-      # Python environment for the agent runner
-      pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-        # Core agent dependencies
-        asyncio-mqtt
-        aiofiles
-        rich
-        pyyaml
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-        # Synapse System integration
-        neo4j
-        redis
-        numpy
-        requests
+        # Python environment for the agent runner
+        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
+          # Core agent dependencies
+          asyncio-mqtt
+          aiofiles
+          rich
+          pyyaml
 
-        # Python testing frameworks
-        pytest
-        pytest-asyncio
-        pytest-cov
-        pytest-xdist
-        coverage
-        hypothesis
-        tox
-      ]);
+          # Synapse System integration
+          neo4j
+          redis
+          numpy
+          requests
 
-      # Multi-language testing tools
-      testEnv = pkgs.buildEnv {
-        name = "test-runner-env";
-        paths = with pkgs; [
-          # Core utilities
-          git
-          curl
-          jq
+          # Python testing frameworks
+          pytest
+          pytest-asyncio
+          pytest-cov
+          pytest-xdist
+          coverage
+          hypothesis
+          tox
+        ]);
 
-          # Python testing
-          pythonEnv
+        # Multi-language testing tools
+        testEnv = pkgs.buildEnv {
+          name = "test-runner-env";
+          paths = with pkgs; [
+            # Core utilities
+            git
+            curl
+            jq
 
-          # Node.js testing
-          nodejs_20
-          nodePackages.jest
-          nodePackages.mocha
-          nodePackages.vitest
+            # Python testing
+            pythonEnv
 
-          # Rust testing
-          rustc
-          cargo
-          cargo-tarpaulin
+            # Node.js testing
+            nodejs_20
+            nodePackages.jest
+            nodePackages.mocha
+            nodePackages.vitest
 
-          # Go testing
-          go
-          gotestsum
+            # Rust testing
+            rustc
+            cargo
+            cargo-tarpaulin
 
-          # Generic test tools
-          bats  # Bash testing
+            # Go testing
+            go
+            gotestsum
 
-          # Coverage and reporting
-          lcov
-          gcovr
+            # Generic test tools
+            bats  # Bash testing
 
-          # Performance testing
-          wrk
-          k6
-        ];
-      };
+            # Coverage and reporting
+            lcov
+            gcovr
 
-      # Agent script that runs the actual Python implementation
-      agentScript = pkgs.writeShellScript "test-runner-script" ''
-        #!${pkgs.bash}/bin/bash
-        set -euo pipefail
+            # Performance testing
+            wrk
+            k6
+          ];
+        };
 
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/test-runner"
+        # Agent script that runs the actual Python implementation
+        agentScript = pkgs.writeShellScript "test-runner-script" ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
 
-        if [[ ! -f "$AGENT_DIR/test_runner_agent.py" ]]; then
-          echo "❌ Test Runner agent not found at $AGENT_DIR"
-          echo "Please ensure the Synapse System is properly initialized."
-          exit 1
-        fi
+          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/test-runner"
 
-        echo "🧪 Starting Test Runner Agent..."
-        cd "$AGENT_DIR"
+          if [[ ! -f "$AGENT_DIR/test_runner_agent.py" ]]; then
+            echo "❌ Test Runner agent not found at $AGENT_DIR"
+            echo "Please ensure the Synapse System is properly initialized."
+            exit 1
+          fi
 
-        # Add testing tools to PATH
-        export PATH="${testEnv}/bin:$PATH"
+          echo "🧪 Starting Test Runner Agent..."
+          cd "$AGENT_DIR"
 
-        exec ${pythonEnv}/bin/python test_runner_agent.py "$@"
-      '';
+          # Add testing tools to PATH
+          export PATH="${testEnv}/bin:$PATH"
 
-    in
-    {
-      packages.${system} = {
-        test-runner = pkgs.writeShellScriptBin "test-runner" ''
-          exec ${agentScript} "$@"
+          exec ${pythonEnv}/bin/python test_runner_agent.py "$@"
         '';
 
-        default = self.packages.${system}.test-runner;
-        test-env = testEnv;
-      };
+      in
+      {
+        packages = {
+          test-runner = pkgs.writeShellScriptBin "test-runner" ''
+            exec ${agentScript} "$@"
+          '';
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ testEnv ];
+          default = self.packages.test-runner;
+          test-env = testEnv;
+        };
 
-        shellHook = ''
-          echo "🧪 Test Runner Development Environment"
-          echo "Available testing frameworks:"
-          echo "  - Python: pytest, coverage, tox"
-          echo "  - Node.js: jest, mocha, vitest"
-          echo "  - Rust: cargo test, tarpaulin"
-          echo "  - Go: go test, gotestsum"
-          echo "  - Bash: bats"
-          echo "  - Performance: wrk, k6"
-          echo ""
-          echo "To run the agent: test-runner"
-        '';
-      };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ testEnv ];
 
-      checks.${system} = {
-        test-runner-build = self.packages.${system}.test-runner;
-      };
-    };
+          shellHook = ''
+            echo "🧪 Test Runner Development Environment"
+            echo "Available testing frameworks:"
+            echo "  - Python: pytest, coverage, tox"
+            echo "  - Node.js: jest, mocha, vitest"
+            echo "  - Rust: cargo test, tarpaulin"
+            echo "  - Go: go test, gotestsum"
+            echo "  - Bash: bats"
+            echo "  - Performance: wrk, k6"
+            echo ""
+            echo "To run the agent: test-runner"
+          '';
+        };
+
+        checks = {
+          test-runner-build = self.packages.test-runner;
+        };
+      }
+    );
 }

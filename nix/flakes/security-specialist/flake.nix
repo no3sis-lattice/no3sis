@@ -1,119 +1,125 @@
 {
   description = "Security Specialist Agent with comprehensive security scanning tools";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-      # Python environment for the agent runner
-      pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-        # Core agent dependencies
-        asyncio-mqtt
-        aiofiles
-        rich
-        pyyaml
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-        # Synapse System integration
-        neo4j
-        redis
-        numpy
-        requests
+        # Python environment for the agent runner
+        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
+          # Core agent dependencies
+          asyncio-mqtt
+          aiofiles
+          rich
+          pyyaml
 
-        # Security analysis
-        bandit
-        safety
-        cryptography
-      ]);
+          # Synapse System integration
+          neo4j
+          redis
+          numpy
+          requests
 
-      # Security scanning tools
-      securityEnv = pkgs.buildEnv {
-        name = "security-specialist-env";
-        paths = with pkgs; [
-          # Core utilities
-          git
-          curl
-          jq
+          # Security analysis
+          bandit
+          safety
+          cryptography
+        ]);
 
-          # Secret scanning
-          gitleaks
-          truffleHog
+        # Security scanning tools
+        securityEnv = pkgs.buildEnv {
+          name = "security-specialist-env";
+          paths = with pkgs; [
+            # Core utilities
+            git
+            curl
+            jq
 
-          # Vulnerability scanning
-          trivy
-          grype
+            # Secret scanning
+            gitleaks
+            truffleHog
 
-          # Code analysis
-          semgrep
-          codeql
+            # Vulnerability scanning
+            trivy
+            grype
 
-          # Network security
-          nmap
-          masscan
+            # Code analysis
+            semgrep
+            codeql
 
-          # Container security
-          cosign
-          syft
+            # Network security
+            nmap
+            masscan
 
-          # Static analysis
-          shellcheck
-          yamllint
+            # Container security
+            cosign
+            syft
 
-          # Cryptography tools
-          openssl
-          age
-          gnupg
-        ];
-      };
+            # Static analysis
+            shellcheck
+            yamllint
 
-      # Agent script
-      agentScript = pkgs.writeShellScript "security-specialist-script" ''
-        #!${pkgs.bash}/bin/bash
-        set -euo pipefail
+            # Cryptography tools
+            openssl
+            age
+            gnupg
+          ];
+        };
 
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/security-specialist"
+        # Agent script
+        agentScript = pkgs.writeShellScript "security-specialist-script" ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
 
-        if [[ ! -f "$AGENT_DIR/security_specialist_agent.py" ]]; then
-          echo "❌ Security Specialist agent not found at $AGENT_DIR"
-          exit 1
-        fi
+          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/security-specialist"
 
-        echo "🔒 Starting Security Specialist Agent..."
-        cd "$AGENT_DIR"
+          if [[ ! -f "$AGENT_DIR/security_specialist_agent.py" ]]; then
+            echo "❌ Security Specialist agent not found at $AGENT_DIR"
+            exit 1
+          fi
 
-        export PATH="${securityEnv}/bin:$PATH"
-        exec ${pythonEnv}/bin/python security_specialist_agent.py "$@"
-      '';
+          echo "🔒 Starting Security Specialist Agent..."
+          cd "$AGENT_DIR"
 
-    in
-    {
-      packages.${system} = {
-        security-specialist = pkgs.writeShellScriptBin "security-specialist" ''
-          exec ${agentScript} "$@"
+          export PATH="${securityEnv}/bin:$PATH"
+          exec ${pythonEnv}/bin/python security_specialist_agent.py "$@"
         '';
 
-        default = self.packages.${system}.security-specialist;
-        security-env = securityEnv;
-      };
+      in
+      {
+        packages = {
+          security-specialist = pkgs.writeShellScriptBin "security-specialist" ''
+            exec ${agentScript} "$@"
+          '';
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ securityEnv pythonEnv ];
+          default = self.packages.security-specialist;
+          security-env = securityEnv;
+        };
 
-        shellHook = ''
-          echo "🔒 Security Specialist Development Environment"
-          echo "Available security tools:"
-          echo "  - gitleaks: Secret detection"
-          echo "  - trivy: Vulnerability scanner"
-          echo "  - semgrep: Static analysis"
-          echo "  - nmap: Network scanning"
-          echo "  - bandit: Python security linter"
-          echo ""
-          echo "To run the agent: security-specialist"
-        '';
-      };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ securityEnv pythonEnv ];
 
-      checks.${system} = {
-        security-specialist-build = self.packages.${system}.security-specialist;
-      };
-    };
+          shellHook = ''
+            echo "🔒 Security Specialist Development Environment"
+            echo "Available security tools:"
+            echo "  - gitleaks: Secret detection"
+            echo "  - trivy: Vulnerability scanner"
+            echo "  - semgrep: Static analysis"
+            echo "  - nmap: Network scanning"
+            echo "  - bandit: Python security linter"
+            echo ""
+            echo "To run the agent: security-specialist"
+          '';
+        };
+
+        checks = {
+          security-specialist-build = self.packages.security-specialist;
+        };
+      }
+    );
 }

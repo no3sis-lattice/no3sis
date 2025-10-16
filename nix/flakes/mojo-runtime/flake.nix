@@ -86,7 +86,7 @@
       })) // {
       # Expose lib at top level (not system-specific)
       lib = {
-        mojoPath = system: "${self.packages.${system}.default}/bin/mojo";
+        mojoPath = system: "${self.packages.default}/bin/mojo";
       };
     };
 }

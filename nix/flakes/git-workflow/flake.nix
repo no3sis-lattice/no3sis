@@ -1,121 +1,127 @@
 {
   description = "Git Workflow Agent with advanced Git tools and workflow automation";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-      # Python environment for the agent runner
-      pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-        # Core agent dependencies
-        asyncio-mqtt
-        aiofiles
-        rich
-        pyyaml
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-        # Synapse System integration
-        neo4j
-        redis
-        numpy
-        requests
+        # Python environment for the agent runner
+        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
+          # Core agent dependencies
+          asyncio-mqtt
+          aiofiles
+          rich
+          pyyaml
 
-        # Git integration
-        GitPython
-      ]);
+          # Synapse System integration
+          neo4j
+          redis
+          numpy
+          requests
 
-      # Git workflow tools
-      gitEnv = pkgs.buildEnv {
-        name = "git-workflow-env";
-        paths = with pkgs; [
-          # Core Git
-          git
-          git-lfs
+          # Git integration
+          GitPython
+        ]);
 
-          # Git extensions
-          git-delta
-          git-absorb
-          git-branchless
-          git-recent
-          git-trim
+        # Git workflow tools
+        gitEnv = pkgs.buildEnv {
+          name = "git-workflow-env";
+          paths = with pkgs; [
+            # Core Git
+            git
+            git-lfs
 
-          # GitHub/GitLab integration
-          github-cli
-          gitlab-cli
+            # Git extensions
+            git-delta
+            git-absorb
+            git-branchless
+            git-recent
+            git-trim
 
-          # Git workflow tools
-          gitflow
-          git-machete
+            # GitHub/GitLab integration
+            github-cli
+            gitlab-cli
 
-          # Diff and merge tools
-          difftastic
-          meld
+            # Git workflow tools
+            gitflow
+            git-machete
 
-          # Commit tools
-          commitizen
-          gitlint
+            # Diff and merge tools
+            difftastic
+            meld
 
-          # Branch management
-          git-town
+            # Commit tools
+            commitizen
+            gitlint
 
-          # Code review
-          reviewdog
+            # Branch management
+            git-town
 
-          # Utilities
-          jq
-          yq
-          curl
-        ];
-      };
+            # Code review
+            reviewdog
 
-      # Agent script
-      agentScript = pkgs.writeShellScript "git-workflow-script" ''
-        #!${pkgs.bash}/bin/bash
-        set -euo pipefail
+            # Utilities
+            jq
+            yq
+            curl
+          ];
+        };
 
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/git-workflow"
+        # Agent script
+        agentScript = pkgs.writeShellScript "git-workflow-script" ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
 
-        if [[ ! -f "$AGENT_DIR/git_workflow_agent.py" ]]; then
-          echo "❌ Git Workflow agent not found at $AGENT_DIR"
-          exit 1
-        fi
+          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/git-workflow"
 
-        echo "🌳 Starting Git Workflow Agent..."
-        cd "$AGENT_DIR"
+          if [[ ! -f "$AGENT_DIR/git_workflow_agent.py" ]]; then
+            echo "❌ Git Workflow agent not found at $AGENT_DIR"
+            exit 1
+          fi
 
-        export PATH="${gitEnv}/bin:$PATH"
-        exec ${pythonEnv}/bin/python git_workflow_agent.py "$@"
-      '';
+          echo "🌳 Starting Git Workflow Agent..."
+          cd "$AGENT_DIR"
 
-    in
-    {
-      packages.${system} = {
-        git-workflow = pkgs.writeShellScriptBin "git-workflow" ''
-          exec ${agentScript} "$@"
+          export PATH="${gitEnv}/bin:$PATH"
+          exec ${pythonEnv}/bin/python git_workflow_agent.py "$@"
         '';
 
-        default = self.packages.${system}.git-workflow;
-        git-env = gitEnv;
-      };
+      in
+      {
+        packages = {
+          git-workflow = pkgs.writeShellScriptBin "git-workflow" ''
+            exec ${agentScript} "$@"
+          '';
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ gitEnv pythonEnv ];
+          default = self.packages.git-workflow;
+          git-env = gitEnv;
+        };
 
-        shellHook = ''
-          echo "🌳 Git Workflow Development Environment"
-          echo "Available Git tools:"
-          echo "  - git-delta: Better diffs"
-          echo "  - gh: GitHub CLI"
-          echo "  - git-flow: Git flow workflow"
-          echo "  - git-absorb: Auto-fixup commits"
-          echo "  - commitizen: Conventional commits"
-          echo ""
-          echo "To run the agent: git-workflow"
-        '';
-      };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ gitEnv pythonEnv ];
 
-      checks.${system} = {
-        git-workflow-build = self.packages.${system}.git-workflow;
-      };
-    };
+          shellHook = ''
+            echo "🌳 Git Workflow Development Environment"
+            echo "Available Git tools:"
+            echo "  - git-delta: Better diffs"
+            echo "  - gh: GitHub CLI"
+            echo "  - git-flow: Git flow workflow"
+            echo "  - git-absorb: Auto-fixup commits"
+            echo "  - commitizen: Conventional commits"
+            echo ""
+            echo "To run the agent: git-workflow"
+          '';
+        };
+
+        checks = {
+          git-workflow-build = self.packages.git-workflow;
+        };
+      }
+    );
 }

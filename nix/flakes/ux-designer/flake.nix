@@ -1,55 +1,61 @@
 {
   description = "UX Designer Agent with design tools and accessibility analysis";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-      pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-        asyncio-mqtt aiofiles rich pyyaml neo4j redis numpy requests
-        pillow matplotlib seaborn
-      ]);
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-      designEnv = pkgs.buildEnv {
-        name = "ux-designer-env";
-        paths = with pkgs; [
-          git curl jq
-          # Image and design tools
-          imagemagick
-          inkscape
-          # Web development for prototyping
-          nodejs_20
-          nodePackages.prettier
-          nodePackages.eslint
-          # Accessibility tools
-          pa11y
-          # Color and design utilities
-          pandoc
-        ];
-      };
+        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
+          asyncio-mqtt aiofiles rich pyyaml neo4j redis numpy requests
+          pillow matplotlib seaborn
+        ]);
 
-      agentScript = pkgs.writeShellScript "ux-designer-script" ''
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/ux-designer"
-        [[ -f "$AGENT_DIR/ux_designer_agent.py" ]] || { echo "Agent not found"; exit 1; }
-        echo "🎨 Starting UX Designer Agent..."
-        cd "$AGENT_DIR"
-        export PATH="${designEnv}/bin:$PATH"
-        exec ${pythonEnv}/bin/python ux_designer_agent.py "$@"
-      '';
+        designEnv = pkgs.buildEnv {
+          name = "ux-designer-env";
+          paths = with pkgs; [
+            git curl jq
+            # Image and design tools
+            imagemagick
+            inkscape
+            # Web development for prototyping
+            nodejs_20
+            nodePackages.prettier
+            nodePackages.eslint
+            # Accessibility tools
+            pa11y
+            # Color and design utilities
+            pandoc
+          ];
+        };
 
-    in {
-      packages.${system} = {
-        ux-designer = pkgs.writeShellScriptBin "ux-designer" ''exec ${agentScript} "$@"'';
-        default = self.packages.${system}.ux-designer;
-      };
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ designEnv pythonEnv ];
-        shellHook = ''
-          echo "🎨 UX Designer Development Environment"
-          echo "Tools: imagemagick, inkscape, pa11y, prettier"
+        agentScript = pkgs.writeShellScript "ux-designer-script" ''
+          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/ux-designer"
+          [[ -f "$AGENT_DIR/ux_designer_agent.py" ]] || { echo "Agent not found"; exit 1; }
+          echo "🎨 Starting UX Designer Agent..."
+          cd "$AGENT_DIR"
+          export PATH="${designEnv}/bin:$PATH"
+          exec ${pythonEnv}/bin/python ux_designer_agent.py "$@"
         '';
-      };
-      checks.${system}.ux-designer-build = self.packages.${system}.ux-designer;
-    };
+
+      in {
+        packages = {
+          ux-designer = pkgs.writeShellScriptBin "ux-designer" ''exec ${agentScript} "$@"'';
+          default = self.packages.ux-designer;
+        };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ designEnv pythonEnv ];
+          shellHook = ''
+            echo "🎨 UX Designer Development Environment"
+            echo "Tools: imagemagick, inkscape, pa11y, prettier"
+          '';
+        };
+        checks.ux-designer-build = self.packages.ux-designer;
+      }
+    );
 }

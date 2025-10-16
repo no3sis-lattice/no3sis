@@ -1,89 +1,95 @@
 {
   description = "Documentation Writer Agent with comprehensive documentation tools";
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = builtins.currentSystem;
-      pkgs = import nixpkgs { inherit system; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
-      # Python environment for the agent runner
-      pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-        # Core agent dependencies
-        asyncio-mqtt aiofiles rich pyyaml
-        neo4j redis numpy requests
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
 
-        # Documentation tools
-        sphinx sphinx-rtd-theme
-        mkdocs mkdocs-material
-        jupyter-book
-        myst-parser
-      ]);
+        # Python environment for the agent runner
+        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
+          # Core agent dependencies
+          asyncio-mqtt aiofiles rich pyyaml
+          neo4j redis numpy requests
 
-      # Documentation tools environment
-      docsEnv = pkgs.buildEnv {
-        name = "docs-writer-env";
-        paths = with pkgs; [
-          # Core utilities
-          git curl jq
+          # Documentation tools
+          sphinx sphinx-rtd-theme
+          mkdocs mkdocs-material
+          jupyter-book
+          myst-parser
+        ]);
 
-          # Markdown tools
-          pandoc
-          mdbook
-          zola
+        # Documentation tools environment
+        docsEnv = pkgs.buildEnv {
+          name = "docs-writer-env";
+          paths = with pkgs; [
+            # Core utilities
+            git curl jq
 
-          # Diagram generation
-          graphviz
-          plantuml
-          mermaid-cli
+            # Markdown tools
+            pandoc
+            mdbook
+            zola
 
-          # LaTeX for PDF generation
-          texlive.combined.scheme-medium
+            # Diagram generation
+            graphviz
+            plantuml
+            mermaid-cli
 
-          # Node.js documentation tools
-          nodejs_20
-          nodePackages.doctoc
-          nodePackages.markdownlint-cli
+            # LaTeX for PDF generation
+            texlive.combined.scheme-medium
 
-          # API documentation
-          openapi-generator-cli
-        ];
-      };
+            # Node.js documentation tools
+            nodejs_20
+            nodePackages.doctoc
+            nodePackages.markdownlint-cli
 
-      agentScript = pkgs.writeShellScript "docs-writer-script" ''
-        #!${pkgs.bash}/bin/bash
-        set -euo pipefail
+            # API documentation
+            openapi-generator-cli
+          ];
+        };
 
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/docs-writer"
+        agentScript = pkgs.writeShellScript "docs-writer-script" ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
 
-        if [[ ! -f "$AGENT_DIR/docs_writer_agent.py" ]]; then
-          echo "❌ Docs Writer agent not found"
-          exit 1
-        fi
+          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/docs-writer"
 
-        echo "📝 Starting Documentation Writer Agent..."
-        cd "$AGENT_DIR"
+          if [[ ! -f "$AGENT_DIR/docs_writer_agent.py" ]]; then
+            echo "❌ Docs Writer agent not found"
+            exit 1
+          fi
 
-        export PATH="${docsEnv}/bin:$PATH"
-        exec ${pythonEnv}/bin/python docs_writer_agent.py "$@"
-      '';
+          echo "📝 Starting Documentation Writer Agent..."
+          cd "$AGENT_DIR"
 
-    in
-    {
-      packages.${system} = {
-        docs-writer = pkgs.writeShellScriptBin "docs-writer" ''
-          exec ${agentScript} "$@"
+          export PATH="${docsEnv}/bin:$PATH"
+          exec ${pythonEnv}/bin/python docs_writer_agent.py "$@"
         '';
-        default = self.packages.${system}.docs-writer;
-      };
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ docsEnv pythonEnv ];
-        shellHook = ''
-          echo "📝 Documentation Writer Environment"
-          echo "Tools: sphinx, mkdocs, pandoc, mdbook"
-        '';
-      };
+      in
+      {
+        packages = {
+          docs-writer = pkgs.writeShellScriptBin "docs-writer" ''
+            exec ${agentScript} "$@"
+          '';
+          default = self.packages.docs-writer;
+        };
 
-      checks.${system}.docs-writer-build = self.packages.${system}.docs-writer;
-    };
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ docsEnv pythonEnv ];
+          shellHook = ''
+            echo "📝 Documentation Writer Environment"
+            echo "Tools: sphinx, mkdocs, pandoc, mdbook"
+          '';
+        };
+
+        checks.docs-writer-build = self.packages.docs-writer;
+      }
+    );
 }

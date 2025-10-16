@@ -36,7 +36,7 @@
 
     in
     {
-      packages.${system} = {
+      packages = {
         synapse-core = pkgs.stdenv.mkDerivation {
           pname = "synapse-core";
           version = "0.1.0";
@@ -126,11 +126,11 @@ EOF
           };
         };
 
-        default = self.packages.${system}.synapse-core;
+        default = self.packages.synapse-core;
       };
 
       # Development shell
-      devShells.${system}.default = pkgs.mkShell {
+      devShells.default = pkgs.mkShell {
         buildInputs = [ pythonEnv ];
 
         shellHook = ''
@@ -159,18 +159,18 @@ EOF
       };
 
       # Checks
-      checks.${system} = {
-        synapse-core-build = self.packages.${system}.synapse-core;
+      checks = {
+        synapse-core-build = self.packages.synapse-core;
 
         # Additional check: Template validation
         template-validation = pkgs.runCommand "validate-templates" {
-          buildInputs = [ pythonEnv self.packages.${system}.synapse-core ];
+          buildInputs = [ pythonEnv self.packages.synapse-core ];
         } ''
-          export PYTHONPATH="${self.packages.${system}.synapse-core}/lib/python3.12/site-packages:$PYTHONPATH"
+          export PYTHONPATH="${self.packages.synapse-core}/lib/python3.12/site-packages:$PYTHONPATH"
           export HOME=$(mktemp -d)
 
           # Validate file_creator template
-          ${pythonEnv}/bin/python ${self.packages.${system}.synapse-core}/bin/synapse template validate file_creator \
+          ${pythonEnv}/bin/python ${self.packages.synapse-core}/bin/synapse template validate file_creator \
             && echo "✅ Template validation passed" > $out \
             || (echo "❌ Template validation failed" && exit 1)
         '';
@@ -187,7 +187,7 @@ EOF
             #!${pkgs.bash}/bin/bash
             set -euo pipefail
 
-            export PYTHONPATH="${self.packages.${system}.synapse-core}/lib/python3.12/site-packages:$PYTHONPATH"
+            export PYTHONPATH="${self.packages.synapse-core}/lib/python3.12/site-packages:$PYTHONPATH"
 
             echo "🎯 Starting ${templateName} template..."
             exec ${pythonEnv}/bin/python ${scriptPath} "$@"
