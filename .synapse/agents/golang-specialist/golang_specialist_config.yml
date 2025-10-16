@@ -7,9 +7,9 @@ agent:
 
 # Model configuration for different task types
 model:
-  default: "claude-sonnet-4"
+  default: "claude-sonnet-4-5"
   simple_analysis: "claude-haiku"
-  complex_reasoning: "claude-opus"
+  complex_reasoning: "claude-sonnet-4-5"
   temperature: 0.1
   max_tokens: 4000
 

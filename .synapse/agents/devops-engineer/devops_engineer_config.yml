@@ -7,7 +7,7 @@ agent:
   version: "1.0.0"
   description: "Infrastructure, Deployment, and Operations Specialist"
   model_preference:
-    primary: "claude-opus-4-1"      # Latest Claude 4.1 Opus for complex DevOps tasks
+    primary: "claude-sonnet-4-5"    # Latest Sonnet for complex DevOps tasks
     fallback: "claude-sonnet-4-0"   # Claude 4.0 Sonnet fallback
     simple_tasks: "claude-3-5-haiku-latest" # Latest Haiku for simple operations
 
@@ -19,7 +19,7 @@ modes:
 
 # Model Selection Strategy
 model_routing:
-  high_complexity: "claude-opus-4-1"    # Multi-step deployments, complex configs
+  high_complexity: "claude-sonnet-4-5"  # Multi-step deployments, complex configs
   medium_complexity: "claude-sonnet-4-0"  # Standard DevOps tasks
   low_complexity: "claude-3-5-haiku-latest"     # Simple operations and status checks
 

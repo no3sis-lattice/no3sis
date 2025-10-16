@@ -8,12 +8,12 @@ agent:
 
   # Model selection - Latest Claude models for architectural reasoning
   model_preference:
-    primary: "claude-opus-4-1"          # Latest Opus for complex system design decisions
-    fallback: "claude-sonnet-4-0"       # Claude 4.0 Sonnet for standard architectural analysis
+    primary: "claude-sonnet-4-5"        # Latest Sonnet for complex system design decisions
+    fallback: "claude-sonnet-4-0"       # Claude 4.0 Sonnet fallback
     simple_tasks: "claude-3-5-haiku-latest"    # Latest Haiku for basic documentation tasks
 
   complexity_routing:
-    high_complexity: "claude-opus-4-1"      # System design, pattern evaluation, scalability analysis
+    high_complexity: "claude-sonnet-4-5"    # System design, pattern evaluation, scalability analysis
     medium_complexity: "claude-sonnet-4-0"  # Technology assessment, documentation generation
     low_complexity: "claude-3-5-haiku-latest"      # Simple queries, standard documentation
 

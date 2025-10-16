@@ -3,14 +3,14 @@ agent:
   description: "Comprehensive security analysis, threat modeling, and compliance validation specialist"
   version: "1.0.0"
   model_preference:
-    primary: "claude-opus-4-1"       # Complex threat analysis and risk assessment
+    primary: "claude-sonnet-4-5"     # Latest Sonnet for threat analysis and risk assessment
     fallback: "claude-sonnet-4-0"    # Standard security tasks
     simple_tasks: "claude-3-5-haiku-latest"   # Basic scans and checks
 
   complexity_routing:
-    high_complexity: "opus-4-1"      # Threat modeling, compliance frameworks, complex risk analysis
+    high_complexity: "sonnet-4-5"    # Threat modeling, compliance frameworks, complex risk analysis
     medium_complexity: "sonnet-4-0"  # Vulnerability analysis, configuration review, reporting
-    low_complexity: "haiku-latest"      # Basic scans, simple checks, pattern matching
+    low_complexity: "haiku-latest"   # Basic scans, simple checks, pattern matching
 
   cost_optimization:
     prefer_cheaper: true

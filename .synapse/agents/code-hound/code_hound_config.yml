@@ -6,15 +6,15 @@ agent:
   version: "1.0.0"
   description: "Uncompromising code quality enforcer with zero tolerance for shortcuts, technical debt, or substandard practices"
 
-  # Model selection - Opus for complex reasoning, Sonnet for standard tasks
+  # Model selection - Latest Sonnet for comprehensive analysis
   model_preference:
-    primary: "claude-opus-4-1"      # Complex multi-dimensional analysis
-    fallback: "claude-sonnet-4-0"   # Standard code review tasks
+    primary: "claude-sonnet-4-5"      # Latest Sonnet for multi-dimensional analysis
+    fallback: "claude-sonnet-4-0"     # Sonnet 4.0 fallback
     simple_tasks: "claude-3-5-haiku-latest"  # Basic pattern matching
 
   complexity_routing:
-    high_complexity: "opus-4-1"    # Comprehensive reviews, SOLID analysis, architectural decisions
-    medium_complexity: "sonnet-4-0" # Standard TDD/DRY checks, violation detection
+    high_complexity: "sonnet-4-5"     # Comprehensive reviews, SOLID analysis, architectural decisions
+    medium_complexity: "sonnet-4-0"   # Standard TDD/DRY checks, violation detection
     low_complexity: "haiku-latest"    # Simple pattern matching, file scanning
 
   cost_optimization:

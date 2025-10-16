@@ -8,14 +8,14 @@ agent:
 
   # Model selection strategy - Rust requires complex reasoning
   model_preference:
-    primary: "claude-opus-4-1"      # Complex ownership/lifetime analysis
+    primary: "claude-sonnet-4-5"    # Latest Sonnet for ownership/lifetime analysis
     fallback: "claude-sonnet-4-0"   # Standard code analysis
     simple_tasks: "claude-3-5-haiku-latest"  # Basic syntax checks
 
   complexity_routing:
-    high_complexity: "opus-4-1"     # Ownership analysis, lifetime conflicts
+    high_complexity: "sonnet-4-5"   # Ownership analysis, lifetime conflicts
     medium_complexity: "sonnet-4-0" # Code patterns, performance analysis
-    low_complexity: "haiku-latest"     # Syntax checks, formatting
+    low_complexity: "haiku-latest"  # Syntax checks, formatting
 
   cost_optimization:
     prefer_cheaper: false        # Rust analysis benefits from Opus reasoning

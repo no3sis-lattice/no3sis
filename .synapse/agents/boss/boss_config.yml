@@ -8,14 +8,14 @@ agent:
 
   # Model selection for orchestration complexity
   model_preference:
-    primary: "claude-opus-4-1"      # Complex multi-agent orchestration
-    fallback: "claude-sonnet-4-0"   # Standard workflow coordination
+    primary: "claude-sonnet-4-5"      # Latest Sonnet for multi-agent orchestration
+    fallback: "claude-sonnet-4-0"     # Sonnet 4.0 fallback
     simple_tasks: "claude-3-5-haiku-latest"  # Basic task routing
 
   # Dynamic model routing based on task complexity
   complexity_routing:
-    high_complexity: "opus-4-1"    # Multi-agent coordination, dependency resolution
-    medium_complexity: "sonnet-4-0" # Standard workflows, agent delegation
+    high_complexity: "sonnet-4-5"     # Multi-agent coordination, dependency resolution
+    medium_complexity: "sonnet-4-0"   # Standard workflows, agent delegation
     low_complexity: "haiku-latest"    # Simple task routing, status updates
 
   cost_optimization:
@@ -85,7 +85,7 @@ agents:
   specialists:
     architect:
       name: "@architect"
-      model: "opus"
+      model: "sonnet-4-5"
       capabilities: ["system_design", "technical_vision", "architecture_patterns"]
       timeout: 600  # Complex design work needs more time
 
@@ -121,13 +121,13 @@ agents:
 
     code_hound:
       name: "@code-hound"
-      model: "opus"
+      model: "sonnet-4-5"
       capabilities: ["code_review", "quality_analysis", "standards_enforcement"]
       timeout: 360
 
     pneuma:
       name: "@Pneuma"
-      model: "opus"
+      model: "sonnet-4-5"
       capabilities: ["semantic_compression", "pattern_abstraction", "code_optimization"]
       timeout: 300
 
@@ -145,7 +145,7 @@ agents:
 
     security_specialist:
       name: "@security-specialist"
-      model: "opus"
+      model: "sonnet-4-5"
       capabilities: ["security_analysis", "threat_modeling", "vulnerability_assessment"]
       timeout: 480
 

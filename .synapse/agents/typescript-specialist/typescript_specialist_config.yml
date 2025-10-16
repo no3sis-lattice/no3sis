@@ -8,14 +8,14 @@ agent:
 
   # Model selection strategy
   model_preference:
-    primary: "claude-sonnet-4-0"      # Standard TypeScript analysis
-    fallback: "claude-3-5-haiku-latest"        # Simple linting and config checks
-    complex_tasks: "claude-opus-4-1"  # Architecture decisions, complex refactoring
+    primary: "claude-sonnet-4-5"      # Latest Sonnet for TypeScript analysis
+    fallback: "claude-sonnet-4-0"     # Sonnet 4.0 fallback
+    complex_tasks: "claude-sonnet-4-5"  # Architecture decisions, complex refactoring
 
   complexity_routing:
-    high_complexity: "opus-4-1"     # System design, complex type transformations
+    high_complexity: "sonnet-4-5"   # System design, complex type transformations
     medium_complexity: "sonnet-4-0" # Code analysis, framework patterns
-    low_complexity: "haiku-latest"     # Syntax checks, config validation
+    low_complexity: "haiku-latest"  # Syntax checks, config validation
 
   cost_optimization:
     prefer_cheaper: true
