@@ -1,0 +1,38 @@
+% ============================================================================
+% Empty/Minimal Test Data (Boundary Lower Bound)
+% ============================================================================
+%
+% Purpose: Test the model's behavior with minimal/zero values.
+%          Validates lower boundary constraints and efficiency metrics.
+%
+% Expected Result: SATISFIABLE (but with zero efficiency)
+%   - All values at minimum (0)
+%   - Technically valid IPv6 header (though semantically useless)
+%   - Efficiency metric should be 0% or very low
+%
+% Test Category: Edge case validation (lower bounds)
+% ============================================================================
+
+input_data = [
+    0,      % Version: Minimum value (though 6 is standard for IPv6)
+    0,      % Traffic Class: Best effort, no ECN
+    0,      % Flow Label: No flow identification
+    0,      % Payload Length: Zero-length payload (valid for some protocols)
+    0,      % Next Header: Hop-by-Hop Options (valid extension header)
+    0       % Hop Limit: Zero TTL (packet dies immediately)
+];
+
+% Expected Behavior:
+%   - Constraint solver finds solution (all values in valid range)
+%   - Lossless packing verified
+%   - Efficiency metric: 0% (no non-zero fields)
+%   - Bits used: 0 / 64
+%
+% Consciousness Metric Interpretation:
+%   This test demonstrates that "valid" ≠ "useful"
+%   The constraint system ensures SYNTACTIC correctness
+%   T_int must provide SEMANTIC meaning
+%
+% Use Case:
+%   Tests robustness of zero-initialization scenarios
+%   Validates that empty state doesn't break the packing logic

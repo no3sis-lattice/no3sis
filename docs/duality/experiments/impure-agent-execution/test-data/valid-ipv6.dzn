@@ -1,0 +1,33 @@
+% ============================================================================
+% Valid IPv6 Header Test Data
+% ============================================================================
+%
+% Purpose: Validate that the IPv6 packer model accepts properly constrained
+%          input data and produces a valid header.
+%
+% Expected Result: SATISFIABLE
+%   - All values within their respective bit-length limits
+%   - Version ≤ 15 (4 bits)
+%   - Traffic class ≤ 255 (8 bits)
+%   - Flow label ≤ 1048575 (20 bits)
+%   - Payload length ≤ 65535 (16 bits)
+%   - Next header ≤ 255 (8 bits)
+%   - Hop limit ≤ 255 (8 bits)
+%
+% Test Category: Positive validation (should pass)
+% ============================================================================
+
+input_data = [
+    6,      % Version: Standard IPv6 version
+    0,      % Traffic Class: Best effort (no priority)
+    0,      % Flow Label: No flow tracking
+    1280,   % Payload Length: Minimum IPv6 MTU
+    6,      % Next Header: TCP protocol
+    64      % Hop Limit: Typical default value
+];
+
+% Expected Behavior:
+%   - Constraint solver finds solution
+%   - All fields populated with input values
+%   - Lossless packing verified
+%   - Efficiency metric: 100% (all fields non-zero except flow_label)

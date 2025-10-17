@@ -1,0 +1,33 @@
+% ============================================================================
+% Overflow Test Data (Multiple Field Violations)
+% ============================================================================
+%
+% Purpose: Test constraint enforcement across multiple fields simultaneously.
+%          Verifies that the model rejects any value exceeding its bit-length.
+%
+% Expected Result: UNSATISFIABLE
+%   - Flow label = 2000000 exceeds 20-bit maximum (1048575)
+%   - Traffic class = 256 exceeds 8-bit maximum (255)
+%   - Multiple constraint violations should be detected
+%
+% Test Category: Negative validation (boundary overflow)
+% ============================================================================
+
+input_data = [
+    6,          % Version: Valid
+    256,        % Traffic Class: INVALID - exceeds 8-bit maximum (255)
+    2000000,    % Flow Label: INVALID - exceeds 20-bit maximum (1048575)
+    1280,       % Payload Length: Valid
+    6,          % Next Header: Valid
+    64          % Hop Limit: Valid
+];
+
+% Expected Behavior:
+%   - MiniZinc reports: =====UNSATISFIABLE=====
+%   - May report multiple constraint violations
+%   - Demonstrates robustness against overflow attacks
+%
+% Security Implication:
+%   This test validates that the constraint bridge (C_c) prevents
+%   buffer overflow vulnerabilities at the specification level.
+%   No attacker-controlled data exceeding bit limits can be encoded.

@@ -1,3 +1,7 @@
+# EXPERIMENTAL: Proof-of-concept with synthetic Claude API responses
+# This demonstrates declarative agent orchestration patterns
+# NOT for production use - responses are mocked
+
 { pkgs ? import <nixpkgs> {} }:
 
 # Multi-Agent Workflow as Declarative Dependency Graph
@@ -17,7 +21,7 @@ let
     "agent-call-${agent}"
     {
       __impure = true;
-      nativeBuildInputs = with pkgs; [ curl jq ];
+      nativeBuildInputs = with pkgs; [ curl jq bc cacert ];
       meta = {
         description = "Agent call: ${agent}";
         tract = if agent == "architect" || agent == "pneuma" then "T_int" else "T_ext";

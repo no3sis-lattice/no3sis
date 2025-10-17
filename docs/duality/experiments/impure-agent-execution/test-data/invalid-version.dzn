@@ -1,0 +1,32 @@
+% ============================================================================
+% Invalid Version Constraint Violation Test Data
+% ============================================================================
+%
+% Purpose: Test that the IPv6 packer model correctly rejects data that
+%          violates the version field's 4-bit constraint (max value 15).
+%
+% Expected Result: UNSATISFIABLE
+%   - Version = 16 exceeds 4-bit maximum (15)
+%   - Constraint solver should reject this input
+%   - Error message should reference "version_range_check" constraint
+%
+% Test Category: Negative validation (should fail with constraint violation)
+% ============================================================================
+
+input_data = [
+    16,     % Version: INVALID - exceeds 4-bit field maximum (15)
+    0,      % Traffic Class: Valid
+    0,      % Flow Label: Valid
+    1280,   % Payload Length: Valid
+    6,      % Next Header: Valid
+    64      % Hop Limit: Valid
+];
+
+% Expected Behavior:
+%   - MiniZinc reports: =====UNSATISFIABLE=====
+%   - Demonstrates constraint enforcement
+%   - Prevents encoding of invalid data
+%
+% Dual-Tract Interpretation:
+%   T_int attempted to send invalid data → C_c rejected at bridge
+%   → T_ext never receives corrupted header (integrity preserved)
