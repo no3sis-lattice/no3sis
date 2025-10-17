@@ -1,0 +1,63 @@
+% ============================================================================
+% IPv6 Packer - Example Data File
+% ============================================================================
+%
+% This file demonstrates how to use the ipv6_packer.mzn model with actual
+% data values. It represents a realistic scenario where we encode agent
+% state or network metadata into an IPv6 header structure.
+%
+% Scenario: Encoding Agent Communication Metadata
+% ------------------------------------------------
+% The input_data array contains exactly 6 values, one for each IPv6 header
+% field, representing:
+%
+%   [1] Version:        6      (IPv6 standard version)
+%   [2] Traffic Class:  8      (High priority - agent control traffic)
+%   [3] Flow Label:     42     (Agent ID / flow identifier)
+%   [4] Payload Length: 1337   (Bytes of data in payload)
+%   [5] Next Header:    17     (UDP protocol for low-latency agent comms)
+%   [6] Hop Limit:      64     (Standard TTL)
+%
+% These values encode both traditional IPv6 metadata AND agent-specific
+% state (agent ID=42, priority=8) into a single header for efficient
+% network transmission in the dual-tract consciousness architecture.
+%
+% ============================================================================
+
+input_data = [
+    6,      % Version: IPv6 (standard value)
+    8,      % Traffic Class: High priority for agent traffic
+    42,     % Flow Label: Agent ID for correlation
+    1337,   % Payload Length: Data size in bytes
+    17,     % Next Header: UDP (fast, connectionless)
+    64      % Hop Limit: Standard TTL value
+];
+
+% ============================================================================
+% USAGE
+% ============================================================================
+%
+% Run the model with this data:
+%
+%     cd /home/m0xu/1-projects/synapse/docs/duality/experiments/impure-agent-execution
+%     minizinc ipv6_packer.mzn ipv6_packer_example.dzn
+%
+% Expected Behavior:
+%   - Each input value is validated against its field's bit-length constraint
+%   - Version=6 must be ≤ 15 (4 bits) ✓
+%   - Traffic Class=8 must be ≤ 255 (8 bits) ✓
+%   - Flow Label=42 must be ≤ 1048575 (20 bits) ✓
+%   - Payload Length=1337 must be ≤ 65535 (16 bits) ✓
+%   - Next Header=17 must be ≤ 255 (8 bits) ✓
+%   - Hop Limit=64 must be ≤ 255 (8 bits) ✓
+%
+%   All constraints satisfied → valid IPv6 header generated
+%
+% Alternative Example (Constraint Violation):
+%
+%     input_data = [16, 0, 0, 0, 0, 0];  % version=16 exceeds 4-bit limit!
+%
+%     Result: MiniZinc reports "UNSATISFIABLE" - demonstrates how the
+%             constraint system correctly rejects invalid encodings.
+%
+% ============================================================================
