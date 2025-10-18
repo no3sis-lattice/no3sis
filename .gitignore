@@ -59,7 +59,7 @@ uv.lock
 .synapse/neo4j/import/
 .synapse/neo4j/plugins/
 .synapse/mojo-pilot/.venv/
-.claude/
+.claude/settings.local.json
 
 # Database files
 neo4j/vector_store.db
