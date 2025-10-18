@@ -6,18 +6,18 @@
       "cwd": "/home/m0xu/1-projects/noesis"
     },
     "file-creator": {
-      "command": "python",
-      "args": [".synapse/agents/file-creator/file_creator_agent.py"],
+      "command": "/home/m0xu/1-projects/synapse/.venv/bin/python",
+      "args": ["-m", "file_creator.server"],
       "cwd": "/home/m0xu/1-projects/synapse"
     },
     "code-hound": {
-      "command": "python",
-      "args": [".synapse/agents/code-hound/code_hound_agent.py"],
+      "command": "/home/m0xu/1-projects/synapse/.venv/bin/python",
+      "args": ["-m", "code_hound.server"],
       "cwd": "/home/m0xu/1-projects/synapse"
     },
     "test-runner": {
-      "command": "python",
-      "args": [".synapse/agents/test-runner/test_runner_agent.py"],
+      "command": "/home/m0xu/1-projects/synapse/.venv/bin/python",
+      "args": ["-m", "test_runner.server"],
       "cwd": "/home/m0xu/1-projects/synapse"
     }
   }
