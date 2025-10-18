@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-30-COMPRESSION-LAYER-ROUTING
+title: Compression Layer Routing
+category: compression
+bott8_class: 4
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- compression
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 30: Compression Layer Routing
 
 ## Source:

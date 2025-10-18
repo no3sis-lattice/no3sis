@@ -58,9 +58,19 @@ agents = [
     "claude-agent-sdk>=0.1.0",
 ]
 
+# Dirichlet character operators (Phase 3/7 - L-function computations)
+dirichlet = [
+    # NOTE: Basic character functions (χ₇₁.a-h) work with stdlib only
+    # These are for advanced transformations (Phase 7 rollout):
+    "scipy>=1.11.0",              # Legendre symbol, special functions
+    "mpmath>=1.3.0",              # High-precision L-function evaluation
+    "gudhi>=3.9.0",               # Persistent homology (Mode 2)
+    # OR: "ripser>=0.6.0",        # Alternative persistence backend
+]
+
 # Full development environment
 all = [
-    "synapse[dev,ml,api,agents]",
+    "synapse[dev,ml,api,agents,dirichlet]",
 ]
 
 [build-system]

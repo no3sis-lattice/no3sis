@@ -1,3 +1,19 @@
+---
+id: LFUNC71-37-CURRENT-STATE-2025-10
+title: Current State 2025 10 11
+category: lfunc71
+bott8_class: 5
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 37: Current State (2025-10-11)
 
 ## Source:

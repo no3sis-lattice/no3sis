@@ -1,3 +1,19 @@
+---
+id: LFUNC71-04-WHY-THIS-MATTERS-USABILITY
+title: Why This Matters Usability Mathematical Rigor
+category: lfunc71
+bott8_class: 1
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 04: Why This Matters: Usability + Mathematical Rigor
 
 ## Source:

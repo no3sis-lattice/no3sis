@@ -1,3 +1,19 @@
+---
+id: LFUNC71-17-NAIVE-USER-FLOW-PURE
+title: Naive User Flow Pure Natural Language
+category: lfunc71
+bott8_class: 3
+tract: external
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 17: Naive User Flow (Pure Natural Language)
 
 ## Source:

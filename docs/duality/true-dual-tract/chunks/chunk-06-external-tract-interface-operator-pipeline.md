@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-06-EXTERNAL-TRACT-INTERFACE-OPERATOR
+title: External Tract Interface Operator Pipeline
+category: compression
+bott8_class: 1
+tract: external
+prime71_context: true
+tags:
+- dgr
+- '71'
+- dual-tract
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 06: External Tract: Interface Operator Pipeline
 
 ## Source:

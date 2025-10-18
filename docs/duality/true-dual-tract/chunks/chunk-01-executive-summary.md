@@ -1,3 +1,18 @@
+---
+id: MONSTER-01-EXECUTIVE-SUMMARY
+title: Executive Summary
+category: monster
+bott8_class: 1
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 01: Executive Summary
 
 ## Source:

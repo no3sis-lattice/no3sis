@@ -1,3 +1,19 @@
+---
+id: LFUNC71-42-SCENARIO-1-BEGINNER-ADD
+title: Scenario 1 Beginner Add A Feature
+category: lfunc71
+bott8_class: 6
+tract: external
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 42: Scenario 1: Beginner - Add a feature
 
 ## Source:

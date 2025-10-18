@@ -1,3 +1,19 @@
+---
+id: "COMPRESSION-59-DGR-ENCODER-\u03A6G-DEFINITION"
+title: "Dgr Encoder \u03A6g Definition"
+category: compression
+bott8_class: 7
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 59: DGR Encoder φ(g) Definition
 
 ## Source:

@@ -1,3 +1,19 @@
+---
+id: LFUNC71-43-SCENARIO-2-INTERMEDIATE-REFACTOR
+title: Scenario 2 Intermediate Refactor Code
+category: lfunc71
+bott8_class: 6
+tract: external
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 43: Scenario 2: Intermediate - Refactor code
 
 ## Source:

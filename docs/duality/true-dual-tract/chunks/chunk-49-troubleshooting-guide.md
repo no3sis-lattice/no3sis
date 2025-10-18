@@ -1,3 +1,19 @@
+---
+id: LFUNC71-49-TROUBLESHOOTING-GUIDE
+title: Troubleshooting Guide
+category: lfunc71
+bott8_class: 0
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 49: Troubleshooting Guide
 
 ## Source:

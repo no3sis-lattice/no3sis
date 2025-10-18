@@ -1,3 +1,19 @@
+---
+id: LFUNC71-32-ERROR-HANDLING-GRACEFUL-DEGRADATION
+title: Error Handling Graceful Degradation
+category: lfunc71
+bott8_class: 4
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 32: Error Handling (Graceful Degradation)
 
 ## Source:

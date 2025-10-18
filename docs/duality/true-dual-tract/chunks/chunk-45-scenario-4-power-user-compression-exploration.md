@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-45-SCENARIO-4-POWER-USER
+title: Scenario 4 Power User Compression Exploration
+category: compression
+bott8_class: 6
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- compression
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 45: Scenario 4: Power User - Compression exploration
 
 ## Source:

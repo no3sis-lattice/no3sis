@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-22-MINIMAL-OPERATOR-CONTRACT
+title: Minimal Operator Contract
+category: compression
+bott8_class: 3
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- dual-tract
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 22: Minimal Operator Contract
 
 ## Source:

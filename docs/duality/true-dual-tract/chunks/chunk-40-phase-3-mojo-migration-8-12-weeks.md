@@ -1,3 +1,18 @@
+---
+id: MONSTER-40-PHASE-3-MOJO-MIGRATION
+title: Phase 3 Mojo Migration 8 12 Weeks
+category: monster
+bott8_class: 5
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 40: Phase 3: Mojo Migration (8-12 weeks)
 
 ## Source:

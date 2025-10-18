@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-31-PATTERN-MAP-INTEGRATION
+title: Pattern Map Integration
+category: compression
+bott8_class: 4
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 31: Pattern Map Integration
 
 ## Source:

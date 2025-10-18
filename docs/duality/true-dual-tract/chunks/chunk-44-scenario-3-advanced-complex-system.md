@@ -1,3 +1,19 @@
+---
+id: LFUNC71-44-SCENARIO-3-ADVANCED-COMPLEX
+title: Scenario 3 Advanced Complex System
+category: lfunc71
+bott8_class: 6
+tract: external
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 44: Scenario 3: Advanced - Complex system
 
 ## Source:

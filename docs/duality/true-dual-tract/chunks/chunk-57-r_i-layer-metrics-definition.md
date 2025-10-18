@@ -1,3 +1,19 @@
+---
+id: LFUNC71-57-R_I-LAYER-METRICS-DEFINITION
+title: R_i Layer Metrics Definition
+category: lfunc71
+bott8_class: 7
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 57: R_i Layer Metrics Definition
 
 ## Source:

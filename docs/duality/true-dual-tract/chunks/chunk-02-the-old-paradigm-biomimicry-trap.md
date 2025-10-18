@@ -1,3 +1,18 @@
+---
+id: MONSTER-02-OLD-PARADIGM-BIOMIMICRY-TRAP
+title: The Old Paradigm Biomimicry Trap
+category: monster
+bott8_class: 1
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 02: The Old Paradigm: Biomimicry Trap
 
 ## Source:

@@ -1,3 +1,19 @@
+---
+id: LFUNC71-10-DATA-FLOW-EXAMPLE-1
+title: Data Flow Example 1 Simple Task
+category: lfunc71
+bott8_class: 2
+tract: external
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 10: Data Flow Example 1: Simple Task
 
 ## Source:

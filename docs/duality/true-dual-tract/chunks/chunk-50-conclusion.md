@@ -1,3 +1,18 @@
+---
+id: MONSTER-50-CONCLUSION
+title: Conclusion
+category: monster
+bott8_class: 0
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 50: Conclusion
 
 ## Source:

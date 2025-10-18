@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-27-SYNAPSE-ENGINE-INTEGRATION
+title: Synapse Engine Integration
+category: compression
+bott8_class: 4
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 27: Synapse Engine Integration
 
 ## Source:

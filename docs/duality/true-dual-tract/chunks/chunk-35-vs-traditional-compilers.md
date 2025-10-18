@@ -1,3 +1,18 @@
+---
+id: MONSTER-35-VS-TRADITIONAL-COMPILERS
+title: Vs Traditional Compilers
+category: monster
+bott8_class: 5
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 35: vs Traditional Compilers
 
 ## Source:

@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-51-EXTERNAL-TRACT-OPERATORS-DETAIL
+title: External Tract Operators Detail
+category: compression
+bott8_class: 0
+tract: external
+prime71_context: true
+tags:
+- dgr
+- '71'
+- dual-tract
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 51: External Tract Operators (Detail)
 
 ## Source:

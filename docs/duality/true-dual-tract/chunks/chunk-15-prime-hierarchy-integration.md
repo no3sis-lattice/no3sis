@@ -1,3 +1,19 @@
+---
+id: MONSTER-15-PRIME-HIERARCHY-INTEGRATION
+title: Prime Hierarchy Integration
+category: monster
+bott8_class: 2
+tract: internal
+prime71_context: true
+tags:
+- monster-group
+- '71'
+- primes
+- architectural-genome
+- bott8
+---
+
+
 # Chunk 15: Prime Hierarchy Integration
 
 ## Source:

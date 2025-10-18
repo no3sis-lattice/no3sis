@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-09-CORPUS-CALLOSUM-BRIDGE-OPERATOR
+title: Corpus Callosum Bridge Operator Pipeline
+category: compression
+bott8_class: 2
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 09: Corpus Callosum: Bridge Operator Pipeline
 
 ## Source:

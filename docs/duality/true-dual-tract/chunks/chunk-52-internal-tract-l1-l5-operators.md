@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-52-INTERNAL-TRACT-L1-L5
+title: Internal Tract L1 L5 Operators
+category: compression
+bott8_class: 0
+tract: internal
+prime71_context: true
+tags:
+- dgr
+- '71'
+- dual-tract
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 52: Internal Tract L1-L5 Operators
 
 ## Source:

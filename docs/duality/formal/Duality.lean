@@ -1,5 +1,7 @@
 -- This module serves as the root of the `Duality` library.
--- Import base module and all 62 formalized chunks from TRUE_DUAL_TRACT
+-- Import base module and all 71 formalized chunks from TRUE_DUAL_TRACT
+-- Chunks 01-62: Original 8D manifold constraint chunks
+-- Chunks 63-71: Bott8_basis meta-level topological foundations
 import Duality.Base
 import Duality.Transpiler
 import Duality.Chunks.Chunk01
@@ -64,6 +66,15 @@ import Duality.Chunks.Chunk59
 import Duality.Chunks.Chunk60
 import Duality.Chunks.Chunk61
 import Duality.Chunks.Chunk62
+import Duality.Chunks.Chunk63
+import Duality.Chunks.Chunk64
+import Duality.Chunks.Chunk65
+import Duality.Chunks.Chunk66
+import Duality.Chunks.Chunk67
+import Duality.Chunks.Chunk68
+import Duality.Chunks.Chunk69
+import Duality.Chunks.Chunk70
+import Duality.Chunks.Chunk71
 
 -- Test suite
 import Duality.Tests

@@ -1,3 +1,19 @@
+---
+id: LFUNC71-56-RESULTPAYLOAD-STRUCTURE
+title: Resultpayload Structure
+category: lfunc71
+bott8_class: 7
+tract: bridge
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 56: ResultPayload Structure
 
 ## Source:

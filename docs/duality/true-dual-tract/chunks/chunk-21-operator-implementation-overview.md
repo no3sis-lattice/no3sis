@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-21-OPERATOR-IMPLEMENTATION-OVERVIEW
+title: Operator Implementation Overview
+category: compression
+bott8_class: 3
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 21: Operator Implementation Overview
 
 ## Source:

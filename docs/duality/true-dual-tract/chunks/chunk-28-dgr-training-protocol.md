@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-28-DGR-TRAINING-PROTOCOL
+title: Dgr Training Protocol
+category: compression
+bott8_class: 4
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 28: DGR Training Protocol
 
 ## Source:

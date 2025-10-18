@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-29-TRANSLATION-MECHANISMS
+title: Translation Mechanisms
+category: compression
+bott8_class: 4
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 29: Translation Mechanisms
 
 ## Source:

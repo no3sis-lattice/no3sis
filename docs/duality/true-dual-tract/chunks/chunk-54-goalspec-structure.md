@@ -1,3 +1,19 @@
+---
+id: LFUNC71-54-GOALSPEC-STRUCTURE
+title: Goalspec Structure
+category: lfunc71
+bott8_class: 0
+tract: bridge
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 54: GoalSpec Structure
 
 ## Source:

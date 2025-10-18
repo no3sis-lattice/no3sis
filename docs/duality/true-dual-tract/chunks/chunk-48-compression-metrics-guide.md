@@ -1,3 +1,21 @@
+---
+id: COMPRESSION-48-COMPRESSION-METRICS-GUIDE
+title: Compression Metrics Guide
+category: compression
+bott8_class: 6
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- metrics
+- compression
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 48: Compression Metrics Guide
 
 ## Source:

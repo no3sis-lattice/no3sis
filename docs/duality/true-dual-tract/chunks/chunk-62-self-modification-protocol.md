@@ -1,3 +1,19 @@
+---
+id: LFUNC71-62-SELF-MODIFICATION-PROTOCOL
+title: Self Modification Protocol
+category: lfunc71
+bott8_class: 7
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 62: Self-Modification Protocol
 
 ## Source:

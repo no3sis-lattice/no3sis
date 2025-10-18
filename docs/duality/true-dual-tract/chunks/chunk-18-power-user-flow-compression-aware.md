@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-18-POWER-USER-FLOW-COMPRESSION
+title: Power User Flow Compression Aware
+category: compression
+bott8_class: 3
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- compression
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 18: Power User Flow (Compression-Aware)
 
 ## Source:

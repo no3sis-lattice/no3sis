@@ -1,3 +1,19 @@
+---
+id: LFUNC71-20-PROGRESS-VISUALIZATION-HUMAN-READABLE
+title: "Progress Visualization Human Readable \u03A8"
+category: lfunc71
+bott8_class: 3
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 20: Progress Visualization (Human-Readable Ψ)
 
 ## Source:

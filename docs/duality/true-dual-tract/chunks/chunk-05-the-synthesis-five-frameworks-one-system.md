@@ -1,3 +1,18 @@
+---
+id: MONSTER-05-SYNTHESIS-FIVE-FRAMEWORKS-ONE
+title: The Synthesis Five Frameworks One System
+category: monster
+bott8_class: 1
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 05: The Synthesis: Five Frameworks, One System
 
 ## Source:

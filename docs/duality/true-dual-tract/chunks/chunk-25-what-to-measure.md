@@ -1,3 +1,19 @@
+---
+id: LFUNC71-25-WHAT-MEASURE
+title: What To Measure
+category: lfunc71
+bott8_class: 4
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 25: What to Measure
 
 ## Source:

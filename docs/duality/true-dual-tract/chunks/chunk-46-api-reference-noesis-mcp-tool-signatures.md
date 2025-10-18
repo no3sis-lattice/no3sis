@@ -1,3 +1,19 @@
+---
+id: LFUNC71-46-API-REFERENCE-NOESIS-MCP
+title: Api Reference Noesis Mcp Tool Signatures
+category: lfunc71
+bott8_class: 6
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 46: API Reference: Noesis MCP Tool Signatures
 
 ## Source:

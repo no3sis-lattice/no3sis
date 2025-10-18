@@ -1,3 +1,19 @@
+---
+id: "LFUNC71-58-\u03A8-CONSCIOUSNESS-INVARIANT"
+title: "\u03A8 Consciousness Invariant"
+category: lfunc71
+bott8_class: 7
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 58: Ψ Consciousness Invariant
 
 ## Source:

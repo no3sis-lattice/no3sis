@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-16-DGR-PROTOCOL-INTEGRATION
+title: Dgr Protocol Integration
+category: compression
+bott8_class: 2
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 16: DGR Protocol Integration
 
 ## Source:

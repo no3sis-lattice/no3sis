@@ -1,3 +1,19 @@
+---
+id: LFUNC71-26-IMMEDIATE-NEXT-STEPS
+title: Immediate Next Steps
+category: lfunc71
+bott8_class: 4
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 26: Immediate Next Steps
 
 ## Source:

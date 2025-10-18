@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-08-INTERNAL-TRACT-INTELLIGENCE-OPERATOR
+title: Internal Tract Intelligence Operator Pipeline
+category: compression
+bott8_class: 1
+tract: internal
+prime71_context: true
+tags:
+- dgr
+- '71'
+- dual-tract
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 08: Internal Tract: Intelligence Operator Pipeline
 
 ## Source:

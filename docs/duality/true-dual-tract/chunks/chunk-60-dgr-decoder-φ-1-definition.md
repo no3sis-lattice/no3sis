@@ -1,3 +1,19 @@
+---
+id: "COMPRESSION-60-DGR-DECODER-\u03A6-1"
+title: "Dgr Decoder \u03A6 1 Definition"
+category: compression
+bott8_class: 7
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 60: DGR Decoder φ^-1 Definition
 
 ## Source:

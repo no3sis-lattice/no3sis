@@ -101,12 +101,29 @@ Horizontal: Ω(X,Y) = 0 if X or Y vertical.
 
 ## Interfaces
 
-**Connects to:**
-- **BOTT8-BASIS-1 (Vector Bundles):** E = P ×_GL(n) ℝⁿ recovers vector bundles
-- **BOTT8-BASIS-3 (Stable Homotopy):** Principal G-bundles over X classified by [X, BG] ≅ π_*(BG)
-- **BOTT8-BASIS-4 (Riemann Manifold):** Principal bundles P → M⁸ over 8D base
-- **BOTT8-BASIS-6 (Characteristic Classes):** Curvature Ω ↦ c_i ∈ H*(B; ℤ)
-- **BOTT8-BASIS-7 (Index Theorem):** Index computed via Ω on spinor bundle
+**Bidirectional References:**
+
+**← From BOTT8-BASIS-0 (K-Theory):**
+- Principal bundles compute K-groups via classification [B, BG]
+- For G = U(n): [X, BU] determines K⁰(X)
+- For G = O(n): [X, BO] determines KO⁰(X)
+
+**↔ BOTT8-BASIS-1 (Vector Bundles):**
+- E = P ×_GL(n) ℝⁿ recovers vector bundles from principal bundles
+- Every vector bundle arises as associated bundle to frame bundle
+
+**→ To BOTT8-BASIS-3 (Stable Homotopy):**
+- Principal G-bundles over X classified by [X, BG]
+- π_i(BG) = π_{i-1}(G) connects bundle theory to homotopy groups
+
+**→ To BOTT8-BASIS-4 (Riemann Manifold):**
+- Principal bundles P → M⁸ over 8D base space
+
+**→ To BOTT8-BASIS-6 (Characteristic Classes):**
+- Curvature Ω ↦ c_i ∈ H*(B; ℤ) via Chern-Weil homomorphism
+
+**→ To BOTT8-BASIS-7 (Index Theorem):**
+- Index computed via Ω on spinor bundle
 
 **Provides:**
 - Dimension 5 of Bott[8] classification

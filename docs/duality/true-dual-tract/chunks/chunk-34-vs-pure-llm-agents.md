@@ -1,3 +1,18 @@
+---
+id: MONSTER-34-VS-PURE-LLM-AGENTS
+title: Vs Pure Llm Agents
+category: monster
+bott8_class: 5
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 34: vs Pure LLM Agents
 
 ## Source:

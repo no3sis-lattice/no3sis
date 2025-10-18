@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-53-CORPUS-CALLOSUM-4-OPERATOR
+title: Corpus Callosum 4 Operator Pipeline
+category: compression
+bott8_class: 0
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 53: Corpus Callosum 4-Operator Pipeline
 
 ## Source:

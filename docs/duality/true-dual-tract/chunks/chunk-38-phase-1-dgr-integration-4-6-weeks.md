@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-38-PHASE-1-DGR-INTEGRATION
+title: Phase 1 Dgr Integration 4 6 Weeks
+category: compression
+bott8_class: 5
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 38: Phase 1: DGR Integration (4-6 weeks)
 
 ## Source:

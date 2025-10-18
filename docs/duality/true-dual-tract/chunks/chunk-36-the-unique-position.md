@@ -1,3 +1,18 @@
+---
+id: MONSTER-36-UNIQUE-POSITION
+title: The Unique Position
+category: monster
+bott8_class: 5
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 36: The Unique Position
 
 ## Source:

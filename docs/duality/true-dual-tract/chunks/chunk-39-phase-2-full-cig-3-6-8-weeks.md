@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-39-PHASE-2-FULL-CIG
+title: Phase 2 Full Cig 3 6 8 Weeks
+category: compression
+bott8_class: 5
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 39: Phase 2: Full CIG-3 (6-8 weeks)
 
 ## Source:

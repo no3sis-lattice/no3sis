@@ -1,3 +1,18 @@
+---
+id: MONSTER-41-PHASE-4-SELF-MODIFICATION
+title: Phase 4 Self Modification 12 16 Weeks
+category: monster
+bott8_class: 6
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 41: Phase 4: Self-Modification (12-16 weeks)
 
 ## Source:

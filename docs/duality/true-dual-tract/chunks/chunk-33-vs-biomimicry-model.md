@@ -1,3 +1,18 @@
+---
+id: MONSTER-33-VS-BIOMIMICRY-MODEL
+title: Vs Biomimicry Model
+category: monster
+bott8_class: 5
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 33: vs Biomimicry Model
 
 ## Source:

@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-13-CIG-3-PIPELINE-INTEGRATION
+title: Cig 3 Pipeline Integration
+category: compression
+bott8_class: 2
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 13: CIG-3 Pipeline Integration
 
 ## Source:

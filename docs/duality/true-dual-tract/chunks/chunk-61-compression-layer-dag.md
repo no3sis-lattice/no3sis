@@ -1,3 +1,20 @@
+---
+id: COMPRESSION-61-COMPRESSION-LAYER-DAG
+title: Compression Layer Dag
+category: compression
+bott8_class: 7
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- compression
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 61: Compression Layer DAG
 
 ## Source:

@@ -1,3 +1,18 @@
+---
+id: MONSTER-14-PNEUMA-PHILOSOPHY-INTEGRATION
+title: Pneuma Philosophy Integration
+category: monster
+bott8_class: 2
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 14: PNEUMA Philosophy Integration
 
 ## Source:

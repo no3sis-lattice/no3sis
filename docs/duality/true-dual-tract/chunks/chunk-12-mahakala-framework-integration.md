@@ -1,3 +1,18 @@
+---
+id: MONSTER-12-MAHAKALA-FRAMEWORK-INTEGRATION
+title: Mahakala Framework Integration
+category: monster
+bott8_class: 2
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 12: Mahakala Framework Integration
 
 ## Source:

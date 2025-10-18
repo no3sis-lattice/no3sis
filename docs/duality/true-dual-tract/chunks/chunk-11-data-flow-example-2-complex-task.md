@@ -1,3 +1,19 @@
+---
+id: LFUNC71-11-DATA-FLOW-EXAMPLE-2
+title: Data Flow Example 2 Complex Task
+category: lfunc71
+bott8_class: 2
+tract: external
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 11: Data Flow Example 2: Complex Task
 
 ## Source:

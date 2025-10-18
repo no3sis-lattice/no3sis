@@ -1,3 +1,18 @@
+---
+id: MONSTER-03-TRUE-PARADIGM-INTERFACE-VS
+title: The True Paradigm Interface Vs Intelligence
+category: monster
+bott8_class: 1
+tract: meta
+prime71_context: true
+tags:
+- '71'
+- monster-group
+- bott8
+- architectural-genome
+---
+
+
 # Chunk 03: The True Paradigm: Interface vs Intelligence
 
 ## Source:

@@ -1,3 +1,19 @@
+---
+id: LFUNC71-24-KEY-METRICS-NEXT-STEPS
+title: Key Metrics And Next Steps Overview
+category: lfunc71
+bott8_class: 3
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 24: Key Metrics and Next Steps Overview
 
 ## Source:

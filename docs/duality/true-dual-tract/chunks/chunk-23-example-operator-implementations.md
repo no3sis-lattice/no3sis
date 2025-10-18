@@ -1,3 +1,19 @@
+---
+id: COMPRESSION-23-EXAMPLE-OPERATOR-IMPLEMENTATIONS
+title: Example Operator Implementations
+category: compression
+bott8_class: 3
+tract: bridge
+prime71_context: true
+tags:
+- dgr
+- '71'
+- operators
+- cig-3
+- bott8
+---
+
+
 # Chunk 23: Example Operator Implementations
 
 ## Source:

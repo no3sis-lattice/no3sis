@@ -1,3 +1,19 @@
+---
+id: LFUNC71-19-AGENT-ORCHESTRATION-BOSS-DELEGATION
+title: Agent Orchestration Boss Delegation
+category: lfunc71
+bott8_class: 3
+tract: bridge
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 19: Agent Orchestration (Boss Delegation)
 
 ## Source:

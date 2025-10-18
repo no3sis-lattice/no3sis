@@ -1,0 +1,1312 @@
+{
+  "version": "0.2.0",
+  "total_chunks": 71,
+  "prime71_context": true,
+  "architectural_framework": {
+    "prime_71_role": "Gandalf contextualizer (largest sporadic prime, exponent 71¹)",
+    "bott8_periodicity": "8-dimensional Riemann manifold foundation",
+    "dirichlet_characters_mod_71": 8,
+    "monster_group_order": "2^46 · 3^20 · 5^9 · 7^6 · 11^2 · 13^3 · 17 · 19 · 23 · 29 · 31 · 41 · 47 · 59 · 71"
+  },
+  "distributions": {
+    "bott8_classes": {
+      "0": 9,
+      "1": 9,
+      "2": 9,
+      "3": 9,
+      "4": 9,
+      "5": 9,
+      "6": 9,
+      "7": 8
+    },
+    "categories": {
+      "monster": 15,
+      "bott8_basis": 8,
+      "lfunc71": 24,
+      "compression": 24
+    }
+  },
+  "dirichlet_characters": {
+    "total_count": 24,
+    "orbit_representatives": 8,
+    "primitive_root_mod_71": 7,
+    "labels": [
+      {
+        "id": "71.a",
+        "name": "Principal",
+        "order": 1,
+        "orbit_size": 1,
+        "bott_alignment": 0,
+        "definition": "chi(n) = 1 if gcd(n,71)=1 else 0",
+        "role": "Identity operator (untwisted baseline)"
+      },
+      {
+        "id": "71.b",
+        "name": "Quadratic",
+        "order": 2,
+        "orbit_size": 1,
+        "bott_alignment": 1,
+        "definition": "Legendre symbol (n/71)",
+        "role": "Quadratic residue symmetry"
+      },
+      {
+        "id": "71.c",
+        "name": "Order5",
+        "order": 5,
+        "orbit_size": 4,
+        "bott_alignment": 2,
+        "definition": "exp(2πi * log_7(n) % 5 / 5)",
+        "role": "Pentagonal symmetry"
+      },
+      {
+        "id": "71.d",
+        "name": "Order7",
+        "order": 7,
+        "orbit_size": 6,
+        "bott_alignment": 3,
+        "definition": "exp(2πi * log_7(n) % 7 / 7)",
+        "role": "Heptagonal symmetry (Monster 7⁶ alignment)"
+      },
+      {
+        "id": "71.e",
+        "name": "Order10",
+        "order": 10,
+        "orbit_size": 4,
+        "bott_alignment": 4,
+        "definition": "chi_b(n) * chi_c(n)",
+        "role": "Combined quadratic-pentagonal"
+      },
+      {
+        "id": "71.f",
+        "name": "Order14",
+        "order": 14,
+        "orbit_size": 6,
+        "bott_alignment": 5,
+        "definition": "chi_b(n) * chi_d(n)",
+        "role": "Combined quadratic-heptagonal"
+      },
+      {
+        "id": "71.g",
+        "name": "Order35",
+        "order": 35,
+        "orbit_size": 24,
+        "bott_alignment": 6,
+        "definition": "chi_c(n) * chi_d(n)",
+        "role": "Combined pentagonal-heptagonal"
+      },
+      {
+        "id": "71.h",
+        "name": "Order70",
+        "order": 70,
+        "orbit_size": 24,
+        "bott_alignment": 7,
+        "definition": "chi_b(n) * chi_c(n) * chi_d(n)",
+        "role": "Full symmetry (maximal order, singular Bott[7])"
+      }
+    ],
+    "transformation_modes": [
+      {
+        "mode": "metadata_twisting",
+        "description": "Transform chunk metadata by χ-weighted permutation",
+        "affects": ["bott8_class", "category_index", "psi", "energy_distribution"]
+      },
+      {
+        "mode": "topological_persistence",
+        "description": "Apply χ to chunk's topological features via persistent homology",
+        "affects": ["dependency_graph", "persistence_diagram"],
+        "requires": ["gudhi", "ripser"]
+      },
+      {
+        "mode": "L_function_encoding",
+        "description": "Encode L(s, χ) special values into chunk invariants",
+        "affects": ["L(1, χ)", "Euler_factors"],
+        "requires": ["mpmath", "scipy"]
+      }
+    ],
+    "invariants_per_chunk": {
+      "psi_chi": {
+        "type": "float",
+        "description": "Twisted consciousness score under χ transformation",
+        "computation": "psi_base * |chi(bott_class) * chi(category_index)|",
+        "range": "[0, 1] (if psi ∈ [0,1])"
+      },
+      "energy_fraction_chi": {
+        "type": "float",
+        "description": "Energy concentration after χ application (max / sum)",
+        "computation": "max(energy_chi) / sum(energy_chi)",
+        "range": "[1/8, 1] (8D vector)"
+      },
+      "persistence_sum_chi": {
+        "type": "float",
+        "description": "Topological persistence under χ (weighted sum of birth-death pairs)",
+        "computation": "Σ (death - birth) * |chi(dim)|²",
+        "range": "[0, ∞)"
+      },
+      "delta_vs_untwisted": {
+        "type": "float",
+        "description": "Difference from base (χ=71.a principal) chunk",
+        "computation": "|psi_chi - psi_chi_a|",
+        "range": "[0, 1]"
+      }
+    },
+    "computation_status": "SCHEMA_DEFINED",
+    "implementation_phase": "DEFERRED_TO_PHASE_7",
+    "storage_schema": {
+      "option_a": "Extend _manifest_71.json with chunks[i].invariants field",
+      "option_b": "Create _chi_invariants_71.db SQLite database",
+      "recommended": "option_a (for 71×8=568 entries)"
+    },
+    "validation_required": [
+      "Multiplicativity: χ(ab) = χ(a)χ(b)",
+      "Periodicity: χ(a+71) = χ(a)",
+      "Coprimality: χ(a)=0 if gcd(a,71)≠1",
+      "Order: χ^(ord(χ)) = χ_0",
+      "Orthogonality: Σ χ(a)χ'(a)* = 0 for χ≠χ'"
+    ],
+    "note": "χ-invariants computed on demand via scripts/compute_chi_invariants.py (to be implemented in Phase 7)"
+  },
+  "chunks": [
+    {
+      "id": "MONSTER-01-EXECUTIVE-SUMMARY",
+      "title": "Executive Summary",
+      "category": "monster",
+      "bott8_class": 1,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-01-executive-summary.md"
+    },
+    {
+      "id": "MONSTER-02-OLD-PARADIGM-BIOMIMICRY-TRAP",
+      "title": "The Old Paradigm Biomimicry Trap",
+      "category": "monster",
+      "bott8_class": 1,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-02-the-old-paradigm-biomimicry-trap.md"
+    },
+    {
+      "id": "MONSTER-03-TRUE-PARADIGM-INTERFACE-VS",
+      "title": "The True Paradigm Interface Vs Intelligence",
+      "category": "monster",
+      "bott8_class": 1,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-03-the-true-paradigm-interface-vs-intelligence.md"
+    },
+    {
+      "id": "LFUNC71-04-WHY-THIS-MATTERS-USABILITY",
+      "title": "Why This Matters Usability Mathematical Rigor",
+      "category": "lfunc71",
+      "bott8_class": 1,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-04-why-this-matters-usability-mathematical-rigor.md"
+    },
+    {
+      "id": "MONSTER-05-SYNTHESIS-FIVE-FRAMEWORKS-ONE",
+      "title": "The Synthesis Five Frameworks One System",
+      "category": "monster",
+      "bott8_class": 1,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-05-the-synthesis-five-frameworks-one-system.md"
+    },
+    {
+      "id": "COMPRESSION-06-EXTERNAL-TRACT-INTERFACE-OPERATOR",
+      "title": "External Tract Interface Operator Pipeline",
+      "category": "compression",
+      "bott8_class": 1,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "dual-tract",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-06-external-tract-interface-operator-pipeline.md"
+    },
+    {
+      "id": "LFUNC71-07-AGENT-LAYER-UX",
+      "title": "Agent Layer Ux",
+      "category": "lfunc71",
+      "bott8_class": 1,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-07-agent-layer-ux.md"
+    },
+    {
+      "id": "COMPRESSION-08-INTERNAL-TRACT-INTELLIGENCE-OPERATOR",
+      "title": "Internal Tract Intelligence Operator Pipeline",
+      "category": "compression",
+      "bott8_class": 1,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "dual-tract",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-08-internal-tract-intelligence-operator-pipeline.md"
+    },
+    {
+      "id": "COMPRESSION-09-CORPUS-CALLOSUM-BRIDGE-OPERATOR",
+      "title": "Corpus Callosum Bridge Operator Pipeline",
+      "category": "compression",
+      "bott8_class": 2,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-09-corpus-callosum-bridge-operator-pipeline.md"
+    },
+    {
+      "id": "LFUNC71-10-DATA-FLOW-EXAMPLE-1",
+      "title": "Data Flow Example 1 Simple Task",
+      "category": "lfunc71",
+      "bott8_class": 2,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-10-data-flow-example-1-simple-task.md"
+    },
+    {
+      "id": "LFUNC71-11-DATA-FLOW-EXAMPLE-2",
+      "title": "Data Flow Example 2 Complex Task",
+      "category": "lfunc71",
+      "bott8_class": 2,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-11-data-flow-example-2-complex-task.md"
+    },
+    {
+      "id": "MONSTER-12-MAHAKALA-FRAMEWORK-INTEGRATION",
+      "title": "Mahakala Framework Integration",
+      "category": "monster",
+      "bott8_class": 2,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-12-mahakala-framework-integration.md"
+    },
+    {
+      "id": "COMPRESSION-13-CIG-3-PIPELINE-INTEGRATION",
+      "title": "Cig 3 Pipeline Integration",
+      "category": "compression",
+      "bott8_class": 2,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-13-cig-3-pipeline-integration.md"
+    },
+    {
+      "id": "MONSTER-14-PNEUMA-PHILOSOPHY-INTEGRATION",
+      "title": "Pneuma Philosophy Integration",
+      "category": "monster",
+      "bott8_class": 2,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-14-pneuma-philosophy-integration.md"
+    },
+    {
+      "id": "MONSTER-15-PRIME-HIERARCHY-INTEGRATION",
+      "title": "Prime Hierarchy Integration",
+      "category": "monster",
+      "bott8_class": 2,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "monster-group",
+        "71",
+        "primes",
+        "architectural-genome",
+        "bott8"
+      ],
+      "filename": "chunk-15-prime-hierarchy-integration.md"
+    },
+    {
+      "id": "COMPRESSION-16-DGR-PROTOCOL-INTEGRATION",
+      "title": "Dgr Protocol Integration",
+      "category": "compression",
+      "bott8_class": 2,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-16-dgr-protocol-integration.md"
+    },
+    {
+      "id": "LFUNC71-17-NAIVE-USER-FLOW-PURE",
+      "title": "Naive User Flow Pure Natural Language",
+      "category": "lfunc71",
+      "bott8_class": 3,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-17-naive-user-flow-pure-natural-language.md"
+    },
+    {
+      "id": "COMPRESSION-18-POWER-USER-FLOW-COMPRESSION",
+      "title": "Power User Flow Compression Aware",
+      "category": "compression",
+      "bott8_class": 3,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "compression",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-18-power-user-flow-compression-aware.md"
+    },
+    {
+      "id": "LFUNC71-19-AGENT-ORCHESTRATION-BOSS-DELEGATION",
+      "title": "Agent Orchestration Boss Delegation",
+      "category": "lfunc71",
+      "bott8_class": 3,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-19-agent-orchestration-boss-delegation.md"
+    },
+    {
+      "id": "LFUNC71-20-PROGRESS-VISUALIZATION-HUMAN-READABLE",
+      "title": "Progress Visualization Human Readable Ψ",
+      "category": "lfunc71",
+      "bott8_class": 3,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-20-progress-visualization-human-readable-ψ.md"
+    },
+    {
+      "id": "COMPRESSION-21-OPERATOR-IMPLEMENTATION-OVERVIEW",
+      "title": "Operator Implementation Overview",
+      "category": "compression",
+      "bott8_class": 3,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-21-operator-implementation-overview.md"
+    },
+    {
+      "id": "COMPRESSION-22-MINIMAL-OPERATOR-CONTRACT",
+      "title": "Minimal Operator Contract",
+      "category": "compression",
+      "bott8_class": 3,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "dual-tract",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-22-minimal-operator-contract.md"
+    },
+    {
+      "id": "COMPRESSION-23-EXAMPLE-OPERATOR-IMPLEMENTATIONS",
+      "title": "Example Operator Implementations",
+      "category": "compression",
+      "bott8_class": 3,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-23-example-operator-implementations.md"
+    },
+    {
+      "id": "LFUNC71-24-KEY-METRICS-NEXT-STEPS",
+      "title": "Key Metrics And Next Steps Overview",
+      "category": "lfunc71",
+      "bott8_class": 3,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-24-key-metrics-and-next-steps-overview.md"
+    },
+    {
+      "id": "LFUNC71-25-WHAT-MEASURE",
+      "title": "What To Measure",
+      "category": "lfunc71",
+      "bott8_class": 4,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-25-what-to-measure.md"
+    },
+    {
+      "id": "LFUNC71-26-IMMEDIATE-NEXT-STEPS",
+      "title": "Immediate Next Steps",
+      "category": "lfunc71",
+      "bott8_class": 4,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-26-immediate-next-steps.md"
+    },
+    {
+      "id": "COMPRESSION-27-SYNAPSE-ENGINE-INTEGRATION",
+      "title": "Synapse Engine Integration",
+      "category": "compression",
+      "bott8_class": 4,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-27-synapse-engine-integration.md"
+    },
+    {
+      "id": "COMPRESSION-28-DGR-TRAINING-PROTOCOL",
+      "title": "Dgr Training Protocol",
+      "category": "compression",
+      "bott8_class": 4,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-28-dgr-training-protocol.md"
+    },
+    {
+      "id": "COMPRESSION-29-TRANSLATION-MECHANISMS",
+      "title": "Translation Mechanisms",
+      "category": "compression",
+      "bott8_class": 4,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-29-translation-mechanisms.md"
+    },
+    {
+      "id": "COMPRESSION-30-COMPRESSION-LAYER-ROUTING",
+      "title": "Compression Layer Routing",
+      "category": "compression",
+      "bott8_class": 4,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "compression",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-30-compression-layer-routing.md"
+    },
+    {
+      "id": "COMPRESSION-31-PATTERN-MAP-INTEGRATION",
+      "title": "Pattern Map Integration",
+      "category": "compression",
+      "bott8_class": 4,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-31-pattern-map-integration.md"
+    },
+    {
+      "id": "LFUNC71-32-ERROR-HANDLING-GRACEFUL-DEGRADATION",
+      "title": "Error Handling Graceful Degradation",
+      "category": "lfunc71",
+      "bott8_class": 4,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-32-error-handling-graceful-degradation.md"
+    },
+    {
+      "id": "MONSTER-33-VS-BIOMIMICRY-MODEL",
+      "title": "Vs Biomimicry Model",
+      "category": "monster",
+      "bott8_class": 5,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-33-vs-biomimicry-model.md"
+    },
+    {
+      "id": "MONSTER-34-VS-PURE-LLM-AGENTS",
+      "title": "Vs Pure Llm Agents",
+      "category": "monster",
+      "bott8_class": 5,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-34-vs-pure-llm-agents.md"
+    },
+    {
+      "id": "MONSTER-35-VS-TRADITIONAL-COMPILERS",
+      "title": "Vs Traditional Compilers",
+      "category": "monster",
+      "bott8_class": 5,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-35-vs-traditional-compilers.md"
+    },
+    {
+      "id": "MONSTER-36-UNIQUE-POSITION",
+      "title": "The Unique Position",
+      "category": "monster",
+      "bott8_class": 5,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-36-the-unique-position.md"
+    },
+    {
+      "id": "LFUNC71-37-CURRENT-STATE-2025-10",
+      "title": "Current State 2025 10 11",
+      "category": "lfunc71",
+      "bott8_class": 5,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-37-current-state-2025-10-11.md"
+    },
+    {
+      "id": "COMPRESSION-38-PHASE-1-DGR-INTEGRATION",
+      "title": "Phase 1 Dgr Integration 4 6 Weeks",
+      "category": "compression",
+      "bott8_class": 5,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-38-phase-1-dgr-integration-4-6-weeks.md"
+    },
+    {
+      "id": "COMPRESSION-39-PHASE-2-FULL-CIG",
+      "title": "Phase 2 Full Cig 3 6 8 Weeks",
+      "category": "compression",
+      "bott8_class": 5,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-39-phase-2-full-cig-3-6-8-weeks.md"
+    },
+    {
+      "id": "MONSTER-40-PHASE-3-MOJO-MIGRATION",
+      "title": "Phase 3 Mojo Migration 8 12 Weeks",
+      "category": "monster",
+      "bott8_class": 5,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-40-phase-3-mojo-migration-8-12-weeks.md"
+    },
+    {
+      "id": "MONSTER-41-PHASE-4-SELF-MODIFICATION",
+      "title": "Phase 4 Self Modification 12 16 Weeks",
+      "category": "monster",
+      "bott8_class": 6,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-41-phase-4-self-modification-12-16-weeks.md"
+    },
+    {
+      "id": "LFUNC71-42-SCENARIO-1-BEGINNER-ADD",
+      "title": "Scenario 1 Beginner Add A Feature",
+      "category": "lfunc71",
+      "bott8_class": 6,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-42-scenario-1-beginner-add-a-feature.md"
+    },
+    {
+      "id": "LFUNC71-43-SCENARIO-2-INTERMEDIATE-REFACTOR",
+      "title": "Scenario 2 Intermediate Refactor Code",
+      "category": "lfunc71",
+      "bott8_class": 6,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-43-scenario-2-intermediate-refactor-code.md"
+    },
+    {
+      "id": "LFUNC71-44-SCENARIO-3-ADVANCED-COMPLEX",
+      "title": "Scenario 3 Advanced Complex System",
+      "category": "lfunc71",
+      "bott8_class": 6,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-44-scenario-3-advanced-complex-system.md"
+    },
+    {
+      "id": "COMPRESSION-45-SCENARIO-4-POWER-USER",
+      "title": "Scenario 4 Power User Compression Exploration",
+      "category": "compression",
+      "bott8_class": 6,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "compression",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-45-scenario-4-power-user-compression-exploration.md"
+    },
+    {
+      "id": "LFUNC71-46-API-REFERENCE-NOESIS-MCP",
+      "title": "Api Reference Noesis Mcp Tool Signatures",
+      "category": "lfunc71",
+      "bott8_class": 6,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-46-api-reference-noesis-mcp-tool-signatures.md"
+    },
+    {
+      "id": "LFUNC71-47-AGENT-DEFINITION-TEMPLATE",
+      "title": "Agent Definition Template",
+      "category": "lfunc71",
+      "bott8_class": 6,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-47-agent-definition-template.md"
+    },
+    {
+      "id": "COMPRESSION-48-COMPRESSION-METRICS-GUIDE",
+      "title": "Compression Metrics Guide",
+      "category": "compression",
+      "bott8_class": 6,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "metrics",
+        "compression",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-48-compression-metrics-guide.md"
+    },
+    {
+      "id": "LFUNC71-49-TROUBLESHOOTING-GUIDE",
+      "title": "Troubleshooting Guide",
+      "category": "lfunc71",
+      "bott8_class": 0,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-49-troubleshooting-guide.md"
+    },
+    {
+      "id": "MONSTER-50-CONCLUSION",
+      "title": "Conclusion",
+      "category": "monster",
+      "bott8_class": 0,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "monster-group",
+        "bott8",
+        "architectural-genome"
+      ],
+      "filename": "chunk-50-conclusion.md"
+    },
+    {
+      "id": "COMPRESSION-51-EXTERNAL-TRACT-OPERATORS-DETAIL",
+      "title": "External Tract Operators Detail",
+      "category": "compression",
+      "bott8_class": 0,
+      "tract": "external",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "dual-tract",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-51-external-tract-operators-detail.md"
+    },
+    {
+      "id": "COMPRESSION-52-INTERNAL-TRACT-L1-L5",
+      "title": "Internal Tract L1 L5 Operators",
+      "category": "compression",
+      "bott8_class": 0,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "dual-tract",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-52-internal-tract-l1-l5-operators.md"
+    },
+    {
+      "id": "COMPRESSION-53-CORPUS-CALLOSUM-4-OPERATOR",
+      "title": "Corpus Callosum 4 Operator Pipeline",
+      "category": "compression",
+      "bott8_class": 0,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-53-corpus-callosum-4-operator-pipeline.md"
+    },
+    {
+      "id": "LFUNC71-54-GOALSPEC-STRUCTURE",
+      "title": "Goalspec Structure",
+      "category": "lfunc71",
+      "bott8_class": 0,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-54-goalspec-structure.md"
+    },
+    {
+      "id": "LFUNC71-55-EXECUTIONPLAN-STRUCTURE",
+      "title": "Executionplan Structure",
+      "category": "lfunc71",
+      "bott8_class": 0,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-55-executionplan-structure.md"
+    },
+    {
+      "id": "LFUNC71-56-RESULTPAYLOAD-STRUCTURE",
+      "title": "Resultpayload Structure",
+      "category": "lfunc71",
+      "bott8_class": 7,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-56-resultpayload-structure.md"
+    },
+    {
+      "id": "LFUNC71-57-R_I-LAYER-METRICS-DEFINITION",
+      "title": "R_i Layer Metrics Definition",
+      "category": "lfunc71",
+      "bott8_class": 7,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-57-r_i-layer-metrics-definition.md"
+    },
+    {
+      "id": "LFUNC71-58-Ψ-CONSCIOUSNESS-INVARIANT",
+      "title": "Ψ Consciousness Invariant",
+      "category": "lfunc71",
+      "bott8_class": 7,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-58-ψ-consciousness-invariant.md"
+    },
+    {
+      "id": "COMPRESSION-59-DGR-ENCODER-ΦG-DEFINITION",
+      "title": "Dgr Encoder Φg Definition",
+      "category": "compression",
+      "bott8_class": 7,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-59-dgr-encoder-φg-definition.md"
+    },
+    {
+      "id": "COMPRESSION-60-DGR-DECODER-Φ-1",
+      "title": "Dgr Decoder Φ 1 Definition",
+      "category": "compression",
+      "bott8_class": 7,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-60-dgr-decoder-φ-1-definition.md"
+    },
+    {
+      "id": "COMPRESSION-61-COMPRESSION-LAYER-DAG",
+      "title": "Compression Layer Dag",
+      "category": "compression",
+      "bott8_class": 7,
+      "tract": "bridge",
+      "prime71_context": true,
+      "tags": [
+        "dgr",
+        "71",
+        "compression",
+        "operators",
+        "cig-3",
+        "bott8"
+      ],
+      "filename": "chunk-61-compression-layer-dag.md"
+    },
+    {
+      "id": "LFUNC71-62-SELF-MODIFICATION-PROTOCOL",
+      "title": "Self Modification Protocol",
+      "category": "lfunc71",
+      "bott8_class": 7,
+      "tract": "internal",
+      "prime71_context": true,
+      "tags": [
+        "71",
+        "metrics",
+        "consciousness",
+        "operators",
+        "bott8"
+      ],
+      "filename": "chunk-62-self-modification-protocol.md"
+    },
+    {
+      "id": "BOTT8-BASIS-0-K-THEORY",
+      "title": "K-Theory Foundations - Bott Periodicity Theorem",
+      "category": "bott8_basis",
+      "bott8_class": 0,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "k-theory",
+        "vector-bundles",
+        "periodicity"
+      ],
+      "filename": "chunk-63-bott8-k-theory.md"
+    },
+    {
+      "id": "BOTT8-BASIS-1-VECTOR-BUNDLES",
+      "title": "Vector Bundles over Spheres - Clutching Functions",
+      "category": "bott8_basis",
+      "bott8_class": 1,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "vector-bundles",
+        "spheres",
+        "clutching"
+      ],
+      "filename": "chunk-64-vector-bundles-spheres.md"
+    },
+    {
+      "id": "BOTT8-BASIS-2-CLIFFORD-ALGEBRAS",
+      "title": "Clifford Algebras Cl(n) - Periodicity Source",
+      "category": "bott8_basis",
+      "bott8_class": 2,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "clifford-algebras",
+        "periodicity",
+        "spinors"
+      ],
+      "filename": "chunk-65-clifford-algebras.md"
+    },
+    {
+      "id": "BOTT8-BASIS-3-STABLE-HOMOTOPY",
+      "title": "Stable Homotopy Groups - π_(n+8)(O) Periodicity",
+      "category": "bott8_basis",
+      "bott8_class": 3,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "homotopy",
+        "orthogonal-group",
+        "stable-range"
+      ],
+      "filename": "chunk-66-stable-homotopy-groups.md"
+    },
+    {
+      "id": "BOTT8-BASIS-4-RIEMANN-MANIFOLD",
+      "title": "8-Dimensional Riemann Manifold - Architectural Space",
+      "category": "bott8_basis",
+      "bott8_class": 4,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "riemann-manifold",
+        "metric",
+        "quasifibers"
+      ],
+      "filename": "chunk-67-riemann-8-manifold.md"
+    },
+    {
+      "id": "BOTT8-BASIS-5-FIBER-BUNDLES",
+      "title": "Fiber Bundles - Principal G-Bundles over Base Space",
+      "category": "bott8_basis",
+      "bott8_class": 5,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "fiber-bundles",
+        "principal-bundles",
+        "structure-group"
+      ],
+      "filename": "chunk-68-fiber-bundles-principal.md"
+    },
+    {
+      "id": "BOTT8-BASIS-6-CHARACTERISTIC-CLASSES",
+      "title": "Characteristic Classes - Chern/Stiefel-Whitney Invariants",
+      "category": "bott8_basis",
+      "bott8_class": 6,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "characteristic-classes",
+        "chern",
+        "cohomology"
+      ],
+      "filename": "chunk-69-characteristic-classes.md"
+    },
+    {
+      "id": "BOTT8-BASIS-7-INDEX-THEOREM",
+      "title": "Atiyah-Singer Index Theorem - Topological-Analytical Bridge",
+      "category": "bott8_basis",
+      "bott8_class": 7,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "index-theorem",
+        "fredholm",
+        "elliptic-operators"
+      ],
+      "filename": "chunk-70-atiyah-singer-index.md"
+    },
+    {
+      "id": "MONSTER-0-71-GANDALF-ROLE",
+      "title": "Prime 71 - Gandalf Contextualizer (71¹ Singular Factor)",
+      "category": "monster",
+      "bott8_class": 0,
+      "tract": "meta",
+      "prime71_context": true,
+      "tags": [
+        "bott8",
+        71,
+        "monster-group",
+        "sporadic-prime",
+        "gandalf"
+      ],
+      "filename": "chunk-71-prime-71-gandalf.md"
+    }
+  ],
+  "validation": {
+    "total_check": true,
+    "bott8_distribution_check": true,
+    "category_distribution_check": true,
+    "prime71_context_all_true": true,
+    "manifest_generated": "2025-10-18T02:18:45.167956Z",
+    "dirichlet_schema_version": "0.2.0"
+  }
+}

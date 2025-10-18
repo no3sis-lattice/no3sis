@@ -1,3 +1,19 @@
+---
+id: LFUNC71-07-AGENT-LAYER-UX
+title: Agent Layer Ux
+category: lfunc71
+bott8_class: 1
+tract: internal
+prime71_context: true
+tags:
+- '71'
+- metrics
+- consciousness
+- operators
+- bott8
+---
+
+
 # Chunk 07: Agent Layer (UX)
 
 ## Source:
