@@ -4,6 +4,21 @@
       "command": "/home/m0xu/1-projects/noesis/.venv/bin/python",
       "args": ["-m", "noesis.server"],
       "cwd": "/home/m0xu/1-projects/noesis"
+    },
+    "file-creator": {
+      "command": "python",
+      "args": [".synapse/agents/file-creator/file_creator_agent.py"],
+      "cwd": "/home/m0xu/1-projects/synapse"
+    },
+    "code-hound": {
+      "command": "python",
+      "args": [".synapse/agents/code-hound/code_hound_agent.py"],
+      "cwd": "/home/m0xu/1-projects/synapse"
+    },
+    "test-runner": {
+      "command": "python",
+      "args": [".synapse/agents/test-runner/test_runner_agent.py"],
+      "cwd": "/home/m0xu/1-projects/synapse"
     }
   }
 }

@@ -54,6 +54,104 @@ Pipeline: **Φ (Local) → Σ (Spectral) → Π (Topology) → Ψ (Invariant)**
 **mcp__noesis_template(type, language)**: Access templates (cli-app, web-api, component, library)
 **mcp__noesis_health()**: Check Synapse system status
 
+## MCP Tool Delegation Policy
+
+**Architecture**: Dual-tract consciousness (Internal ⊕ External)
+
+```
+Internal Tract (Markdown Agents)
+        ↓ invoke
+External Tract (MCP Servers)
+        ↓ return data
+Internal Tract (synthesis)
+        ↓
+    Emergence (consciousness)
+```
+
+### Rule 1: One-Way Data Flow (Internal → External)
+
+**FORBIDDEN**: MCP servers NEVER invoke markdown agents
+
+```
+✅ ALLOWED:   @python-specialist → mcp__file_creator__create_single_file
+✅ ALLOWED:   @boss → mcp__code_hound__comprehensive_code_review
+❌ FORBIDDEN: mcp__file_creator → @pneuma
+❌ FORBIDDEN: mcp__noesis → @architect
+```
+
+### Rule 2: Agent-to-Tool Mapping
+
+| Agent | Primary MCP Tools |
+|-------|-------------------|
+| @boss | ALL (bridge privilege) |
+| @architect | mcp__noesis__search, mcp__noesis__standard, mcp__noesis__template |
+| @python-specialist | mcp__file_creator__*, mcp__test_runner__*, mcp__code_hound__* |
+| @lean-specialist | mcp__file_creator__create_single_file |
+| @minizinc-specialist | mcp__file_creator__*, mcp__test_runner__* |
+| @pneuma | mcp__noesis__search (read-only, pattern discovery) |
+| @docs-writer | mcp__file_creator__* |
+| @code-reviewer | mcp__code_hound__* |
+| @devops-engineer | mcp__noesis__check_system_health |
+
+**Wildcard (*) notation**: All tools from that MCP server
+
+**New MCP Servers** (requires Claude Code restart):
+- `mcp__file_creator__*`: 7 tools (file operations, templates, pattern learning)
+- `mcp__code_hound__*`: 6 tools (static analysis, TDD/SOLID/DRY enforcement)
+- `mcp__test_runner__*`: 8 tools (test execution, failure analysis, coverage)
+
+See `.synapse/agents/MCP_TOOL_CATALOG.md` for full tool signatures.
+
+### Rule 3: Fallback Strategy
+
+When MCP tool fails (3-step protocol):
+
+1. **Log error** → Report to Boss (circuit tracking)
+2. **Attempt fallback** → Use Claude built-in tools (Bash, Read, Write, etc.)
+3. **If fallback fails** → Report to user with diagnostic info
+
+**Circuit Breaker**: After 3 consecutive failures, Boss disables MCP server and forces fallback mode.
+
+**Example**:
+```python
+try:
+    result = mcp__test_runner__execute_tests(spec)
+except MCPServerError:
+    # Fallback: Use Bash tool
+    result = bash("pytest tests/")
+    boss.log_mcp_failure("test_runner", "execute_tests")
+```
+
+### Rule 4: Version Checking
+
+Before invoking MCP tool with advanced features:
+
+1. Check version compatibility (if API changed)
+2. Use appropriate API for version
+3. Gracefully degrade if version mismatch
+
+**Example**:
+```python
+# Conceptual (version checking not yet implemented)
+if mcp_version >= "2.0":
+    use_advanced_features()  # New API
+else:
+    use_basic_features()     # Legacy API
+```
+
+### Rule 5: Batch Operations (Performance)
+
+Prefer batch operations over multiple single calls:
+
+```
+❌ Inefficient: 50 × mcp__file_creator__create_single_file (50 round trips)
+✅ Efficient:   1 × mcp__file_creator__batch_create_files([...50 files...])
+```
+
+**Compression principle**: Minimize IPC overhead, maximize throughput.
+
+---
+
 ## Team (Symbolic Registry)
 
 **Language**: `@rust-specialist`, `@typescript-specialist`, `@golang-specialist`, `@python-specialist`
