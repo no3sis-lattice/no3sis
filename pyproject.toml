@@ -120,6 +120,7 @@ exclude_lines = [
 ]
 
 [tool.uv]
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
 dev-dependencies = [
     # uv-specific dev dependencies can go here
 ]
