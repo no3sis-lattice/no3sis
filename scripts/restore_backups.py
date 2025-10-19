@@ -3,7 +3,7 @@
 
 from pathlib import Path
 
-base_dir = Path(__file__).parent.parent / ".synapse" / "agents"
+base_dir = Path(__file__).parent.parent / ".no3sis" / "agents"
 
 for backup_file in base_dir.rglob("*_agent.py.bak"):
     original_file = backup_file.with_suffix('')

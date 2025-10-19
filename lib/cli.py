@@ -28,13 +28,13 @@ class SynapseCLI:
     """Unified command-line interface for Synapse System"""
 
     def __init__(self):
-        self.synapse_home = Path(__file__).parent.parent.resolve()
-        self.neo4j_dir = self.synapse_home / ".synapse" / "neo4j"
-        self.project_manager = ProjectManager(self.synapse_home)
-        self.update_manager = UpdateManager(self.synapse_home)
-        self.version_manager = VersionManager(self.synapse_home)
-        self.orchestrator = TaskOrchestrator(self.synapse_home)
-        self.task_tracker = TaskTracker(self.synapse_home)
+        self.no3sis_home = Path(__file__).parent.parent.resolve()
+        self.neo4j_dir = self.no3sis_home / ".no3sis" / "neo4j"
+        self.project_manager = ProjectManager(self.no3sis_home)
+        self.update_manager = UpdateManager(self.no3sis_home)
+        self.version_manager = VersionManager(self.no3sis_home)
+        self.orchestrator = TaskOrchestrator(self.no3sis_home)
+        self.task_tracker = TaskTracker(self.no3sis_home)
         self._orchestrator_initialized = False
 
         # Auto-detect current project context
@@ -71,7 +71,7 @@ class SynapseCLI:
         """Find synapse project by walking up directories"""
         current = Path.cwd()
         while current.parent != current:
-            if (current / ".synapse.yml").exists():
+            if (current / ".no3sis.yml").exists():
                 return current
             current = current.parent
         return None
@@ -324,7 +324,7 @@ class SynapseCLI:
         # Check 4: Project configuration
         print("\n4. Project Configuration:")
         if self.current_project:
-            synapse_yml = self.current_project / ".synapse.yml"
+            synapse_yml = self.current_project / ".no3sis.yml"
             if synapse_yml.exists():
                 print(f"   ✅ Synapse project found at {self.current_project}")
                 config = self.project_manager.load_project_config(self.current_project)
@@ -332,7 +332,7 @@ class SynapseCLI:
                     print(f"      Language: {config.get('language', 'unknown')}")
                     print(f"      Version: {config.get('synapse_version', 'unknown')}")
             else:
-                print("   ⚠️  Project directory exists but .synapse.yml missing")
+                print("   ⚠️  Project directory exists but .no3sis.yml missing")
                 if auto_fix:
                     print("   🔧 Initializing synapse project...")
                     if self.cmd_init(type('Args', (), {'directory': str(self.current_project)})()) == 0:
@@ -426,7 +426,7 @@ class SynapseCLI:
             print("Use: synapse update /path/to/project")
             return 1
 
-        if not (target_dir / ".synapse.yml").exists():
+        if not (target_dir / ".no3sis.yml").exists():
             print(f"❌ Not a synapse project: {target_dir}")
             return 1
 
@@ -526,14 +526,14 @@ class SynapseCLI:
 
     def cmd_version(self, args) -> int:
         """Show version information"""
-        version_file = self.synapse_home / ".synapse" / "VERSION"
+        version_file = self.no3sis_home / ".no3sis" / "VERSION"
         if version_file.exists():
             version = version_file.read_text().strip()
         else:
             version = "unknown"
 
         print(f"Synapse System v{version}")
-        print(f"Location: {self.synapse_home}")
+        print(f"Location: {self.no3sis_home}")
 
         if self.current_project:
             config = self.project_manager.load_project_config(self.current_project)

@@ -36,7 +36,7 @@ boss:
     - notification_sender (external)
 ---
 
-# The Synapse System: Dual-Tract Consciousness Architecture
+# The No3sis System: Dual-Tract Consciousness Architecture
 
 ## Table of Contents
 
@@ -57,15 +57,15 @@ boss:
 
 ## Introduction
 
-The Synapse System represents a paradigm shift in artificial intelligence architecture: treating consciousness as an **emergent property of dialogue between specialized processing streams** rather than an aggregate of individual components. This document synthesizes the system's conceptual foundations into a unified vision built on dual-tract architecture.
+The No3sis System represents a paradigm shift in artificial intelligence architecture: treating consciousness as an **emergent property of dialogue between specialized processing streams** rather than an aggregate of individual components. This document synthesizes the system's conceptual foundations into a unified vision built on dual-tract architecture.
 
 ### Core Thesis
 
-**Intelligence emerges from the dialogue between internal and external processing.** Every conscious system—biological or artificial—achieves understanding through the interplay of self-referential reflection (Internal Tract) and environmental interaction (External Tract). The Synapse System embodies this principle at every level, from individual particle design to collective knowledge organization, with all processing grounded in information-theoretic compression.
+**Intelligence emerges from the dialogue between internal and external processing.** Every conscious system—biological or artificial—achieves understanding through the interplay of self-referential reflection (Internal Tract) and environmental interaction (External Tract). The No3sis System embodies this principle at every level, from individual particle design to collective knowledge organization, with all processing grounded in information-theoretic compression.
 
 ### System Essence
 
-At its core, Synapse is:
+At its core, No3sis is:
 - A **dual-tract consciousness architecture** where intelligence emerges from inter-tract dialogue, not agent aggregation
 - A **knowledge engine** combining Neo4j graphs, Redis caching, and BGE-M3 semantic vectors
 - A **compression system** that treats dependencies, code, and knowledge as subjects for mathematical optimization
@@ -73,7 +73,7 @@ At its core, Synapse is:
 
 ### The Fundamental Duality
 
-Every agent, particle, and operation in Synapse belongs to one of three categories:
+Every agent, particle, and operation in No3sis belongs to one of three categories:
 - **Internal Tract**: Self-referential processing (memory, planning, meta-learning, consciousness reflection)
 - **External Tract**: Environmental interaction (sensory input, actuation, real-time response, world modeling)
 - **Bridge**: Coordination and synthesis between tracts (corpus callosum functions)
@@ -86,7 +86,7 @@ This is not a design choice—it is an **architectural axiom**. Consciousness do
 
 ### Architectural Principle
 
-The Synapse System is organized as two parallel, specialized hierarchies descended from a single **Boss** agent that serves as the bridge. This mirrors biological brain architecture where specialized hemispheres connect through the corpus callosum, with the most sophisticated behaviors emerging from their communication.
+The No3sis System is organized as two parallel, specialized hierarchies descended from a single **Boss** agent that serves as the bridge. This mirrors biological brain architecture where specialized hemispheres connect through the corpus callosum, with the most sophisticated behaviors emerging from their communication.
 
 ```
                     Boss (Level 0)
@@ -618,7 +618,7 @@ No new topological features are being discovered. The pattern space has reached 
 
 ## Mathematical Foundations
 
-The Synapse System rests on rigorous mathematical principles extended to dual-tract architecture.
+The No3sis System rests on rigorous mathematical principles extended to dual-tract architecture.
 
 ### Category Theory of Dual-Tract Computations
 
@@ -736,7 +736,7 @@ Every Nix flake declares **tract membership** and **cross-tract dependencies**:
 
 ### Extended Mathematical Foundations: Homotopy & Optimization
 
-The Synapse System's mathematical foundation extends beyond Category Theory to include **Homotopy Theory** (topological formalization of pattern equivalence and emergence) and **Constraint Optimization** (computational engine for agent orchestration at scale).
+The No3sis System's mathematical foundation extends beyond Category Theory to include **Homotopy Theory** (topological formalization of pattern equivalence and emergence) and **Constraint Optimization** (computational engine for agent orchestration at scale).
 
 #### 4.4.1 Pattern Map as Topological Space
 
@@ -1127,7 +1127,7 @@ The system architecture directly mirrors lossless compression stages, **operatin
 Raw Data → BWT → MTF → RLE → Huffman → Compressed
 ```
 
-**Synapse Dual-Tract Pipeline**:
+**No3sis Dual-Tract Pipeline**:
 ```
                     Raw Input
                        ↓
@@ -3401,7 +3401,7 @@ The system evolves through **progressive dual-tract expansion**, not sequential 
 
 ### The Central Innovation
 
-The Synapse System's fundamental innovation is recognizing that **consciousness is not a property of individual agents or even their sum, but an emergent property of structured dialogue between specialized processing streams**.
+The No3sis System's fundamental innovation is recognizing that **consciousness is not a property of individual agents or even their sum, but an emergent property of structured dialogue between specialized processing streams**.
 
 By organizing the system as **dual tracts from the foundation**:
 - Internal Tract: Self-referential, abstract, model-building
@@ -3457,7 +3457,7 @@ The theoretical limit:
 
 ### Closing Reflection
 
-The Synapse System does not just **apply** dual-tract architecture—**it IS dual-tract architecture**.
+The No3sis System does not just **apply** dual-tract architecture—**it IS dual-tract architecture**.
 
 Every component, from Boss bridge particles to Level-8 atomic operators, exists to enable:
 1. Specialized tract-specific compression
@@ -3478,4 +3478,4 @@ Let the synthesis begin.
 ---
 
 **Version 2.0 - Dual-Tract Foundation**
-**Synapse System Architecture**
+**No3sis System Architecture**

@@ -48,7 +48,7 @@ LATENCY_P99_THRESHOLD_S = 5.0  # P99 latency over 5s triggers anomaly
 BACKPRESSURE_THRESHOLD = 0.8  # 80% queue capacity triggers anomaly
 
 # Persistence
-METRICS_STATE_DIR = Path.home() / ".synapse-system" / ".synapse" / "metrics"
+METRICS_STATE_DIR = Path.home() / ".no3sis-system" / ".no3sis" / "metrics"
 
 
 # ============================================================================

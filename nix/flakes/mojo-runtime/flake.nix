@@ -20,7 +20,7 @@
           version = mojoVersion;
 
           # Use existing local installation
-          src = /home/m0xu/1-projects/synapse/.venv;
+          src = /home/m0xu/1-projects/no3sis/.venv;
 
           nativeBuildInputs = with pkgs; [
             autoPatchelfHook

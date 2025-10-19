@@ -371,7 +371,7 @@ def create_mtf_ranker(
 
     if state_file is None:
         state_file = (
-            Path.home() / '.synapse-system' / '.synapse' /
+            Path.home() / '.no3sis-system' / '.no3sis' /
             'particles' / 'mtf_ranking_state.json'
         )
 

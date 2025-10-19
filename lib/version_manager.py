@@ -17,10 +17,10 @@ class VersionManager:
     """Manages versioning for synapse system and agents"""
 
     def __init__(self, synapse_home: Path):
-        self.synapse_home = synapse_home
-        self.agents_dir = synapse_home / ".synapse" / "agents"
-        self.manifest_file = synapse_home / ".synapse" / "AGENTS_MANIFEST.json"
-        self.version_file = synapse_home / ".synapse" / "VERSION"
+        self.no3sis_home = synapse_home
+        self.agents_dir = synapse_home / ".no3sis" / "agents"
+        self.manifest_file = synapse_home / ".no3sis" / "AGENTS_MANIFEST.json"
+        self.version_file = synapse_home / ".no3sis" / "VERSION"
 
     def calculate_file_checksum(self, file_path: Path) -> str:
         """Calculate MD5 checksum of a file"""

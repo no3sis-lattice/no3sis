@@ -83,9 +83,9 @@ class TaskTracker:
 
     def __init__(self, synapse_home: Path = None):
         if synapse_home is None:
-            synapse_home = Path.home() / ".synapse-system"
+            synapse_home = Path.home() / ".no3sis-system"
 
-        self.db_path = synapse_home / ".synapse" / "task_state.db"
+        self.db_path = synapse_home / ".no3sis" / "task_state.db"
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Thread-safe task cache

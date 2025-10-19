@@ -26,8 +26,8 @@ from datetime import datetime, timedelta
 from typing import Dict, Any, Optional
 
 # Add project paths
-sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 
 from config import ROLLOUT_CONFIG
 from orchestration import TaskOrchestrator
@@ -264,7 +264,7 @@ class MetricsMonitor:
         self.log("")
 
         # Initialize orchestrator
-        orch = TaskOrchestrator(Path.home() / '.synapse-system')
+        orch = TaskOrchestrator(Path.home() / '.no3sis-system')
 
         try:
             await orch.async_init()

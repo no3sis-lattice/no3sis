@@ -18,13 +18,13 @@ class TestContextAugmentation:
     """Test suite for context augmentation features"""
 
     def test_synapse_init_creates_context_directory(self, tmp_path):
-        """Test that synapse init creates the .synapse/context/ directory"""
+        """Test that synapse init creates the .no3sis/context/ directory"""
         # Setup
         synapse_home = tmp_path / "synapse_home"
         synapse_home.mkdir()
 
         # Create minimal agent files for testing
-        agents_dir = synapse_home / ".synapse" / "agents"
+        agents_dir = synapse_home / ".no3sis" / "agents"
         agents_dir.mkdir(parents=True)
 
         # Create minimal universal agents
@@ -41,7 +41,7 @@ class TestContextAugmentation:
             agent_file.write_text(f"# {agent}\nAgent content for {agent}")
 
         # Create version file
-        version_file = synapse_home / ".synapse" / "VERSION"
+        version_file = synapse_home / ".no3sis" / "VERSION"
         version_file.write_text("2024.1.3")
 
         project_manager = ProjectManager(synapse_home)
@@ -51,18 +51,18 @@ class TestContextAugmentation:
         # Execute
         project_manager.initialize_project(project_dir)
 
-        # Assert that .synapse/context directory was created
-        context_dir = project_dir / ".synapse" / "context"
-        assert context_dir.exists(), ".synapse/context directory was not created"
-        assert context_dir.is_dir(), ".synapse/context is not a directory"
+        # Assert that .no3sis/context directory was created
+        context_dir = project_dir / ".no3sis" / "context"
+        assert context_dir.exists(), ".no3sis/context directory was not created"
+        assert context_dir.is_dir(), ".no3sis/context is not a directory"
 
         # Also verify .claude/agents directory still exists
         agents_dir = project_dir / ".claude" / "agents"
         assert agents_dir.exists(), ".claude/agents directory was not created"
 
-        # Verify .synapse.yml was created
-        config_file = project_dir / ".synapse.yml"
-        assert config_file.exists(), ".synapse.yml was not created"
+        # Verify .no3sis.yml was created
+        config_file = project_dir / ".no3sis.yml"
+        assert config_file.exists(), ".no3sis.yml was not created"
 
     def test_get_project_context_empty_directory(self, tmp_path):
         """Test get_project_context with empty context directory"""
@@ -75,7 +75,7 @@ class TestContextAugmentation:
         project_dir.mkdir()
 
         # Create empty context directory
-        context_dir = project_dir / ".synapse" / "context"
+        context_dir = project_dir / ".no3sis" / "context"
         context_dir.mkdir(parents=True)
 
         # Execute
@@ -94,7 +94,7 @@ class TestContextAugmentation:
         project_dir = tmp_path / "test_project"
         project_dir.mkdir()
 
-        # Execute (no .synapse/context directory exists)
+        # Execute (no .no3sis/context directory exists)
         result = project_manager.get_project_context(project_dir)
 
         # Assert
@@ -111,7 +111,7 @@ class TestContextAugmentation:
         project_dir.mkdir()
 
         # Create context directory with test files
-        context_dir = project_dir / ".synapse" / "context"
+        context_dir = project_dir / ".no3sis" / "context"
         context_dir.mkdir(parents=True)
 
         # Create multiple context files
@@ -165,7 +165,7 @@ All endpoints require Bearer token authentication.
         project_dir.mkdir()
 
         # Create context directory with mixed file types
-        context_dir = project_dir / ".synapse" / "context"
+        context_dir = project_dir / ".no3sis" / "context"
         context_dir.mkdir(parents=True)
 
         # Create markdown file
@@ -200,7 +200,7 @@ All endpoints require Bearer token authentication.
         project_dir.mkdir()
 
         # Create context directory
-        context_dir = project_dir / ".synapse" / "context"
+        context_dir = project_dir / ".no3sis" / "context"
         context_dir.mkdir(parents=True)
 
         # Create a valid file
@@ -239,7 +239,7 @@ All endpoints require Bearer token authentication.
         project_dir.mkdir()
 
         # Create context directory
-        context_dir = project_dir / ".synapse" / "context"
+        context_dir = project_dir / ".no3sis" / "context"
         context_dir.mkdir(parents=True)
 
         # Create files in non-alphabetical order

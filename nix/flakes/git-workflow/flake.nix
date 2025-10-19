@@ -78,7 +78,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/git-workflow"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/git-workflow"
 
           if [[ ! -f "$AGENT_DIR/git_workflow_agent.py" ]]; then
             echo "❌ Git Workflow agent not found at $AGENT_DIR"

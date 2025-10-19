@@ -43,8 +43,8 @@ check() {
 echo "Required Components:"
 check "Mojo binary exists" "test -f .venv/bin/mojo" "required"
 check "Mojo is executable" "test -x .venv/bin/mojo" "required"
-check "Pattern search source exists" "test -f .synapse/neo4j/pattern_search_mojo.mojo" "required"
-check "Message router source exists" "test -f .synapse/corpus_callosum/message_router.mojo" "required"
+check "Pattern search source exists" "test -f .no3sis/neo4j/pattern_search_mojo.mojo" "required"
+check "Message router source exists" "test -f .no3sis/corpus_callosum/message_router.mojo" "required"
 check "mojo-runtime flake.nix exists" "test -f nix/flakes/mojo-runtime/flake.nix" "required"
 check "mojo-pattern-search flake.nix exists" "test -f nix/flakes/mojo-pattern-search/flake.nix" "required"
 check "mojo-message-router flake.nix exists" "test -f nix/flakes/mojo-message-router/flake.nix" "required"
@@ -63,13 +63,13 @@ if [ -f .venv/bin/mojo ]; then
     echo "  Mojo binary: $mojo_size bytes"
 fi
 
-if [ -f .synapse/neo4j/pattern_search_mojo.mojo ]; then
-    ps_size=$(stat -f%z .synapse/neo4j/pattern_search_mojo.mojo 2>/dev/null || stat -c%s .synapse/neo4j/pattern_search_mojo.mojo 2>/dev/null)
+if [ -f .no3sis/neo4j/pattern_search_mojo.mojo ]; then
+    ps_size=$(stat -f%z .no3sis/neo4j/pattern_search_mojo.mojo 2>/dev/null || stat -c%s .no3sis/neo4j/pattern_search_mojo.mojo 2>/dev/null)
     echo "  Pattern search: $ps_size bytes ($(echo "scale=1; $ps_size/1024" | bc)KB)"
 fi
 
-if [ -f .synapse/corpus_callosum/message_router.mojo ]; then
-    mr_size=$(stat -f%z .synapse/corpus_callosum/message_router.mojo 2>/dev/null || stat -c%s .synapse/corpus_callosum/message_router.mojo 2>/dev/null)
+if [ -f .no3sis/corpus_callosum/message_router.mojo ]; then
+    mr_size=$(stat -f%z .no3sis/corpus_callosum/message_router.mojo 2>/dev/null || stat -c%s .no3sis/corpus_callosum/message_router.mojo 2>/dev/null)
     echo "  Message router: $mr_size bytes ($(echo "scale=1; $mr_size/1024" | bc)KB)"
 fi
 

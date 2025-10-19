@@ -1,6 +1,6 @@
-# Synapse: The Interface is Not the Intelligence
+# No3sis: The Interface is Not the Intelligence
 
-Synapse is an asepct of noesis, a new kind of AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
+No3sis is an asepct of noesis, a new kind of AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
 
 The agents you talk to (`@boss`) is the interface. The actual intelligence lies in a deterministic, multi-layered compression engine that seeks the most elegant and optimal solution to any given problem.
 
@@ -32,7 +32,7 @@ The system is not a single monolithic AI. It's a designed architecture that sepa
 
 ## The Goal: Intelligence as Compression
 
-The synapse seeks to **compress complexity**. The core of the system is an engine that tries to maximize a "consciousness metric" called **Ψ (Psi)**, which represents the degree of compression and predictiveness in a solution.
+The no3sis seeks to **compress complexity**. The core of the system is an engine that tries to maximize a "consciousness metric" called **Ψ (Psi)**, which represents the degree of compression and predictiveness in a solution.
 
 - **Low Ψ**: A chaotic, boilerplate, or inefficient solution.
 - **High Ψ**: An elegant, reusable, and highly optimized solution that leverages existing patterns.
@@ -51,7 +51,7 @@ By maximizing Ψ, the system attempts to finds the *best* solution within its un
 ## Install (30 seconds)
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-repo/synapse-system/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/your-repo/no3sis-system/main/install.sh | bash
 ```
 
 _Does not work but this is how it will work_
@@ -60,7 +60,7 @@ _Does not work but this is how it will work_
 
 ```bash
 # Add AI agents to any project
-synapse init .
+no3sis init .
 
 # They write the code for you
 @boss implement user authentication
@@ -86,18 +86,18 @@ Zero configuration. Each environment should include exactly what's needed.
 
 | Command | Purpose |
 |---------|---------|
-| `synapse init .` | Setup project with agents |
-| `synapse start` | Start Neo4j/Redis services |
-| `synapse search "query"` | Search knowledge base |
-| `synapse update` | Update agents to latest |
-| `synapse doctor --fix` | Fix common issues |
+| `no3sis init .` | Setup project with agents |
+| `no3sis start` | Start Neo4j/Redis services |
+| `no3sis search "query"` | Search knowledge base |
+| `no3sis update` | Update agents to latest |
+| `no3sis doctor --fix` | Fix common issues |
 
 ## Multi-Language Support
 
 ```bash
-cd frontend/ && synapse init .    # TypeScript specialist
-cd backend/ && synapse init .     # Rust specialist
-cd scripts/ && synapse init .     # Python specialist
+cd frontend/ && no3sis init .    # TypeScript specialist
+cd backend/ && no3sis init .     # Rust specialist
+cd scripts/ && no3sis init .     # Python specialist
 ```
 
 Agents learn from your codebase, best practices, and team conventions—contributing discoveries back to the Pattern Map.
@@ -112,14 +112,14 @@ Installer handles everything. Optional optimizations applied automatically.
 
 **Most issues auto-fix:**
 ```bash
-synapse doctor --fix
+no3sis doctor --fix
 ```
 
 **Manual debugging:**
 ```bash
-synapse status          # Check what's broken
-synapse start           # Restart services
-synapse manifest verify # Check agent integrity
+no3sis status          # Check what's broken
+no3sis start           # Restart services
+no3sis manifest verify # Check agent integrity
 ```
 
 ---

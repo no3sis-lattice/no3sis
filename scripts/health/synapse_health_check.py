@@ -18,7 +18,7 @@ from typing import Dict, List, Tuple, Optional
 
 class SynapseHealthCheck:
     def __init__(self):
-        self.synapse_root = Path.home() / ".synapse-system"
+        self.no3sis_root = Path.home() / ".no3sis-system"
         self.neo4j_uri = "http://localhost:7474"
         self.redis_host = "localhost"
         self.redis_port = 6379
@@ -74,7 +74,7 @@ class SynapseHealthCheck:
 
     def check_vector_store(self) -> Tuple[bool, str]:
         """Check vector store database"""
-        vector_db_path = self.synapse_root / "neo4j" / "vector_store.db"
+        vector_db_path = self.no3sis_root / "neo4j" / "vector_store.db"
         if not vector_db_path.exists():
             return False, "Vector store database not found"
 
@@ -98,7 +98,7 @@ class SynapseHealthCheck:
             from neo4j import GraphDatabase
             driver = GraphDatabase.driver(
                 "bolt://localhost:7687",
-                auth=("neo4j", "synapse_neo4j_pass")
+                auth=("neo4j", "no3sis_neo4j_pass")
             )
 
             with driver.session() as session:
@@ -125,7 +125,7 @@ class SynapseHealthCheck:
         found_files = 0
 
         for dir_name in target_dirs:
-            dir_path = self.synapse_root / ".synapse" / dir_name
+            dir_path = self.no3sis_root / ".no3sis" / dir_name
             if dir_path.exists():
                 files = list(dir_path.rglob("*.md"))
                 found_files += len(files)
@@ -138,7 +138,7 @@ class SynapseHealthCheck:
     def check_search_functionality(self) -> Tuple[bool, str]:
         """Test search functionality"""
         try:
-            script_path = self.synapse_root / ".synapse" / "neo4j" / "synapse_search.py"
+            script_path = self.no3sis_root / ".no3sis" / "neo4j" / "no3sis_search.py"
             if not script_path.exists():
                 return False, "Search script not found"
 
@@ -166,12 +166,12 @@ class SynapseHealthCheck:
         """Check if BGE-M3 model loads correctly"""
         try:
             # Check if virtual environment exists
-            venv_path = self.synapse_root / ".synapse" / "neo4j" / ".venv"
+            venv_path = self.no3sis_root / ".no3sis" / "neo4j" / ".venv"
             if not venv_path.exists():
                 return False, "Python virtual environment not found"
 
             # Check if BGE-M3 is importable in the venv
-            vector_script = self.synapse_root / ".synapse" / "neo4j" / "vector_engine.py"
+            vector_script = self.no3sis_root / ".no3sis" / "neo4j" / "vector_engine.py"
             if not vector_script.exists():
                 return False, "Vector engine script not found"
 
@@ -187,7 +187,7 @@ except Exception as e:
 """
             result = subprocess.run([
                 sys.executable, "-c", test_script
-            ], cwd=self.synapse_root / ".synapse" / "neo4j",
+            ], cwd=self.no3sis_root / ".no3sis" / "neo4j",
             capture_output=True, text=True, timeout=10)
 
             if "SUCCESS" in result.stdout:

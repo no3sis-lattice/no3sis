@@ -52,13 +52,13 @@ uv.lock
 *.mojo~
 
 # Local state and runtime data
-.synapse/task_state.db
-.synapse/neo4j/.venv/
-.synapse/neo4j/data/
-.synapse/neo4j/logs/
-.synapse/neo4j/import/
-.synapse/neo4j/plugins/
-.synapse/mojo-pilot/.venv/
+.no3sis/task_state.db
+.no3sis/neo4j/.venv/
+.no3sis/neo4j/data/
+.no3sis/neo4j/logs/
+.no3sis/neo4j/import/
+.no3sis/neo4j/plugins/
+.no3sis/mojo-pilot/.venv/
 .claude/settings.local.json
 
 # Database files

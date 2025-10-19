@@ -59,7 +59,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/python-specialist"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/python-specialist"
 
           if [[ ! -f "$AGENT_DIR/python_specialist_agent.py" ]]; then
             echo "❌ Python specialist agent not found at $AGENT_DIR"
@@ -128,7 +128,7 @@
           python-syntax-check = pkgs.runCommand "python-syntax-check" {
             buildInputs = [ pythonEnv ];
           } ''
-            AGENT_DIR="$HOME/.synapse-system/.synapse/agents/python-specialist"
+            AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/python-specialist"
             if [[ -f "$AGENT_DIR/python_specialist_agent.py" ]]; then
               echo "Checking Python syntax..."
               python -m py_compile "$AGENT_DIR/python_specialist_agent.py"

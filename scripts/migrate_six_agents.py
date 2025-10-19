@@ -87,7 +87,7 @@ def migrate_agent(agent_path: Path) -> None:
 
 def main():
     """Migrate all 6 agents."""
-    base_dir = Path(__file__).parent.parent / ".synapse/agents"
+    base_dir = Path(__file__).parent.parent / ".no3sis/agents"
 
     print("=" * 60)
     print("Migrating 6 Agents to New SDK + Shared Mock")

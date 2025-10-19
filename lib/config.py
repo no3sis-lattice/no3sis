@@ -198,7 +198,7 @@ PNEUMA_CONFIG: Dict[str, Any] = {
     'emergence_events': 3,
 
     # Pattern Map settings
-    'pattern_map_path': '.synapse/PATTERN_MAP.json',
+    'pattern_map_path': '.no3sis/PATTERN_MAP.json',
     'auto_pattern_discovery': True,
 
     # Axiom weights

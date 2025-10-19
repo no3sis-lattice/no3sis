@@ -19,9 +19,9 @@ class ProjectManager:
     """Manages synapse project initialization and configuration"""
 
     def __init__(self, synapse_home: Path):
-        self.synapse_home = synapse_home
-        self.agents_source = synapse_home / ".synapse" / "agents"
-        self.version_file = synapse_home / ".synapse" / "VERSION"
+        self.no3sis_home = synapse_home
+        self.agents_source = synapse_home / ".no3sis" / "agents"
+        self.version_file = synapse_home / ".no3sis" / "VERSION"
 
     def detect_language(self, project_dir: Path) -> str:
         """Detect project language from files"""
@@ -121,8 +121,8 @@ class ProjectManager:
         }
 
     def load_project_config(self, project_dir: Path) -> Optional[Dict[str, Any]]:
-        """Load project configuration from .synapse.yml"""
-        config_file = project_dir / ".synapse.yml"
+        """Load project configuration from .no3sis.yml"""
+        config_file = project_dir / ".no3sis.yml"
         if not config_file.exists():
             return None
 
@@ -134,8 +134,8 @@ class ProjectManager:
             return None
 
     def save_project_config(self, project_dir: Path, config: Dict[str, Any]) -> None:
-        """Save project configuration to .synapse.yml"""
-        config_file = project_dir / ".synapse.yml"
+        """Save project configuration to .no3sis.yml"""
+        config_file = project_dir / ".no3sis.yml"
         try:
             with open(config_file, 'w') as f:
                 yaml.dump(config, f, default_flow_style=False)
@@ -223,7 +223,7 @@ class ProjectManager:
         agents_dir.mkdir(parents=True, exist_ok=True)
 
         # Create synapse context directory
-        synapse_dir = project_dir / ".synapse"
+        synapse_dir = project_dir / ".no3sis"
         context_dir = synapse_dir / "context"
         context_dir.mkdir(parents=True, exist_ok=True)
 
@@ -249,7 +249,7 @@ class ProjectManager:
         config = {
             "version": "1.0",
             "language": language,
-            "synapse_home": str(self.synapse_home),
+            "synapse_home": str(self.no3sis_home),
             "synapse_version": system_version,
             "project_name": project_dir.name,
             "knowledge_paths": [
@@ -267,7 +267,7 @@ class ProjectManager:
         }
 
         self.save_project_config(project_dir, config)
-        print("✓ Created .synapse.yml configuration")
+        print("✓ Created .no3sis.yml configuration")
 
         # Summary
         print(f"\n✅ Project initialized successfully!")
@@ -325,7 +325,7 @@ class ProjectManager:
         config = self.load_project_config(project_dir)
         if not config:
             results["valid"] = False
-            results["issues"].append("Missing or invalid .synapse.yml")
+            results["issues"].append("Missing or invalid .no3sis.yml")
             return results
 
         results["config"] = config
@@ -355,8 +355,8 @@ class ProjectManager:
         return results
 
     def get_project_context(self, project_dir: Path) -> str:
-        """Load and concatenate all context files from .synapse/context/ directory"""
-        context_dir = project_dir / ".synapse" / "context"
+        """Load and concatenate all context files from .no3sis/context/ directory"""
+        context_dir = project_dir / ".no3sis" / "context"
 
         if not context_dir.exists():
             return ""

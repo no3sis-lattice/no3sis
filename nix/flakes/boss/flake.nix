@@ -37,7 +37,7 @@
 
         # Synapse System utilities
         synapseEnv = pkgs.buildEnv {
-          name = "synapse-system-env";
+          name = "no3sis-system-env";
           paths = with pkgs; [
             # Core utilities
             curl
@@ -58,7 +58,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/boss"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/boss"
 
           if [[ ! -f "$AGENT_DIR/boss_agent.py" ]]; then
             echo "❌ Boss agent not found at $AGENT_DIR"
@@ -73,8 +73,8 @@
           export PATH="${synapseEnv}/bin:$PATH"
 
           # Set Synapse environment variables
-          export SYNAPSE_HOME="$HOME/.synapse-system"
-          export SYNAPSE_DATA_DIR="$SYNAPSE_HOME/.synapse"
+          export SYNAPSE_HOME="$HOME/.no3sis-system"
+          export SYNAPSE_DATA_DIR="$SYNAPSE_HOME/.no3sis"
           export NEO4J_URI="bolt://localhost:7687"
           export NEO4J_USER="neo4j"
           export NEO4J_PASSWORD="password"
@@ -125,13 +125,13 @@
             echo "  - Redis: redis://localhost:6379"
             echo ""
             echo "To run the agent: boss"
-            echo "To start Synapse services: cd ~/.synapse-system && docker-compose up -d"
+            echo "To start Synapse services: cd ~/.no3sis-system && docker-compose up -d"
             echo "To check Neo4j: curl http://localhost:7474"
             echo "To check Redis: redis-cli ping"
           '';
 
           # Set environment variables for Synapse development
-          SYNAPSE_HOME = "$HOME/.synapse-system";
+          SYNAPSE_HOME = "$HOME/.no3sis-system";
           NEO4J_URI = "bolt://localhost:7687";
           REDIS_URL = "redis://localhost:6379";
         };
@@ -155,7 +155,7 @@
           python-syntax-check = pkgs.runCommand "boss-syntax-check" {
             buildInputs = [ pythonEnv ];
           } ''
-            AGENT_DIR="$HOME/.synapse-system/.synapse/agents/boss"
+            AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/boss"
             if [[ -f "$AGENT_DIR/boss_agent.py" ]]; then
               echo "Checking Python syntax for Boss agent..."
               python -m py_compile "$AGENT_DIR/boss_agent.py"

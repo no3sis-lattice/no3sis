@@ -16,7 +16,7 @@ from dataclasses import dataclass
 import time
 
 # Add corpus callosum to path
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 from reactive_message_router import TractType, Message
 
 logger = logging.getLogger(__name__)
@@ -164,7 +164,7 @@ class AgentConsumer(ABC):
             # Convert result to ExecutionResult format
             # Import ExecutionResult here to avoid circular import
             import sys
-            sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
+            sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
             from orchestration import ExecutionResult
 
             execution_result = ExecutionResult(
@@ -192,7 +192,7 @@ class AgentConsumer(ABC):
 
             # Import ExecutionResult here
             import sys
-            sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
+            sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
             from orchestration import ExecutionResult
 
             execution_result = ExecutionResult(
@@ -278,7 +278,7 @@ def create_agent_consumer(
     # Import example agents
     try:
         import sys
-        sys.path.insert(0, str(Path.home() / '.synapse-system' / 'examples'))
+        sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'examples'))
         from example_agents import (
             ArchitectAgent,
             TestRunnerAgent,

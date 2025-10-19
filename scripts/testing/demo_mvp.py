@@ -16,7 +16,7 @@ from pathlib import Path
 
 # Add paths
 sys.path.insert(0, str(Path(__file__).parent / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 sys.path.insert(0, str(Path(__file__).parent / 'lib' / 'particles'))
 sys.path.insert(0, str(Path(__file__).parent / 'lib' / 'orchestrators'))
 
@@ -40,7 +40,7 @@ async def demo():
     print("╚════════════════════════════════════════════════════════════╝\n")
 
     # Create temp directory for demo
-    test_dir = Path(tempfile.mkdtemp(prefix="synapse_demo_"))
+    test_dir = Path(tempfile.mkdtemp(prefix="no3sis_demo_"))
     state_dir = test_dir / "particles"
     state_dir.mkdir(parents=True, exist_ok=True)
 

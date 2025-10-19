@@ -7,12 +7,12 @@ echo "==============================="
 echo
 echo "The setup has been greatly simplified!"
 echo
-echo "Just run: synapse init ."
+echo "Just run: no3sis init ."
 echo
 
 # Delegate to the new simple system
 if [[ -n "$1" ]]; then
-    exec ~/.synapse-system/bin/synapse init "$1"
+    exec ~/.no3sis-system/bin/no3sis init "$1"
 else
-    exec ~/.synapse-system/bin/synapse init .
+    exec ~/.no3sis-system/bin/no3sis init .
 fi

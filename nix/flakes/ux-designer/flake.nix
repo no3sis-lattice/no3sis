@@ -35,7 +35,7 @@
         };
 
         agentScript = pkgs.writeShellScript "ux-designer-script" ''
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/ux-designer"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/ux-designer"
           [[ -f "$AGENT_DIR/ux_designer_agent.py" ]] || { echo "Agent not found"; exit 1; }
           echo "🎨 Starting UX Designer Agent..."
           cd "$AGENT_DIR"

@@ -80,7 +80,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/test-runner"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/test-runner"
 
           if [[ ! -f "$AGENT_DIR/test_runner_agent.py" ]]; then
             echo "❌ Test Runner agent not found at $AGENT_DIR"

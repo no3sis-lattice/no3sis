@@ -30,7 +30,7 @@
         };
 
         agentScript = pkgs.writeShellScript "clarity-judge-script" ''
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/clarity-judge"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/clarity-judge"
           [[ -f "$AGENT_DIR/clarity_judge_agent.py" ]] || { echo "Agent not found"; exit 1; }
           echo "⚖️ Starting Clarity Judge Agent..."
           cd "$AGENT_DIR"

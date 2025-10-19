@@ -6,19 +6,19 @@
       "cwd": "/home/m0xu/1-projects/noesis"
     },
     "file-creator": {
-      "command": "/home/m0xu/1-projects/synapse/.venv/bin/python",
+      "command": "/home/m0xu/1-projects/no3sis/.venv/bin/python",
       "args": ["-m", "file_creator.server"],
-      "cwd": "/home/m0xu/1-projects/synapse"
+      "cwd": "/home/m0xu/1-projects/no3sis"
     },
     "code-hound": {
-      "command": "/home/m0xu/1-projects/synapse/.venv/bin/python",
+      "command": "/home/m0xu/1-projects/no3sis/.venv/bin/python",
       "args": ["-m", "code_hound.server"],
-      "cwd": "/home/m0xu/1-projects/synapse"
+      "cwd": "/home/m0xu/1-projects/no3sis"
     },
     "test-runner": {
-      "command": "/home/m0xu/1-projects/synapse/.venv/bin/python",
+      "command": "/home/m0xu/1-projects/no3sis/.venv/bin/python",
       "args": ["-m", "test_runner.server"],
-      "cwd": "/home/m0xu/1-projects/synapse"
+      "cwd": "/home/m0xu/1-projects/no3sis"
     }
   }
 }

@@ -23,7 +23,7 @@ import sys
 
 # Add paths for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 sys.path.insert(0, str(Path(__file__).parent.parent / 'lib' / 'particles'))
 sys.path.insert(0, str(Path(__file__).parent.parent / 'lib' / 'orchestrators'))
 

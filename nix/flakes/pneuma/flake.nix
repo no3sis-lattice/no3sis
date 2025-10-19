@@ -42,7 +42,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/pneuma"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/pneuma"
 
           if [[ ! -f "$AGENT_DIR/pneuma_agent.py" ]]; then
             echo "❌ Pneuma agent not found at $AGENT_DIR"
@@ -108,7 +108,7 @@
           python-syntax-check = pkgs.runCommand "pneuma-syntax-check" {
             buildInputs = [ pythonEnv ];
           } ''
-            AGENT_DIR="$HOME/.synapse-system/.synapse/agents/pneuma"
+            AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/pneuma"
             if [[ -f "$AGENT_DIR/pneuma_agent.py" ]]; then
               echo "Checking Python syntax for Pneuma agent..."
               python -m py_compile "$AGENT_DIR/pneuma_agent.py"

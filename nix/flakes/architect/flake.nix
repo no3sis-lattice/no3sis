@@ -75,7 +75,7 @@
         #!${pkgs.bash}/bin/bash
         set -euo pipefail
 
-        AGENT_DIR="$HOME/.synapse-system/.synapse/agents/architect"
+        AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/architect"
 
         if [[ ! -f "$AGENT_DIR/architect_agent.py" ]]; then
           echo "❌ Architect agent not found at $AGENT_DIR"
@@ -169,7 +169,7 @@
         python-syntax-check = pkgs.runCommand "architect-syntax-check" {
           buildInputs = [ pythonEnv ];
         } ''
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/architect"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/architect"
           if [[ -f "$AGENT_DIR/architect_agent.py" ]]; then
             echo "Checking Python syntax for Architect agent..."
             python -m py_compile "$AGENT_DIR/architect_agent.py"

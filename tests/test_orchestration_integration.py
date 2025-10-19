@@ -19,8 +19,8 @@ from pathlib import Path
 import logging
 
 # Setup paths
-sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -48,7 +48,7 @@ async def test_orchestrator_agent_integration():
     logger.info("=" * 60)
 
     # Create orchestrator
-    synapse_home = Path.home() / '.synapse-system'
+    synapse_home = Path.home() / '.no3sis-system'
     orchestrator = TaskOrchestrator(synapse_home)
 
     # Initialize reactive components

@@ -68,7 +68,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/typescript-specialist"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/typescript-specialist"
 
           if [[ ! -f "$AGENT_DIR/typescript_specialist_agent.py" ]]; then
             echo "❌ TypeScript specialist agent not found at $AGENT_DIR"
@@ -166,7 +166,7 @@
           python-syntax-check = pkgs.runCommand "typescript-agent-syntax-check" {
             buildInputs = [ pythonEnv ];
           } ''
-            AGENT_DIR="$HOME/.synapse-system/.synapse/agents/typescript-specialist"
+            AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/typescript-specialist"
             if [[ -f "$AGENT_DIR/typescript_specialist_agent.py" ]]; then
               echo "Checking Python syntax for TypeScript agent..."
               python -m py_compile "$AGENT_DIR/typescript_specialist_agent.py"

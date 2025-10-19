@@ -19,7 +19,7 @@ def test_synapse_init(cli_runner, tmp_path):
     Test synapse init command functionality.
 
     This test verifies that the synapse init command:
-    1. Creates a .synapse.yml configuration file
+    1. Creates a .no3sis.yml configuration file
     2. Creates the .claude/agents/ directory structure
     3. Creates the synapse-project-manager.md agent file
 
@@ -33,10 +33,10 @@ def test_synapse_init(cli_runner, tmp_path):
     # Assert command succeeded
     assert result.exit_code == 0, f"Command failed: {result.stderr}"
 
-    # Assert .synapse.yml file was created
-    synapse_config = tmp_path / ".synapse.yml"
-    assert synapse_config.exists(), ".synapse.yml file was not created"
-    assert synapse_config.is_file(), ".synapse.yml is not a file"
+    # Assert .no3sis.yml file was created
+    synapse_config = tmp_path / ".no3sis.yml"
+    assert synapse_config.exists(), ".no3sis.yml file was not created"
+    assert synapse_config.is_file(), ".no3sis.yml is not a file"
 
     # Assert .claude/agents directory was created
     agents_dir = tmp_path / ".claude" / "agents"
@@ -51,9 +51,9 @@ def test_synapse_init(cli_runner, tmp_path):
     # Verify the agent file has content
     assert project_manager_agent.stat().st_size > 0, "synapse-project-manager.md is empty"
 
-    # Optional: Verify the .synapse.yml has expected structure
+    # Optional: Verify the .no3sis.yml has expected structure
     config_content = synapse_config.read_text()
-    assert len(config_content) > 0, ".synapse.yml is empty"
+    assert len(config_content) > 0, ".no3sis.yml is empty"
 
 
 def test_manifest_list_snapshot(cli_runner, snapshot):

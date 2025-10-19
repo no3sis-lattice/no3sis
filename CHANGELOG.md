@@ -1,4 +1,4 @@
-# Synapse System Changelog
+# No3sis System Changelog
 
 ## [Unreleased] - Day 12: CI Hardening Phase 2.6 - Render Pipeline CLI Fix (2025-10-14)
 
@@ -114,7 +114,7 @@ gh run list --limit 1  # ✓ All jobs passing
 
 **Deliverables**:
 - Version centralization: 5 hardcoded `2.8.7` → 1 environment variable
-- Dependency fallback: GitHub Releases CDN + synapse repo mirror (2x redundancy)
+- Dependency fallback: GitHub Releases CDN + no3sis repo mirror (2x redundancy)
 - Installation script: Added retry logic + dual-URL fallback
 - Workflow maintainability: Version updates now 1-line change
 
@@ -142,7 +142,7 @@ grep -n "2.8.7" .github/workflows/duality-validation.yml
 # Output: 1 reference in env block (✓ centralized)
 
 # Fallback mirror test
-curl -I https://github.com/noesis-lattice/synapse/releases/download/deps-v1/MiniZincIDE-2.8.7-bundle-linux-x86_64.tgz
+curl -I https://github.com/noesis-lattice/no3sis/releases/download/deps-v1/MiniZincIDE-2.8.7-bundle-linux-x86_64.tgz
 # Output: 200 OK (✓ mirror active)
 
 # Retry logic test (simulated)

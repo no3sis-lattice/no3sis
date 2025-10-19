@@ -12,8 +12,8 @@ import sys
 from pathlib import Path
 
 # Add corpus callosum to path
-sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 
 from agent_consumer import AgentConsumer
 from reactive_message_router import Message

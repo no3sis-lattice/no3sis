@@ -18,7 +18,7 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 import sys
 repo_root = Path(__file__).parent.parent
-sys.path.insert(0, str(repo_root / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(repo_root / '.no3sis' / 'corpus_callosum'))
 
 from message_router import (
     MessageRouter,

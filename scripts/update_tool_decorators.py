@@ -82,7 +82,7 @@ def update_tool_decorators_in_file(file_path: Path) -> bool:
 
 def main():
     """Update all agent files"""
-    base_dir = Path(__file__).parent.parent / ".synapse" / "agents"
+    base_dir = Path(__file__).parent.parent / ".no3sis" / "agents"
 
     # List of agent files needing updates (from migration script output)
     agents_needing_update = [

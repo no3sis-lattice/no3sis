@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 # Add paths for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / ".synapse" / "neo4j"))
+sys.path.insert(0, str(Path(__file__).parent.parent / ".no3sis" / "neo4j"))
 sys.path.insert(0, str(Path(__file__).parent.parent / "lib"))
 
 from pattern_search import PatternSearch, create_pattern_search

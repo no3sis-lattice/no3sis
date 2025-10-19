@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 from typing import Dict, List
 
-AGENTS_DIR = Path(".synapse/agents")
+AGENTS_DIR = Path(".no3sis/agents")
 
 # Agents to migrate (excluding file-creator and tool-runner which are done)
 AGENTS_TO_MIGRATE = [
@@ -249,7 +249,7 @@ def main():
     if success_count == total_count:
         print("\n✓ ALL AGENTS MIGRATED SUCCESSFULLY!")
         print("\nNext steps:")
-        print("1. Verify: find .synapse/agents -name 'mock_sdk.py' (should be empty)")
+        print("1. Verify: find .no3sis/agents -name 'mock_sdk.py' (should be empty)")
         print("2. Update CHANGELOG.md")
         print("3. Commit changes")
     else:

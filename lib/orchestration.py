@@ -23,7 +23,7 @@ import sys
 from task_state import TaskState, TaskTracker, Task
 
 # Import Corpus Callosum message router
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 try:
     from message_router import get_message_router, TractType, MessagePriority
     CORPUS_CALLOSUM_AVAILABLE = True
@@ -106,9 +106,9 @@ class TaskOrchestrator:
     """Main orchestration engine for multi-agent workflows"""
 
     def __init__(self, synapse_home: Path):
-        self.synapse_home = synapse_home
+        self.no3sis_home = synapse_home
         self.task_tracker = TaskTracker()
-        self.workflows_dir = synapse_home / ".synapse" / "workflows"
+        self.workflows_dir = synapse_home / ".no3sis" / "workflows"
         self.workflows_dir.mkdir(exist_ok=True)
 
         # Load predefined workflows

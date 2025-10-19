@@ -21,7 +21,7 @@
           version = "0.1.0";
 
           # Source from actual project location (three levels up: nix/flakes/mojo-message-router -> project root)
-          src = ../../../.synapse/corpus_callosum;
+          src = ../../../.no3sis/corpus_callosum;
 
           buildInputs = [
             mojo-runtime.packages.${system}.default
@@ -48,7 +48,7 @@
           meta = {
             description = "SIMD-optimized message router for Corpus Callosum";
             performance = "Target: 100x+ faster than Python ThreadPoolExecutor";
-            homepage = "https://github.com/yourusername/synapse-system";
+            homepage = "https://github.com/yourusername/no3sis-system";
           };
         };
 
@@ -74,10 +74,10 @@
             echo "  make verify     - Check FFI exports"
             echo "  make test       - Run unit tests"
             echo ""
-            echo "Source: .synapse/corpus_callosum/message_router.mojo"
+            echo "Source: .no3sis/corpus_callosum/message_router.mojo"
             echo "Output: libmessage_router.so"
 
-            export MOJO_LIB_PATH="$(pwd)/.synapse/corpus_callosum"
+            export MOJO_LIB_PATH="$(pwd)/.no3sis/corpus_callosum"
           '';
         };
       });

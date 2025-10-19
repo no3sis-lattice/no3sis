@@ -153,7 +153,7 @@ class BossOrchestrator(BaseOrchestrator):
         )
 
         self.state_file = state_file or (
-            Path.home() / '.synapse-system' / '.synapse' /
+            Path.home() / '.no3sis-system' / '.no3sis' /
             'particles' / 'boss_orchestrator_state.json'
         )
         self.state = self._load_state()

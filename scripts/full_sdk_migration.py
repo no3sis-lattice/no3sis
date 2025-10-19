@@ -18,8 +18,8 @@ from pathlib import Path
 from typing import List, Tuple, Dict
 
 
-AGENTS_DIR = Path(".synapse/agents")
-SHARED_MOCK_PATH = Path(".synapse/shared/mock_sdk.py")
+AGENTS_DIR = Path(".no3sis/agents")
+SHARED_MOCK_PATH = Path(".no3sis/shared/mock_sdk.py")
 
 
 def find_agents() -> List[Path]:

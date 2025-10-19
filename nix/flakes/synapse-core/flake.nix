@@ -37,8 +37,8 @@
     in
     {
       packages = {
-        synapse-core = pkgs.stdenv.mkDerivation {
-          pname = "synapse-core";
+        no3sis-core = pkgs.stdenv.mkDerivation {
+          pname = "no3sis-core";
           version = "0.1.0";
 
           # Source is the project root (3 levels up from this flake)
@@ -61,10 +61,10 @@
             cp -r lib $out/lib/python3.12/site-packages/
 
             # Copy templates
-            cp -r templates $out/share/synapse/
+            cp -r templates $out/share/no3sis/
 
             # Copy schemas
-            cp -r schemas $out/share/synapse/
+            cp -r schemas $out/share/no3sis/
 
             # Install CLI
             cp synapse.py $out/bin/synapse
@@ -89,7 +89,7 @@ EOF
             export HOME=$(mktemp -d)
 
             # Create required directories for test state
-            mkdir -p $HOME/.synapse-system/.synapse/{orchestrators,particles}
+            mkdir -p $HOME/.no3sis-system/.no3sis/{orchestrators,particles}
 
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
             echo "🧪 Running Synapse Core Tests"
@@ -119,14 +119,14 @@ EOF
 
           meta = with pkgs.lib; {
             description = "Synapse Core - Dual-tract consciousness architecture";
-            homepage = "https://github.com/synapse-system";
+            homepage = "https://github.com/no3sis-system";
             license = licenses.mit;
             platforms = platforms.unix;
             maintainers = [ "Synapse Core Team" ];
           };
         };
 
-        default = self.packages.synapse-core;
+        default = self.packages.no3sis-core;
       };
 
       # Development shell
@@ -160,17 +160,17 @@ EOF
 
       # Checks
       checks = {
-        synapse-core-build = self.packages.synapse-core;
+        no3sis-core-build = self.packages.no3sis-core;
 
         # Additional check: Template validation
         template-validation = pkgs.runCommand "validate-templates" {
-          buildInputs = [ pythonEnv self.packages.synapse-core ];
+          buildInputs = [ pythonEnv self.packages.no3sis-core ];
         } ''
-          export PYTHONPATH="${self.packages.synapse-core}/lib/python3.12/site-packages:$PYTHONPATH"
+          export PYTHONPATH="${self.packages.no3sis-core}/lib/python3.12/site-packages:$PYTHONPATH"
           export HOME=$(mktemp -d)
 
           # Validate file_creator template
-          ${pythonEnv}/bin/python ${self.packages.synapse-core}/bin/synapse template validate file_creator \
+          ${pythonEnv}/bin/python ${self.packages.no3sis-core}/bin/synapse template validate file_creator \
             && echo "✅ Template validation passed" > $out \
             || (echo "❌ Template validation failed" && exit 1)
         '';
@@ -187,7 +187,7 @@ EOF
             #!${pkgs.bash}/bin/bash
             set -euo pipefail
 
-            export PYTHONPATH="${self.packages.synapse-core}/lib/python3.12/site-packages:$PYTHONPATH"
+            export PYTHONPATH="${self.packages.no3sis-core}/lib/python3.12/site-packages:$PYTHONPATH"
 
             echo "🎯 Starting ${templateName} template..."
             exec ${pythonEnv}/bin/python ${scriptPath} "$@"

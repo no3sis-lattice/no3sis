@@ -46,7 +46,7 @@
         };
 
         agentScript = pkgs.writeShellScript "tool-runner-script" ''
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/tool-runner"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/tool-runner"
           [[ -f "$AGENT_DIR/tool_runner_agent.py" ]] || { echo "Agent not found"; exit 1; }
           echo "🔧 Starting Tool Runner Agent..."
           cd "$AGENT_DIR"

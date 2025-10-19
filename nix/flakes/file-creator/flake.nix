@@ -27,7 +27,7 @@
         };
 
         agentScript = pkgs.writeShellScript "file-creator-script" ''
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/file-creator"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/file-creator"
           [[ -f "$AGENT_DIR/file_creator_agent.py" ]] || { echo "Agent not found"; exit 1; }
           echo "📁 Starting File Creator Agent..."
           cd "$AGENT_DIR"

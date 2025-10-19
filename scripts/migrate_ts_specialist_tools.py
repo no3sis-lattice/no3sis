@@ -56,7 +56,7 @@ def migrate_tool(content: str, func_name: str, description: str, params: dict) -
 
 
 def main():
-    agent_file = Path("/home/m0xu/1-projects/synapse/.synapse/agents/typescript-specialist/typescript_specialist_agent.py")
+    agent_file = Path("/home/m0xu/1-projects/no3sis/.no3sis/agents/typescript-specialist/typescript_specialist_agent.py")
 
     print("Migrating remaining 14 tools in typescript-specialist...")
 

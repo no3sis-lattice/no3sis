@@ -15,7 +15,7 @@ import sys
 # Add lib to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from lib.core.atomic_particle import AtomicParticle, ExecutionContext, create_particle
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 from reactive_message_router import TractType
 
 logger = logging.getLogger(__name__)

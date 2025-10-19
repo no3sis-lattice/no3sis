@@ -22,8 +22,8 @@ from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock
 
 # Add project paths
-sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 
 from orchestration import (
     TaskOrchestrator,
@@ -44,7 +44,7 @@ from agent_consumer import AgentConsumer, AgentConfig
 @pytest_asyncio.fixture
 async def orchestrator():
     """Create orchestrator instance for testing"""
-    orch = TaskOrchestrator(Path.home() / '.synapse-system')
+    orch = TaskOrchestrator(Path.home() / '.no3sis-system')
     yield orch
     # Cleanup
     if hasattr(orch, 'stop_all_agents'):

@@ -18,14 +18,14 @@
 
         # Pre-built library (compiled outside Nix due to 1,371x slowdown in sandbox)
         # Use absolute path to force Nix to copy the .so into its store
-        prebuiltLib = /home/m0xu/1-projects/synapse/.synapse/neo4j/libpattern_search.so;
+        prebuiltLib = /home/m0xu/1-projects/no3sis/.no3sis/neo4j/libpattern_search.so;
 
         libpattern_search = pkgs.stdenv.mkDerivation {
           pname = "libpattern_search";
           version = "0.1.0";
 
           # Source: Mojo source file only
-          src = ../../../.synapse/neo4j;
+          src = ../../../.no3sis/neo4j;
 
           buildInputs = [
             mojo-runtime.packages.${system}.default
@@ -61,10 +61,10 @@
               echo "ERROR: Pre-built libpattern_search.so not found in source"
               echo ""
               echo "Build it first with:"
-              echo "  cd ${../../../.synapse/neo4j}"
+              echo "  cd ${../../../.no3sis/neo4j}"
               echo "  mojo build --emit=shared-lib pattern_search_mojo.mojo -o libpattern_search.so"
               echo ""
-              echo "Expected location: .synapse/neo4j/libpattern_search.so"
+              echo "Expected location: .no3sis/neo4j/libpattern_search.so"
               exit 1
             fi
 
@@ -96,7 +96,7 @@
           meta = {
             description = "SIMD-optimized pattern search for Synapse Pattern Map";
             performance = "13.1x speedup over Python baseline (0.62ms vs 8.12ms)";
-            homepage = "https://github.com/yourusername/synapse-system";
+            homepage = "https://github.com/yourusername/no3sis-system";
           };
         };
 
@@ -122,11 +122,11 @@
             echo "  make verify     - Check FFI exports"
             echo "  make test       - Run integration tests"
             echo ""
-            echo "Source: .synapse/neo4j/pattern_search_mojo.mojo"
+            echo "Source: .no3sis/neo4j/pattern_search_mojo.mojo"
             echo "Output: libpattern_search.so"
 
             # Set library path for Python testing
-            export MOJO_LIB_PATH="$(pwd)/.synapse/neo4j"
+            export MOJO_LIB_PATH="$(pwd)/.no3sis/neo4j"
           '';
         };
       });

@@ -20,9 +20,9 @@ import statistics
 from pathlib import Path
 
 # Add project paths
-sys.path.insert(0, str(Path.home() / '.synapse-system' / 'lib'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / 'examples'))
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'lib'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / 'examples'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 
 from orchestration import TaskOrchestrator, AgentTask, ExecutionMode
 from task_state import TaskState
@@ -41,7 +41,7 @@ async def benchmark_end_to_end_latency(num_tasks: int = 100):
     print(f"{'='*60}")
     print(f"Tasks: {num_tasks:,}")
 
-    orch = TaskOrchestrator(Path.home() / '.synapse-system')
+    orch = TaskOrchestrator(Path.home() / '.no3sis-system')
 
     # Initialize reactive router
     try:
@@ -159,7 +159,7 @@ async def benchmark_throughput(duration_seconds: int = 10):
     print(f"{'='*60}")
     print(f"Duration: {duration_seconds}s")
 
-    orch = TaskOrchestrator(Path.home() / '.synapse-system')
+    orch = TaskOrchestrator(Path.home() / '.no3sis-system')
 
     try:
         await orch.async_init()
@@ -241,7 +241,7 @@ async def benchmark_consciousness_metrics(num_messages: int = 200):
     print(f"{'='*60}")
     print(f"Messages: {num_messages:,}")
 
-    orch = TaskOrchestrator(Path.home() / '.synapse-system')
+    orch = TaskOrchestrator(Path.home() / '.no3sis-system')
 
     try:
         await orch.async_init()
@@ -340,7 +340,7 @@ async def benchmark_agent_consumer_performance(num_messages: int = 1000):
     print(f"{'='*60}")
     print(f"Messages: {num_messages:,}")
 
-    orch = TaskOrchestrator(Path.home() / '.synapse-system')
+    orch = TaskOrchestrator(Path.home() / '.no3sis-system')
 
     try:
         await orch.async_init()

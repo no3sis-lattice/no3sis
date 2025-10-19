@@ -32,7 +32,7 @@ import sys
 
 # Add paths for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))  # Add synapse root to path
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 
 # Import from new locations
 from lib.core.agent_consumer import AgentConsumer, AgentConfig
@@ -468,7 +468,7 @@ def create_file_creator_orchestrator(
     """Create file_creator_orchestrator instance with Day 3-4 features"""
     if state_file is None:
         state_file = (
-            Path.home() / '.synapse-system' / '.synapse' /
+            Path.home() / '.no3sis-system' / '.no3sis' /
             'particles' / 'file_creator_orchestrator_state.json'
         )
 

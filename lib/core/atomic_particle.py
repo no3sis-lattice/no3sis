@@ -25,7 +25,7 @@ from enum import Enum
 
 from lib.core.agent_consumer import AgentConsumer, AgentConfig
 import sys
-sys.path.insert(0, str(Path.home() / '.synapse-system' / '.synapse' / 'corpus_callosum'))
+sys.path.insert(0, str(Path.home() / '.no3sis-system' / '.no3sis' / 'corpus_callosum'))
 from reactive_message_router import TractType, Message, MessagePriority
 
 logger = logging.getLogger(__name__)
@@ -491,7 +491,7 @@ def create_particle(particle_class, agent_id: str, corpus_callosum, state_file: 
         file_writer = create_particle(FileWriter, "file_writer", corpus_callosum)
     """
     if state_file is None:
-        state_file = Path.home() / '.synapse-system' / '.synapse' / 'particles' / f'{agent_id}_state.json'
+        state_file = Path.home() / '.no3sis-system' / '.no3sis' / 'particles' / f'{agent_id}_state.json'
 
     config = AgentConfig(agent_id=agent_id, tract=TractType.EXTERNAL)
     return particle_class(config, corpus_callosum, state_file)

@@ -194,7 +194,7 @@ def main():
     dry_run = "--dry-run" in sys.argv
 
     # Find all agent files
-    base_dir = Path(__file__).parent.parent / ".synapse" / "agents"
+    base_dir = Path(__file__).parent.parent / ".no3sis" / "agents"
     agent_files = find_agent_files(base_dir)
 
     print(f"Found {len(agent_files)} agent files to migrate")

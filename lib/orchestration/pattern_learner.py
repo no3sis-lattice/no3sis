@@ -344,7 +344,7 @@ class PatternLearner:
                 try:
                     # Find ingestion.py
                     ingestion_script = (
-                        Path.home() / '.synapse-system' / '.synapse' /
+                        Path.home() / '.no3sis-system' / '.no3sis' /
                         'neo4j' / 'ingestion.py'
                     )
 
@@ -352,7 +352,7 @@ class PatternLearner:
                         # Fallback: try project neo4j directory
                         ingestion_script = (
                             Path(__file__).parent.parent.parent /
-                            '.synapse' / 'neo4j' / 'ingestion.py'
+                            '.no3sis' / 'neo4j' / 'ingestion.py'
                         )
 
                     if not ingestion_script.exists():
@@ -724,7 +724,7 @@ def create_pattern_learner(pattern_map_file: Path = None) -> PatternLearner:
     """Factory function for pattern learner"""
     if pattern_map_file is None:
         pattern_map_file = (
-            Path.home() / '.synapse-system' / '.synapse' /
+            Path.home() / '.no3sis-system' / '.no3sis' /
             'particles' / 'pattern_map.json'
         )
 

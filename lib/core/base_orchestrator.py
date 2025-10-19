@@ -81,7 +81,7 @@ class BaseOrchestrator:
         Args:
             enable_pattern_learning: Enable automatic pattern discovery
             enable_mtf_ranking: Enable MTF ranking for particle optimization
-            pattern_map_file: Custom pattern map location (default: ~/.synapse-system/.synapse/particles/pattern_map.json)
+            pattern_map_file: Custom pattern map location (default: ~/.no3sis-system/.no3sis/particles/pattern_map.json)
         """
         self.enable_pattern_learning = enable_pattern_learning and PATTERN_LEARNING_AVAILABLE
         self.enable_mtf_ranking = enable_mtf_ranking and PATTERN_LEARNING_AVAILABLE

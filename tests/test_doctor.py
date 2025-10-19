@@ -35,7 +35,7 @@ class TestSynapseDoctor:
         # Mock current project
         project_dir = tmp_path / "test_project"
         project_dir.mkdir()
-        synapse_yml = project_dir / ".synapse.yml"
+        synapse_yml = project_dir / ".no3sis.yml"
         synapse_yml.write_text("language: python\nsynapse_version: 2024.1.0")
         monkeypatch.setattr(cli, "current_project", project_dir)
 
@@ -103,7 +103,7 @@ class TestSynapseDoctor:
         mock_redis.Redis.side_effect = Exception("Connection refused")
         monkeypatch.setattr("cli.redis", mock_redis, raising=False)
 
-        # Has project but missing .synapse.yml
+        # Has project but missing .no3sis.yml
         project_dir = tmp_path / "test_project"
         project_dir.mkdir()
         monkeypatch.setattr(cli, "current_project", project_dir)
@@ -123,11 +123,11 @@ class TestSynapseDoctor:
         assert result == 1  # Any failure returns 1
         assert "Neo4j is running" in captured.out
         assert "Redis is not responding" in captured.out
-        assert "Project directory exists but .synapse.yml missing" in captured.out
+        assert "Project directory exists but .no3sis.yml missing" in captured.out
         assert "Docker is installed" in captured.out
 
     def test_doctor_project_with_missing_config(self, tmp_path, monkeypatch, capsys):
-        """Test doctor when project exists but .synapse.yml is missing"""
+        """Test doctor when project exists but .no3sis.yml is missing"""
         # Setup
         cli = SynapseCLI()
 
@@ -140,7 +140,7 @@ class TestSynapseDoctor:
         mock_redis.Redis.return_value = mock_redis_instance
         monkeypatch.setattr("cli.redis", mock_redis, raising=False)
 
-        # Project directory exists but no .synapse.yml
+        # Project directory exists but no .no3sis.yml
         project_dir = tmp_path / "test_project"
         project_dir.mkdir()
         monkeypatch.setattr(cli, "current_project", project_dir)
@@ -154,7 +154,7 @@ class TestSynapseDoctor:
 
         # Assert
         assert result == 1
-        assert "Project directory exists but .synapse.yml missing" in captured.out
+        assert "Project directory exists but .no3sis.yml missing" in captured.out
         assert "Fix: Run 'synapse init .'" in captured.out
 
     def test_doctor_venv_missing(self, tmp_path, monkeypatch, capsys):

@@ -58,7 +58,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/docs-writer"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/docs-writer"
 
           if [[ ! -f "$AGENT_DIR/docs_writer_agent.py" ]]; then
             echo "❌ Docs Writer agent not found"

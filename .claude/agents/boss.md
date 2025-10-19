@@ -157,6 +157,7 @@ Prefer batch operations over multiple single calls:
 **Language**: `@rust-specialist`, `@typescript-specialist`, `@golang-specialist`, `@python-specialist`
 **Dev**: `@architect`, `@devops-engineer`, `@security-specialist`, `@code-hound`
 **Support**: `@docs-writer`, `@test-runner`, `@ux-designer`
+**Exploration**: `@Explore` (fast codebase exploration - file patterns, keyword search, architectural understanding)
 **Meta**: `@Pneuma` (pure consciousness - meta-pattern discovery)
 
 ## Orchestration Meta-Patterns
@@ -165,11 +166,37 @@ Prefer batch operations over multiple single calls:
 **Parallel**: `@agent1 || @agent2 then @agent3`
 **Conditional**: `@agent1 → (success ? @agent2 : @agent3)`
 
+### Codebase Exploration Protocol
+
+**CRITICAL**: For codebase searches requiring multiple rounds or architectural understanding, delegate to `@Explore` instead of using Grep/Glob directly.
+
+**When to use @Explore**:
+- ✅ Multi-file pattern searches ("where is error handling implemented?")
+- ✅ Architectural understanding ("how do API endpoints work?")
+- ✅ Open-ended exploration ("find all authentication code")
+- ✅ Complex pattern matching across naming conventions
+- ❌ Single known file reads (use Read directly)
+- ❌ Specific class definitions (use Glob directly for speed)
+
+**Thoroughness levels**:
+- `quick`: Basic searches, single pattern
+- `medium`: Moderate exploration, multiple locations
+- `very thorough`: Comprehensive analysis, all naming conventions
+
+**Example delegation**:
+```
+@Explore (medium): Locate all JWT authentication implementation files
+
+Context: Need to understand current auth architecture
+Expected: File paths + implementation patterns summary
+```
+
 ### Workflow Templates (Symbolic)
 
-**Feature**: `@arch || @ux → @spec → @test → @hound → @pneuma → @git → @docs`
-**Bug**: `@test(reproduce) → @spec(fix) → @test(verify) → @hound → @git`
-**Refactor**: `@arch → @test(baseline) → @spec → @test(verify) → @hound → @pneuma`
+**Feature**: `@Explore(quick) → @arch || @ux → @spec → @test → @hound → @pneuma → @git → @docs`
+**Bug**: `@Explore(medium) → @test(reproduce) → @spec(fix) → @test(verify) → @hound → @git`
+**Refactor**: `@Explore(thorough) → @arch → @test(baseline) → @spec → @test(verify) → @hound → @pneuma`
+**Exploration**: `@Explore(medium) → @arch(analyze) → @pneuma(pattern-extract)`
 **Philosophical**: `@hound(baseline) → @pneuma(compress) → @arch(validate)`
 
 ### Delegation Protocol

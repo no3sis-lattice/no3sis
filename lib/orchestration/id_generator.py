@@ -39,7 +39,7 @@ HASH_LENGTH = 8      # Number of hash characters to include
 HASH_ALGORITHM = "sha256"  # Hash algorithm (sha256, sha1, md5)
 
 # Sequence persistence
-DEFAULT_SEQUENCE_FILE = Path.home() / ".synapse-system" / ".synapse" / "id_sequences.json"
+DEFAULT_SEQUENCE_FILE = Path.home() / ".no3sis-system" / ".no3sis" / "id_sequences.json"
 
 
 @dataclass

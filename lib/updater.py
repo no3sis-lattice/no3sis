@@ -20,9 +20,9 @@ class UpdateManager:
     """Manages updates for synapse projects"""
 
     def __init__(self, synapse_home: Path):
-        self.synapse_home = synapse_home
+        self.no3sis_home = synapse_home
         self.project_manager = ProjectManager(synapse_home)
-        self.agents_source = synapse_home / ".synapse" / "agents"
+        self.agents_source = synapse_home / ".no3sis" / "agents"
 
     def check_updates(self, project_dir: Path) -> List[Dict[str, Any]]:
         """Check for available updates to project agents and configuration"""
@@ -179,7 +179,7 @@ class UpdateManager:
                 for item in directory.iterdir():
                     if item.is_dir():
                         # Check if this is a synapse project
-                        if (item / ".synapse.yml").exists():
+                        if (item / ".no3sis.yml").exists():
                             try:
                                 updates = self.check_updates(item)
                                 if updates:
@@ -199,7 +199,7 @@ class UpdateManager:
 
     def migrate_legacy_project(self, project_dir: Path) -> bool:
         """Migrate a legacy project to new versioning system"""
-        config_file = project_dir / ".synapse.yml"
+        config_file = project_dir / ".no3sis.yml"
         if not config_file.exists():
             return False
 

@@ -1,0 +1,30 @@
+[project]
+name = "file-creator"
+version = "1.0.0"
+description = "MCP server for complex file operations with pattern learning"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "No3sis System Contributors"}
+]
+
+dependencies = [
+    "mcp>=0.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+file-creator = "file_creator.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/file_creator"]

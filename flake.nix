@@ -97,7 +97,7 @@
       in
       {
         packages = {
-          default = pkgs.writeShellScriptBin "synapse-system" ''
+          default = pkgs.writeShellScriptBin "no3sis-system" ''
             echo "Synapse System - Multi-agent development platform"
             echo "Available agents: boss, architect, code-hound, etc."
             echo "Use 'synapse --help' for CLI commands"
@@ -142,8 +142,8 @@
           };
 
           # Synapse Core - orchestration framework
-          inherit (inputs.synapse-core.packages.${system}) synapse-core;
-          synapse-cli = inputs.synapse-core.packages.${system}.synapse-core;
+          inherit (inputs.no3sis-core.packages.${system}) synapse-core;
+          synapse-cli = inputs.no3sis-core.packages.${system}.no3sis-core;
 
           # Modular packages (from nix/modules/)
           python-base = pythonBase.env;
@@ -168,7 +168,7 @@
             pip2nix.packages.${system}.default
             inputs.mojo-runtime.packages.${system}.default
             inputs.lean4-verification.packages.${system}.lean
-            inputs.synapse-core.packages.${system}.synapse-core
+            inputs.no3sis-core.packages.${system}.no3sis-core
           ];
           packages = with pkgs; [
             bashInteractive
@@ -204,7 +204,7 @@
             echo "  nix run .#duality-render-pilots    - Render duality pilots"
             echo "  nix run .#duality-validate-pilots  - Validate duality pilots"
             echo "  cd formal/lean4 && lake build      - Build Lean4 locally"
-            echo "  cd .synapse/neo4j && make          - Build pattern search locally"
+            echo "  cd .no3sis/neo4j && make          - Build pattern search locally"
             echo "  synapse start                      - Start Neo4j/Redis services"
 
             # Set library path for Python to find Nix-built libraries
@@ -228,13 +228,13 @@
             echo "Mojo version: $(mojo --version 2>&1 | head -n1)"
             echo ""
             echo "Build commands:"
-            echo "  make -C .synapse/corpus_callosum  - Build message router"
-            echo "  make -C .synapse/neo4j            - Build pattern search"
+            echo "  make -C .no3sis/corpus_callosum  - Build message router"
+            echo "  make -C .no3sis/neo4j            - Build pattern search"
             echo "  nm -D <lib.so>                    - Check FFI exports"
             echo ""
             echo "Libraries:"
-            echo "  • .synapse/neo4j/libpattern_search.so"
-            echo "  • .synapse/corpus_callosum/libmessage_router.so"
+            echo "  • .no3sis/neo4j/libpattern_search.so"
+            echo "  • .no3sis/corpus_callosum/libmessage_router.so"
           '';
         };
 

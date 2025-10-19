@@ -95,7 +95,7 @@
           #!${pkgs.bash}/bin/bash
           set -euo pipefail
 
-          AGENT_DIR="$HOME/.synapse-system/.synapse/agents/devops-engineer"
+          AGENT_DIR="$HOME/.no3sis-system/.no3sis/agents/devops-engineer"
 
           if [[ ! -f "$AGENT_DIR/devops_engineer_agent.py" ]]; then
             echo "❌ DevOps Engineer agent not found at $AGENT_DIR"
