@@ -142,7 +142,7 @@ grep -n "2.8.7" .github/workflows/duality-validation.yml
 # Output: 1 reference in env block (✓ centralized)
 
 # Fallback mirror test
-curl -I https://github.com/noesis-lattice/no3sis/releases/download/deps-v1/MiniZincIDE-2.8.7-bundle-linux-x86_64.tgz
+curl -I https://github.com/no3sis-lattice/no3sis/releases/download/deps-v1/MiniZincIDE-2.8.7-bundle-linux-x86_64.tgz
 # Output: 200 OK (✓ mirror active)
 
 # Retry logic test (simulated)

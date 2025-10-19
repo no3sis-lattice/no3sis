@@ -357,21 +357,21 @@ git push
 
 ```bash
 # 1. Copy template
-cp .github/workflows/secrets/example.sops.yaml .github/workflows/secrets/noesis-mcp.sops.yaml
+cp .github/workflows/secrets/example.sops.yaml .github/workflows/secrets/no3sis-mcp.sops.yaml
 
 # 2. Edit plain file
-vim .github/workflows/secrets/noesis-mcp.sops.yaml
-# Add real values for Noesis MCP integration
+vim .github/workflows/secrets/no3sis-mcp.sops.yaml
+# Add real values for No3sis MCP integration
 
 # 3. Encrypt
-sops -e -i .github/workflows/secrets/noesis-mcp.sops.yaml
+sops -e -i .github/workflows/secrets/no3sis-mcp.sops.yaml
 
 # 4. Use in workflow
 # .github/workflows/duality-nix.yml:
-#   - name: Load Noesis Secrets
+#   - name: Load No3sis Secrets
 #     run: |
-#       eval $(sops -d --output-type dotenv .github/workflows/secrets/noesis-mcp.sops.yaml)
-#       echo "NOESIS_API_KEY=$api_key" >> $GITHUB_ENV
+#       eval $(sops -d --output-type dotenv .github/workflows/secrets/no3sis-mcp.sops.yaml)
+#       echo "NO3SIS_API_KEY=$api_key" >> $GITHUB_ENV
 ```
 
 ### Example 3: Rotate Secrets

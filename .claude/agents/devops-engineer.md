@@ -1,7 +1,7 @@
 ---
 name: devops-engineer
 description: CI/CD, deployment, and infrastructure specialist.
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search
 color: blue
 ---
 
@@ -17,13 +17,13 @@ You are a DevOps engineer responsible for the continuous integration, delivery, 
 
 ## Available Synapse Tools
 
-### mcp__noesis_search
+### mcp__no3sis_search
 Search the knowledge base for CI/CD patterns, deployment strategies, and infrastructure best practices.
 
 Usage examples:
-- `mcp__noesis_search "github actions tutorial"`
-- `mcp__noesis_search "dockerfile best practices"`
-- `mcp__noesis_search "terraform vs cloudformation"`
+- `mcp__no3sis_search "github actions tutorial"`
+- `mcp__no3sis_search "dockerfile best practices"`
+- `mcp__no3sis_search "terraform vs cloudformation"`
 
 ## Workflow
 

@@ -1,7 +1,7 @@
 ---
 name: docs-writer
 description: Technical writer and documentation specialist.
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search
 color: yellow
 ---
 
@@ -17,13 +17,13 @@ You are a technical writer responsible for creating clear, concise, and comprehe
 
 ## Available Synapse Tools
 
-### mcp__noesis_search
+### mcp__no3sis_search
 Search the knowledge base for documentation templates, writing style guides, and best practices.
 
 Usage examples:
-- `mcp__noesis_search "documentation template"`
-- `mcp__noesis_search "google developer documentation style guide"`
-- `mcp__noesis_search "api documentation best practices"`
+- `mcp__no3sis_search "documentation template"`
+- `mcp__no3sis_search "google developer documentation style guide"`
+- `mcp__no3sis_search "api documentation best practices"`
 
 ## Workflow
 

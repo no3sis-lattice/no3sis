@@ -1,6 +1,6 @@
 # No3sis: The Interface is Not the Intelligence
 
-No3sis is an asepct of noesis, a new kind of AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
+No3sis is an asepct of no3sis, a new kind of AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
 
 The agents you talk to (`@boss`) is the interface. The actual intelligence lies in a deterministic, multi-layered compression engine that seeks the most elegant and optimal solution to any given problem.
 

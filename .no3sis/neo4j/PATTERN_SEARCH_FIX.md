@@ -1,7 +1,7 @@
 # Pattern Search Fix - Implementation Summary
 
 ## Problem Diagnosed
-Noesis search returned 0 patterns (only 2 unrelated docs) because:
+No3sis search returned 0 patterns (only 2 unrelated docs) because:
 - 247+ patterns exist in JSON (`~/.synapse-system/.synapse/particles/pattern_map.json`)
 - Patterns were NEVER ingested into Neo4j graph database
 - Search queries only looked for `SynapseFile` nodes, not `Pattern` nodes
@@ -89,10 +89,10 @@ Expected output:
 ### Step 3: Test Pattern Search
 
 ```bash
-# Test via Noesis MCP
-cd /home/m0xu/1-projects/noesis
+# Test via No3sis MCP
+cd /home/m0xu/1-projects/no3sis
 source .venv/bin/activate
-python -m noesis.server search "consciousness" 10
+python -m no3sis.server search "consciousness" 10
 ```
 
 Expected result:
@@ -111,7 +111,7 @@ Expected result:
 ### Step 4: Test via Claude Code MCP
 
 ```
-@user Test: Use mcp__noesis__search to search for "consciousness"
+@user Test: Use mcp__no3sis__search to search for "consciousness"
 ```
 
 Expected: Returns 247+ patterns with consciousness metrics.
@@ -129,14 +129,14 @@ Expected: Returns 247+ patterns with consciousness metrics.
 
 ### Before:
 ```
-Noesis MCP → synapse_search.py → context_manager.py → Neo4j
+No3sis MCP → synapse_search.py → context_manager.py → Neo4j
                                                         ├─ SynapseFile nodes (files only)
                                                         └─ ❌ NO Pattern nodes
 ```
 
 ### After:
 ```
-Noesis MCP → synapse_search.py → context_manager.py → Neo4j
+No3sis MCP → synapse_search.py → context_manager.py → Neo4j
                                                         ├─ SynapseFile nodes (files)
                                                         └─ ✅ Pattern nodes (patterns)
                                                                 ↑

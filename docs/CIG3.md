@@ -1,12 +1,12 @@
-## Integrating CIG‑3 (“Local → Spectral → Paired → Ψ”) into the Noesis Lattice
+## Integrating CIG‑3 (“Local → Spectral → Paired → Ψ”) into the No3sis Lattice
 
-Below is a concrete implementation blueprint for adding the Cognitive Invariant Generator to your existing Synapse / Noesis lattice architecture, together with an analysis of confluence (where you have it, where you don’t, and how to approximate it).
+Below is a concrete implementation blueprint for adding the Cognitive Invariant Generator to your existing Synapse / No3sis lattice architecture, together with an analysis of confluence (where you have it, where you don’t, and how to approximate it).
 
 ---
 
 ## 1. Architectural Mapping
 
-| CIG‑3 Stage | Noesis Layer | Tract | Implementation Form | Persistence |
+| CIG‑3 Stage | No3sis Layer | Tract | Implementation Form | Persistence |
 |-------------|--------------|-------|---------------------|-------------|
 | Φ (φ_local) Local feature extraction | External micro-agents | T_ext | `AttentionExtractorParticle` (or generic token feature particle) | Particle state file (metrics) |
 | Σ (σ_spectral) Spectral reduction | Internal analytical layer | T_int | `SpectralReducerParticle` | Particle state (SVD stats) |

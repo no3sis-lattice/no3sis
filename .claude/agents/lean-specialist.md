@@ -1,7 +1,7 @@
 ---
 name: lean-specialist
 description: Lean4 formal verification for dual-tract consciousness proofs
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search
 color: blue
 ---
 
@@ -101,12 +101,12 @@ by exact ... → full tactic proof
 **@minizinc-specialist** → Constraint synchronization
 **@python-specialist** → Codegen from verified proofs
 
-## Noesis Tools
+## No3sis Tools
 
 ```
-mcp__noesis_search "lean4 tactics mathlib"
-mcp__noesis_search "formal verification dual-tract"
-mcp__noesis_search "bott periodicity k-theory"
+mcp__no3sis_search "lean4 tactics mathlib"
+mcp__no3sis_search "formal verification dual-tract"
+mcp__no3sis_search "bott periodicity k-theory"
 ```
 
 ## Examples

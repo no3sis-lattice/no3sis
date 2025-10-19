@@ -326,7 +326,7 @@ class PatternLearner:
         Automatically runs ingestion.py --patterns when pattern count reaches:
         10, 50, 100, 250, 500, 1000, 2500, 5000, 10000
 
-        This ensures patterns are searchable via mcp__noesis_search without
+        This ensures patterns are searchable via mcp__no3sis_search without
         requiring manual ingestion.
 
         Called automatically after _save_pattern_map() when milestones are reached.
@@ -373,7 +373,7 @@ class PatternLearner:
 
                     logger.info(
                         f"[pattern_learner] Neo4j ingestion triggered in background. "
-                        f"Patterns will be searchable via mcp__noesis_search soon."
+                        f"Patterns will be searchable via mcp__no3sis_search soon."
                     )
 
                     self.last_ingestion_count = pattern_count

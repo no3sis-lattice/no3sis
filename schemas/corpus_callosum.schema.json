@@ -1,5 +1,5 @@
 {
-  "$id": "https://noesis-lattice.org/schemas/corpus_callosum.schema.json",
+  "$id": "https://no3sis-lattice.org/schemas/corpus_callosum.schema.json",
   "title": "Corpus Callosum Contracts",
   "type": "object",
   "properties": {

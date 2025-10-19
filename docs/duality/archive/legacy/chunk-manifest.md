@@ -55,7 +55,7 @@
 | 43 | Scenario 2: Intermediate - Refactor code | 2141-2180 | [18] | search |
 | 44 | Scenario 3: Advanced - Complex system | 2181-2345 | [19] | search |
 | 45 | Scenario 4: Power User - Compression exploration | 2346-2559 | [18,20] | search |
-| 46 | API Reference: Noesis MCP Tool Signatures | 2562-2747 | [31] | refinement |
+| 46 | API Reference: No3sis MCP Tool Signatures | 2562-2747 | [31] | refinement |
 | 47 | Agent Definition Template | 2748-2751 | [07,21] | refinement |
 | 48 | Compression Metrics Guide | 2752-2782 | [13,25] | refinement |
 | 49 | Troubleshooting Guide | 2783-2834 | [32] | refinement |

@@ -1,5 +1,5 @@
 
-# Noesis Lattice Agent Identity Catalog
+# No3sis Lattice Agent Identity Catalog
 Prime–Derived Dual Tract Hierarchy (External Pole A / Internal Pole B)
 
 > Principle: Each level L branches each agent at level L−1 by the L-th prime number.

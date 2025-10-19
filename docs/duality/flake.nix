@@ -119,8 +119,8 @@
 
           # Placeholder for MCP integration
           # In production, this would invoke the MCP server with the task
-          echo "TODO: Integrate with Noesis MCP server"
-          echo "Proposed: noesis-agent --task \"$TASK\" --domain duality"
+          echo "TODO: Integrate with No3sis MCP server"
+          echo "Proposed: no3sis-agent --task \"$TASK\" --domain duality"
 
           exit 0
         '';

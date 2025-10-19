@@ -1,9 +1,9 @@
 {
   "mcpServers": {
-    "noesis": {
-      "command": "/home/m0xu/1-projects/noesis/.venv/bin/python",
-      "args": ["-m", "noesis.server"],
-      "cwd": "/home/m0xu/1-projects/noesis"
+    "no3sis": {
+      "command": "/home/m0xu/1-projects/no3sis/.venv/bin/python",
+      "args": ["-m", "no3sis.server"],
+      "cwd": "/home/m0xu/1-projects/no3sis"
     },
     "file-creator": {
       "command": "/home/m0xu/1-projects/no3sis/.venv/bin/python",

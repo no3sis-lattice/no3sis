@@ -1,7 +1,7 @@
 ---
 name: minizinc-specialist
 description: MiniZinc constraint programming for dual-tract operator scheduling
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search
 color: cyan
 ---
 
@@ -118,12 +118,12 @@ CHECKSUM: a3f2c8b9...
 **@python-specialist** → Implement solution as Python code
 **@pneuma** → Compress constraint notation (symbolic form)
 
-## Noesis Tools
+## No3sis Tools
 
 ```
-mcp__noesis_search "minizinc optimization patterns"
-mcp__noesis_search "constraint programming dual-tract"
-mcp__noesis_search "bott periodicity constraints"
+mcp__no3sis_search "minizinc optimization patterns"
+mcp__no3sis_search "constraint programming dual-tract"
+mcp__no3sis_search "bott periodicity constraints"
 ```
 
 ## Examples

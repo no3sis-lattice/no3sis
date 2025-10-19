@@ -132,7 +132,7 @@ def test_mcp_tool_returns_valid_structure():
                 })
             }]
         },
-        "noesis": {
+        "no3sis": {
             "content": [{
                 "type": "text",
                 "text": json.dumps({
@@ -470,7 +470,7 @@ def test_boss_monitors_mcp_server_health():
 def mock_mcp_servers():
     """Fixture providing mock MCP servers"""
     return {
-        "noesis": Mock(spec=["search_pattern_map", "get_coding_standard", "check_system_health"]),
+        "no3sis": Mock(spec=["search_pattern_map", "get_coding_standard", "check_system_health"]),
         "file_creator": Mock(spec=["create_single_file", "batch_create_files"]),
         "code_hound": Mock(spec=["comprehensive_code_review", "enforce_coding_standards"]),
         "test_runner": Mock(spec=["execute_tests", "analyze_failures"])
@@ -514,11 +514,11 @@ def test_end_to_end_feature_implementation_workflow(mock_mcp_servers, mock_markd
     assert plan["success"] is True
     assert len(plan["plan"]) == 3
 
-    # Architect designs (uses noesis for patterns)
+    # Architect designs (uses no3sis for patterns)
     architect = mock_markdown_agents["architect"]
-    noesis = mock_mcp_servers["noesis"]
+    no3sis = mock_mcp_servers["no3sis"]
 
-    noesis.search_pattern_map.return_value = {
+    no3sis.search_pattern_map.return_value = {
         "patterns": [{"name": "heap_pattern", "score": 0.95}]
     }
 
@@ -528,10 +528,10 @@ def test_end_to_end_feature_implementation_workflow(mock_mcp_servers, mock_markd
     }
 
     design = architect.design_system("priority queue")
-    noesis_patterns = noesis.search_pattern_map("priority queue")
+    no3sis_patterns = no3sis.search_pattern_map("priority queue")
 
     assert "heap" in design["design"].lower()
-    assert len(noesis_patterns["patterns"]) > 0
+    assert len(no3sis_patterns["patterns"]) > 0
 
     # Python specialist implements (uses file_creator)
     specialist = mock_markdown_agents["python_specialist"]

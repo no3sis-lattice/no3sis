@@ -65,7 +65,7 @@ categorizations = {
     "chunk-42": {"category": "lfunc71", "reason": "scenario-1-beginner (user interaction)"},
     "chunk-43": {"category": "lfunc71", "reason": "scenario-2-intermediate (user interaction)"},
     "chunk-44": {"category": "lfunc71", "reason": "scenario-3-advanced (user interaction)"},
-    "chunk-46": {"category": "lfunc71", "reason": "api-reference-noesis-mcp (interface spec)"},
+    "chunk-46": {"category": "lfunc71", "reason": "api-reference-no3sis-mcp (interface spec)"},
     "chunk-47": {"category": "lfunc71", "reason": "agent-definition-template (operational template)"},
     "chunk-49": {"category": "lfunc71", "reason": "troubleshooting-guide (system diagnostics)"},
     "chunk-54": {"category": "lfunc71", "reason": "goalspec-structure (operational data)"},

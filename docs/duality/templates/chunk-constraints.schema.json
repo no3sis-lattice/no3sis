@@ -1,5 +1,5 @@
 {
-  "$id": "https://noesis-lattice.org/schemas/chunk-constraints.schema.json",
+  "$id": "https://no3sis-lattice.org/schemas/chunk-constraints.schema.json",
   "title": "Chunk Constraints",
   "type": "object",
   "required": ["id", "title", "goalType", "constraints"],

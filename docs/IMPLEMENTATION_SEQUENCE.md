@@ -1,4 +1,4 @@
-# Noesis Lattice Implementation Sequence
+# No3sis Lattice Implementation Sequence
 
 **Version**: 1.0.0
 **Date**: 2025-10-06

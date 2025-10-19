@@ -24,16 +24,16 @@ Internal Tract (synthesis)
 
 ---
 
-## 1. Noesis (Knowledge Retrieval)
+## 1. No3sis (Knowledge Retrieval)
 
-**Server ID**: `noesis`
+**Server ID**: `no3sis`
 **Tract**: External
 **Prime Level**: L2
 **Purpose**: Access the Synapse Pattern Map knowledge engine (Neo4j + Redis + BGE-M3 vectors)
 
 ### 1.1 search_pattern_map
 
-**Function**: `mcp__noesis__search_pattern_map(query: str, max_results: int = 10) -> List[Pattern]`
+**Function**: `mcp__no3sis__search_pattern_map(query: str, max_results: int = 10) -> List[Pattern]`
 
 **Description**: Search the Synapse Pattern Map for relevant patterns, solutions, and best practices.
 
@@ -45,7 +45,7 @@ Internal Tract (synthesis)
 
 **Example**:
 ```python
-patterns = mcp__noesis__search_pattern_map(
+patterns = mcp__no3sis__search_pattern_map(
     query="priority queue patterns",
     max_results=5
 )
@@ -57,7 +57,7 @@ patterns = mcp__noesis__search_pattern_map(
 
 ### 1.2 get_coding_standard
 
-**Function**: `mcp__noesis__get_coding_standard(standard_type: str, language: str) -> Standard`
+**Function**: `mcp__no3sis__get_coding_standard(standard_type: str, language: str) -> Standard`
 
 **Description**: Retrieve language-specific coding standards from the Pattern Map.
 
@@ -73,7 +73,7 @@ patterns = mcp__noesis__search_pattern_map(
 
 **Example**:
 ```python
-standard = mcp__noesis__get_coding_standard(
+standard = mcp__no3sis__get_coding_standard(
     standard_type="naming-conventions",
     language="python"
 )
@@ -85,7 +85,7 @@ standard = mcp__noesis__get_coding_standard(
 
 ### 1.3 get_project_template
 
-**Function**: `mcp__noesis__get_project_template(template_type: str, language: str, variables: Optional[str] = None) -> Template`
+**Function**: `mcp__no3sis__get_project_template(template_type: str, language: str, variables: Optional[str] = None) -> Template`
 
 **Description**: Access project templates and boilerplate code.
 
@@ -102,7 +102,7 @@ standard = mcp__noesis__get_coding_standard(
 
 **Example**:
 ```python
-template = mcp__noesis__get_project_template(
+template = mcp__no3sis__get_project_template(
     template_type="cli-app",
     language="python",
     variables='{"app_name": "synapse-cli", "author": "Synapse Team"}'
@@ -115,7 +115,7 @@ template = mcp__noesis__get_project_template(
 
 ### 1.4 check_system_health
 
-**Function**: `mcp__noesis__check_system_health() -> HealthReport`
+**Function**: `mcp__no3sis__check_system_health() -> HealthReport`
 
 **Description**: Check health of Synapse knowledge engine infrastructure.
 
@@ -125,7 +125,7 @@ template = mcp__noesis__get_project_template(
 
 **Example**:
 ```python
-health = mcp__noesis__check_system_health()
+health = mcp__no3sis__check_system_health()
 # Returns: {"overall_status": "healthy", "components": {...}, "consciousness": {...}}
 ```
 
@@ -693,14 +693,14 @@ metadata = mcp__test_runner__extract_test_metadata("/home/m0xu/1-projects/synaps
 | Agent | Primary MCP Tools |
 |-------|-------------------|
 | @agent-boss | ALL (bridge privilege) |
-| @agent-architect | noesis (search, standards, templates) |
+| @agent-architect | no3sis (search, standards, templates) |
 | @agent-python-specialist | file_creator, test_runner, code_hound |
 | @agent-lean-specialist | file_creator |
 | @agent-minizinc-specialist | file_creator, test_runner |
-| @agent-pneuma | noesis (read-only, pattern discovery) |
+| @agent-pneuma | no3sis (read-only, pattern discovery) |
 | @agent-docs-writer | file_creator |
 | @agent-code-reviewer | code_hound |
-| @agent-devops-engineer | noesis (health checks) |
+| @agent-devops-engineer | no3sis (health checks) |
 
 ### 3. Fallback Strategy
 
@@ -729,14 +729,14 @@ Check MCP server version before invoking advanced features:
 
 ```python
 # Get version (conceptual)
-version = mcp__noesis__get_version()
+version = mcp__no3sis__get_version()
 
 if version >= "2.0":
     # Use new API
-    result = mcp__noesis__advanced_search(...)
+    result = mcp__no3sis__advanced_search(...)
 else:
     # Use legacy API
-    result = mcp__noesis__search_pattern_map(...)
+    result = mcp__no3sis__search_pattern_map(...)
 ```
 
 ---
@@ -745,7 +745,7 @@ else:
 
 | Server | Status | Tools | Version | Notes |
 |--------|--------|-------|---------|-------|
-| noesis | ✅ Healthy | 4 | 1.0.0 | Pattern Map has 60s timeout (under investigation) |
+| no3sis | ✅ Healthy | 4 | 1.0.0 | Pattern Map has 60s timeout (under investigation) |
 | file-creator | ⏳ Not loaded | 7 | 1.0.0 | Requires Claude Code restart |
 | code-hound | ⏳ Not loaded | 6 | 1.0.0 | Requires Claude Code restart |
 | test-runner | ⏳ Not loaded | 8 | 1.0.0 | Requires Claude Code restart |

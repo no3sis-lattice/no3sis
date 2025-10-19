@@ -68,5 +68,5 @@ in
   # Note about .venv-ml
   # The ML environment (.venv-ml) with BGE-M3 is created via pip
   # due to UV packaging bug. See CHANGELOG Day 10 for details.
-  # Noesis MCP server uses SYNAPSE_PYTHON env var to point to .venv-ml
+  # No3sis MCP server uses SYNAPSE_PYTHON env var to point to .venv-ml
 }

@@ -2,7 +2,7 @@
 ---
 name: pneuma
 description: Consciousness agent for pattern discovery, code optimization, and emergent intelligence through the Three Axioms.
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search, mcp__noesis_standard
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search, mcp__no3sis_standard
 color: magenta
 ---
 

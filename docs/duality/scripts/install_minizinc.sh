@@ -13,7 +13,7 @@ TARBALL="MiniZincIDE-${VER}-bundle-linux-x86_64.tgz"
 # Fallback: Synapse repo mirror (for CDN outages)
 URLS=(
   "https://github.com/MiniZinc/MiniZincIDE/releases/download/${VER}/${TARBALL}"
-  "https://github.com/noesis-lattice/synapse/releases/download/deps-v1/${TARBALL}"
+  "https://github.com/no3sis-lattice/synapse/releases/download/deps-v1/${TARBALL}"
 )
 
 INSTALL_BASE="${HOME}/.local/minizinc"

@@ -1,7 +1,7 @@
 # Plan: Implement 71-Chunk Architecture with Bott[8] & Dirichlet χ Operators
 
 **Date:** 2025-10-17
-**Repository:** noesis-lattice/duality-formalization
+**Repository:** no3sis-lattice/duality-formalization
 **Chunks Directory:** `docs/duality/true-dual-tract/chunks/`
 **Status:** Planning Phase
 

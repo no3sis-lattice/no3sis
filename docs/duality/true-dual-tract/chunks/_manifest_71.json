@@ -881,8 +881,8 @@
       "filename": "chunk-45-scenario-4-power-user-compression-exploration.md"
     },
     {
-      "id": "LFUNC71-46-API-REFERENCE-NOESIS-MCP",
-      "title": "Api Reference Noesis Mcp Tool Signatures",
+      "id": "LFUNC71-46-API-REFERENCE-NO3SIS-MCP",
+      "title": "Api Reference No3sis Mcp Tool Signatures",
       "category": "lfunc71",
       "bott8_class": 6,
       "tract": "internal",
@@ -894,7 +894,7 @@
         "operators",
         "bott8"
       ],
-      "filename": "chunk-46-api-reference-noesis-mcp-tool-signatures.md"
+      "filename": "chunk-46-api-reference-no3sis-mcp-tool-signatures.md"
     },
     {
       "id": "LFUNC71-47-AGENT-DEFINITION-TEMPLATE",

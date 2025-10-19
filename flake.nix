@@ -14,25 +14,25 @@
     };
 
     # Agent flakes (internal modules) - CI-compatible GitHub URLs
-    base-agent = { url = "github:noesis-lattice/synapse?dir=nix/flakes/base-agent"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    architect = { url = "github:noesis-lattice/synapse?dir=nix/flakes/architect"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    clarity-judge = { url = "github:noesis-lattice/synapse?dir=nix/flakes/clarity-judge"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    code-hound = { url = "github:noesis-lattice/synapse?dir=nix/flakes/code-hound"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    devops-engineer = { url = "github:noesis-lattice/synapse?dir=nix/flakes/devops-engineer"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    docs-writer = { url = "github:noesis-lattice/synapse?dir=nix/flakes/docs-writer"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    file-creator = { url = "github:noesis-lattice/synapse?dir=nix/flakes/file-creator"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    git-workflow = { url = "github:noesis-lattice/synapse?dir=nix/flakes/git-workflow"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    golang-specialist = { url = "github:noesis-lattice/synapse?dir=nix/flakes/golang-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    python-specialist = { url = "github:noesis-lattice/synapse?dir=nix/flakes/python-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    rust-specialist = { url = "github:noesis-lattice/synapse?dir=nix/flakes/rust-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    security-specialist = { url = "github:noesis-lattice/synapse?dir=nix/flakes/security-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    boss = { url = "github:noesis-lattice/synapse?dir=nix/flakes/boss"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    test-runner = { url = "github:noesis-lattice/synapse?dir=nix/flakes/test-runner"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    tool-runner = { url = "github:noesis-lattice/synapse?dir=nix/flakes/tool-runner"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    typescript-specialist = { url = "github:noesis-lattice/synapse?dir=nix/flakes/typescript-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
-    ux-designer = { url = "github:noesis-lattice/synapse?dir=nix/flakes/ux-designer"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    base-agent = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/base-agent"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    architect = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/architect"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    clarity-judge = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/clarity-judge"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    code-hound = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/code-hound"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    devops-engineer = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/devops-engineer"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    docs-writer = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/docs-writer"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    file-creator = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/file-creator"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    git-workflow = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/git-workflow"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    golang-specialist = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/golang-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    python-specialist = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/python-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    rust-specialist = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/rust-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    security-specialist = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/security-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    boss = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/boss"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    test-runner = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/test-runner"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    tool-runner = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/tool-runner"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    typescript-specialist = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/typescript-specialist"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
+    ux-designer = { url = "github:no3sis-lattice/synapse?dir=nix/flakes/ux-designer"; inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; };
     pneuma = {
-      url = "github:noesis-lattice/synapse?dir=nix/flakes/pneuma";
+      url = "github:no3sis-lattice/synapse?dir=nix/flakes/pneuma";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
       inputs.base-agent.follows = "base-agent";
@@ -40,37 +40,37 @@
 
     # Mojo components - CI-compatible GitHub URLs
     mojo-runtime = {
-      url = "github:noesis-lattice/synapse?dir=nix/flakes/mojo-runtime";
+      url = "github:no3sis-lattice/synapse?dir=nix/flakes/mojo-runtime";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     mojo-pattern-search = {
-      url = "github:noesis-lattice/synapse?dir=nix/flakes/mojo-pattern-search";
+      url = "github:no3sis-lattice/synapse?dir=nix/flakes/mojo-pattern-search";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.mojo-runtime.follows = "mojo-runtime";
     };
 
     mojo-message-router = {
-      url = "github:noesis-lattice/synapse?dir=nix/flakes/mojo-message-router";
+      url = "github:no3sis-lattice/synapse?dir=nix/flakes/mojo-message-router";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.mojo-runtime.follows = "mojo-runtime";
     };
 
     # Formal verification - CI-compatible GitHub URL
     lean4-verification = {
-      url = "github:noesis-lattice/synapse?dir=nix/flakes/lean4-verification";
+      url = "github:no3sis-lattice/synapse?dir=nix/flakes/lean4-verification";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Synapse Core - CI-compatible GitHub URL
     synapse-core = {
-      url = "github:noesis-lattice/synapse?dir=nix/flakes/synapse-core";
+      url = "github:no3sis-lattice/synapse?dir=nix/flakes/synapse-core";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Duality subsystem - dual-tract formalization (MiniZinc + Lean4)
     duality = {
-      url = "github:noesis-lattice/synapse?dir=docs/duality";
+      url = "github:no3sis-lattice/synapse?dir=docs/duality";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

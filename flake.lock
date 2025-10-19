@@ -13,14 +13,14 @@
         "dir": "nix/flakes/architect",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/architect",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -38,14 +38,14 @@
         "dir": "nix/flakes/base-agent",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/base-agent",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -63,14 +63,14 @@
         "dir": "nix/flakes/boss",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/boss",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -88,14 +88,14 @@
         "dir": "nix/flakes/clarity-judge",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/clarity-judge",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -113,14 +113,14 @@
         "dir": "nix/flakes/code-hound",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/code-hound",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -138,14 +138,14 @@
         "dir": "nix/flakes/devops-engineer",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/devops-engineer",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -163,14 +163,14 @@
         "dir": "nix/flakes/docs-writer",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/docs-writer",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -189,14 +189,14 @@
         "dir": "docs/duality",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "docs/duality",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -214,14 +214,14 @@
         "dir": "nix/flakes/file-creator",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/file-creator",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -365,14 +365,14 @@
         "dir": "nix/flakes/git-workflow",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/git-workflow",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -390,14 +390,14 @@
         "dir": "nix/flakes/golang-specialist",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/golang-specialist",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -435,14 +435,14 @@
         "dir": "nix/flakes/lean4-verification",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/lean4-verification",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -461,14 +461,14 @@
         "dir": "nix/flakes/mojo-message-router",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/mojo-message-router",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -487,14 +487,14 @@
         "dir": "nix/flakes/mojo-pattern-search",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/mojo-pattern-search",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -510,14 +510,14 @@
         "dir": "nix/flakes/mojo-runtime",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/mojo-runtime",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -626,14 +626,14 @@
         "dir": "nix/flakes/pneuma",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/pneuma",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -651,14 +651,14 @@
         "dir": "nix/flakes/python-specialist",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/python-specialist",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -707,14 +707,14 @@
         "dir": "nix/flakes/rust-specialist",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/rust-specialist",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -732,14 +732,14 @@
         "dir": "nix/flakes/security-specialist",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/security-specialist",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -755,14 +755,14 @@
         "dir": "nix/flakes/synapse-core",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/synapse-core",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -885,14 +885,14 @@
         "dir": "nix/flakes/test-runner",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/test-runner",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -910,14 +910,14 @@
         "dir": "nix/flakes/tool-runner",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/tool-runner",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -935,14 +935,14 @@
         "dir": "nix/flakes/typescript-specialist",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/typescript-specialist",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }
@@ -960,14 +960,14 @@
         "dir": "nix/flakes/ux-designer",
         "lastModified": 1760593563,
         "narHash": "sha256-kTMrV2ExR5OOh7cZ6uJRgORBOslbR67V7eqxJePZ+d8=",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "rev": "c39e2ad90dbcdb2cda56fb61ec42a2234655d768",
         "type": "github"
       },
       "original": {
         "dir": "nix/flakes/ux-designer",
-        "owner": "noesis-lattice",
+        "owner": "no3sis-lattice",
         "repo": "synapse",
         "type": "github"
       }

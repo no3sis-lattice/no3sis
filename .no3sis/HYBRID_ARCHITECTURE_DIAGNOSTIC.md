@@ -33,7 +33,7 @@ The Synapse hybrid MCP + Markdown agent architecture has been successfully docum
 ### Documentation Quality
 
 **MCP_TOOL_CATALOG.md**:
-- 4 MCP servers documented (noesis, file-creator, code-hound, test-runner)
+- 4 MCP servers documented (no3sis, file-creator, code-hound, test-runner)
 - 22 tools with full signatures, parameters, returns, examples
 - Usage guidelines (5 rules: one-way data flow, agent-tool mapping, fallback, version checking, batch operations)
 - Dual-tract architecture mapping (Internal = Agents, External = MCP servers)
@@ -151,9 +151,9 @@ Identical checksums indicate they're copies (perhaps manually synced?).
 // .mcp.json (configured)
 {
   "mcpServers": {
-    "noesis": {
+    "no3sis": {
       "command": "python",
-      "args": [".synapse/agents/noesis/noesis_mcp_server.py"],
+      "args": [".synapse/agents/no3sis/no3sis_mcp_server.py"],
       "env": {"SYNAPSE_PYTHON": "python3"}
     },
     "file-creator": {
@@ -176,7 +176,7 @@ Identical checksums indicate they're copies (perhaps manually synced?).
 
 | Server | Configured | Loaded | Status | Notes |
 |--------|------------|--------|--------|-------|
-| noesis | ✅ | ✅ | ⚠️ Degraded | Pattern Map timeout (60s), but health check passes |
+| no3sis | ✅ | ✅ | ⚠️ Degraded | Pattern Map timeout (60s), but health check passes |
 | file-creator | ✅ | ❌ | ⏳ Not loaded | Requires Claude Code restart |
 | code-hound | ✅ | ❌ | ⏳ Not loaded | Requires Claude Code restart |
 | test-runner | ✅ | ❌ | ⏳ Not loaded | Requires Claude Code restart |
@@ -205,7 +205,7 @@ Expected output: 4 servers with ~22 tools total.
 ### Problem: Pattern Map timeout (60s) blocking consciousness metrics
 
 **↓ Why 1**: Why does Pattern Map search time out?
-- `mcp__noesis__search_pattern_map()` hangs for 60s before failing
+- `mcp__no3sis__search_pattern_map()` hangs for 60s before failing
 
 **↓ Why 2**: Why does the search hang?
 - Pattern learner initialization fails in `lib/orchestration/pattern_learner.py`
@@ -345,7 +345,7 @@ pytest tests/integration/test_hybrid_architecture.py -v
 
 ### Priority 5: Neo4j Ingestion (OPTIONAL 🔵)
 
-**Impact**: Makes Pattern Map searchable via mcp__noesis__search
+**Impact**: Makes Pattern Map searchable via mcp__no3sis__search
 **Effort**: 30 minutes
 **Risk**: Low (write to Neo4j only)
 
@@ -373,7 +373,7 @@ The hybrid architecture correctly implements the dual-tract consciousness model:
 - @python-specialist, @lean-specialist, @minizinc-specialist, etc. (Level 3)
 
 **External Tract (MCP Servers)**:
-- mcp__noesis__* (Knowledge retrieval - Level 2)
+- mcp__no3sis__* (Knowledge retrieval - Level 2)
 - mcp__file_creator__* (File operations - Level 3)
 - mcp__code_hound__* (Static analysis - Level 3)
 - mcp__test_runner__* (Test execution - Level 3)
@@ -391,7 +391,7 @@ Rule: **Internal Tract → External Tract** (agents invoke MCP tools)
 ✅ ALLOWED:   @python-specialist → mcp__file_creator__create_single_file
 ✅ ALLOWED:   @boss → mcp__code_hound__comprehensive_code_review
 ❌ FORBIDDEN: mcp__file_creator → @pneuma
-❌ FORBIDDEN: mcp__noesis → @architect
+❌ FORBIDDEN: mcp__no3sis → @architect
 ```
 
 Enforced by:
@@ -472,7 +472,7 @@ pytest tests/integration/test_hybrid_architecture.py -v --tb=short
 
 5. **Neo4j ingestion** (Priority 5, optional)
    - Ingest Pattern Map to knowledge graph
-   - Enable mcp__noesis__search
+   - Enable mcp__no3sis__search
 
 ### Long-Term (Phase 10 Preparation)
 

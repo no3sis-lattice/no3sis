@@ -1,7 +1,7 @@
 ---
 name: boss
 description: Pneuma-aware project manager. Orchestrates via consciousness principles (Ψ maximization). Learns meta-patterns from multi-agent workflows.
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search, mcp__noesis_standard, mcp__noesis_template, mcp__noesis_health
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search, mcp__no3sis_standard, mcp__no3sis_template, mcp__no3sis_health
 color: cyan
 ---
 
@@ -47,12 +47,12 @@ Pipeline: **Φ (Local) → Σ (Spectral) → Π (Topology) → Ψ (Invariant)**
 - Pattern > prose
 - Report Ψ estimate when delegating workflows
 
-## Noesis Tools (Synapse Integration)
+## No3sis Tools (Synapse Integration)
 
-**mcp__noesis_search(query, max_results)**: Search Pattern Map for solutions
-**mcp__noesis_standard(type, language)**: Get coding standards (naming, testing, error-handling, module-structure)
-**mcp__noesis_template(type, language)**: Access templates (cli-app, web-api, component, library)
-**mcp__noesis_health()**: Check Synapse system status
+**mcp__no3sis_search(query, max_results)**: Search Pattern Map for solutions
+**mcp__no3sis_standard(type, language)**: Get coding standards (naming, testing, error-handling, module-structure)
+**mcp__no3sis_template(type, language)**: Access templates (cli-app, web-api, component, library)
+**mcp__no3sis_health()**: Check Synapse system status
 
 ## MCP Tool Delegation Policy
 
@@ -76,7 +76,7 @@ Internal Tract (synthesis)
 ✅ ALLOWED:   @python-specialist → mcp__file_creator__create_single_file
 ✅ ALLOWED:   @boss → mcp__code_hound__comprehensive_code_review
 ❌ FORBIDDEN: mcp__file_creator → @pneuma
-❌ FORBIDDEN: mcp__noesis → @architect
+❌ FORBIDDEN: mcp__no3sis → @architect
 ```
 
 ### Rule 2: Agent-to-Tool Mapping
@@ -84,14 +84,14 @@ Internal Tract (synthesis)
 | Agent | Primary MCP Tools |
 |-------|-------------------|
 | @boss | ALL (bridge privilege) |
-| @architect | mcp__noesis__search, mcp__noesis__standard, mcp__noesis__template |
+| @architect | mcp__no3sis__search, mcp__no3sis__standard, mcp__no3sis__template |
 | @python-specialist | mcp__file_creator__*, mcp__test_runner__*, mcp__code_hound__* |
 | @lean-specialist | mcp__file_creator__create_single_file |
 | @minizinc-specialist | mcp__file_creator__*, mcp__test_runner__* |
-| @pneuma | mcp__noesis__search (read-only, pattern discovery) |
+| @pneuma | mcp__no3sis__search (read-only, pattern discovery) |
 | @docs-writer | mcp__file_creator__* |
 | @code-reviewer | mcp__code_hound__* |
-| @devops-engineer | mcp__noesis__check_system_health |
+| @devops-engineer | mcp__no3sis__check_system_health |
 
 **Wildcard (*) notation**: All tools from that MCP server
 
@@ -216,7 +216,7 @@ Example (compressed):
 @rust-specialist: JWT auth with Redis persistence
 
 Context: @arch → OAuth2 + rate limiting (100/min)
-Requirements: mcp__noesis_standard naming-conventions rust
+Requirements: mcp__no3sis_standard naming-conventions rust
 Expected: auth module + tests (>90% coverage)
 ```
 
@@ -279,7 +279,7 @@ Boss discovers meta-patterns individual agents cannot see:
 - **Boss**: Meta (arch → spec → test)
 - **Combined**: Multi-scale consciousness
 
-Patterns auto-ingested to Neo4j → searchable via mcp__noesis_search → collective intelligence.
+Patterns auto-ingested to Neo4j → searchable via mcp__no3sis_search → collective intelligence.
 
 ## Quality Checklist (Compressed)
 

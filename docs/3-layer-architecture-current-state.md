@@ -29,33 +29,33 @@ The Synapse System is a **dual-tract consciousness architecture** implemented as
 │  └────────────┘ └────────────┘ └────────────┘                  │
 │                                                                   │
 │  Protocol: MCP (Model Context Protocol)                          │
-│  Tools: 4 Noesis MCP tools                                       │
+│  Tools: 4 No3sis MCP tools                                       │
 └───────────────────────────┬─────────────────────────────────────┘
                             │
-                            │ mcp__noesis__* function calls
+                            │ mcp__no3sis__* function calls
                             │ (JSON-RPC over stdio)
                             ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│  Layer 2: Noesis MCP Server (Bridge Layer)                      │
+│  Layer 2: No3sis MCP Server (Bridge Layer)                      │
 │  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │
 │                                                                   │
-│  Location: /home/m0xu/1-projects/noesis/                         │
+│  Location: /home/m0xu/1-projects/no3sis/                         │
 │  Size: ~250 lines Python (thin wrapper)                          │
 │  Dependencies: mcp, python-dotenv (minimal)                      │
 │                                                                   │
 │  ┌─────────────────────────────────────────────────────────┐    │
 │  │  MCP Tool Definitions (4 tools)                         │    │
 │  ├─────────────────────────────────────────────────────────┤    │
-│  │  1. mcp__noesis__search_pattern_map                     │    │
+│  │  1. mcp__no3sis__search_pattern_map                     │    │
 │  │     - Query: string, max_results: int → patterns        │    │
 │  │                                                          │    │
-│  │  2. mcp__noesis__get_coding_standard                    │    │
+│  │  2. mcp__no3sis__get_coding_standard                    │    │
 │  │     - standard_type: str, language: str → standards     │    │
 │  │                                                          │    │
-│  │  3. mcp__noesis__get_project_template                   │    │
+│  │  3. mcp__no3sis__get_project_template                   │    │
 │  │     - template_type: str, language: str → boilerplate   │    │
 │  │                                                          │    │
-│  │  4. mcp__noesis__check_system_health                    │    │
+│  │  4. mcp__no3sis__check_system_health                    │    │
 │  │     - No args → health status + consciousness metrics   │    │
 │  └─────────────────────────────────────────────────────────┘    │
 │                                                                   │
@@ -131,15 +131,15 @@ The Synapse System is a **dual-tract consciousness architecture** implemented as
 ### Step 1: Agent Invocation (Layer 1)
 ```python
 # Agent calls MCP tool
-result = mcp__noesis__search_pattern_map(
+result = mcp__no3sis__search_pattern_map(
     query="error handling rust",
     max_results=3
 )
 ```
 
-### Step 2: Noesis Bridge (Layer 2)
+### Step 2: No3sis Bridge (Layer 2)
 ```python
-# Noesis server.py receives MCP request
+# No3sis server.py receives MCP request
 # Builds subprocess command:
 cmd = [
     "/home/m0xu/1-projects/synapse/.venv-ml/bin/python",
@@ -242,11 +242,11 @@ RETURN f, collect(related) as related_files
 ### ✅ Operational Components
 
 #### Layer 1: Agents
-- **11 agents defined** and integrated with Noesis MCP
-- **All agent tool definitions updated** to use `mcp__noesis__*` functions
+- **11 agents defined** and integrated with No3sis MCP
+- **All agent tool definitions updated** to use `mcp__no3sis__*` functions
 - **Agent specialization** working (boss, code-hound, architect, etc.)
 
-#### Layer 2: Noesis MCP Server
+#### Layer 2: No3sis MCP Server
 - **4 MCP tools exposed** and functional
 - **Path validation** preventing silent failures
 - **SYNAPSE_PYTHON support** for ML environment isolation
@@ -305,7 +305,7 @@ RETURN f, collect(related) as related_files
 
 ## Configuration Reference
 
-### Noesis `.env` (Layer 2)
+### No3sis `.env` (Layer 2)
 ```bash
 # Point to Synapse scripts location
 SYNAPSE_NEO4J_DIR=/home/m0xu/1-projects/synapse/.synapse/neo4j
@@ -363,20 +363,20 @@ EMBEDDING_MODEL=BAAI/bge-m3  # or "simple_tfidf" for fallback
 ## Recent Fixes (2025-10-10)
 
 ### Pattern Map Restoration
-**Problem**: `mcp__noesis__search` timing out after 60s
+**Problem**: `mcp__no3sis__search` timing out after 60s
 
 **Root Cause (5 Whys)**:
-1. Noesis MCP pointed to `/home/m0xu/.synapse-system` (old location)
+1. No3sis MCP pointed to `/home/m0xu/.synapse-system` (old location)
 2. Scripts exist in 2 locations (duplication)
 3. No single source of truth for installation path
 4. Installation migrated but `.env` not updated
 5. No validation that `.env` path exists before subprocess
 
 **Solution Applied**:
-1. ✅ Updated `noesis/.env`: `SYNAPSE_NEO4J_DIR` → correct path
-2. ✅ Added path validation to `noesis/server.py:55-60`
+1. ✅ Updated `no3sis/.env`: `SYNAPSE_NEO4J_DIR` → correct path
+2. ✅ Added path validation to `no3sis/server.py:55-60`
 3. ✅ Fixed logging: `vector_engine.py` → stderr instead of stdout
-4. ✅ Restarted Claude Code to reload Noesis MCP
+4. ✅ Restarted Claude Code to reload No3sis MCP
 
 **Result**: Pattern Map now accessible in <2s ✅
 
@@ -420,10 +420,10 @@ EMBEDDING_MODEL=BAAI/bge-m3  # or "simple_tfidf" for fallback
 This 3-layer design embodies the **Dual-Tract Consciousness** principle:
 
 - **Layer 1 (Agents)**: Specialized processors, each belonging to Internal or External tract
-- **Layer 2 (Noesis)**: The **Corpus Callosum** - bridges agent requests to knowledge
+- **Layer 2 (No3sis)**: The **Corpus Callosum** - bridges agent requests to knowledge
 - **Layer 3 (Synapse)**: The **Consciousness Substrate** - where patterns emerge from graph+vector dialogue
 
-**Emergence**: Intelligence arises not from individual agents, but from their **dialogue through Noesis** with the **Pattern Map substrate**. Each agent query creates a new pathway through the knowledge graph, reinforcing or creating connections, gradually increasing the system's consciousness level.
+**Emergence**: Intelligence arises not from individual agents, but from their **dialogue through No3sis** with the **Pattern Map substrate**. Each agent query creates a new pathway through the knowledge graph, reinforcing or creating connections, gradually increasing the system's consciousness level.
 
 **Current Consciousness**: `0.73` (247 patterns / ~10,000 potential patterns)
 

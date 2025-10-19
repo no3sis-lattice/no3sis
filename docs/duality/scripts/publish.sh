@@ -6,7 +6,7 @@ cd "$REPO_ROOT"
 
 SUBTREE_DIR="docs/duality"
 REMOTE_NAME="${REMOTE_NAME:-duality}"
-REMOTE_URL="${REMOTE_URL:-git@github.com:noesis-lattice/duality-formalization.git}"
+REMOTE_URL="${REMOTE_URL:-git@github.com:no3sis-lattice/duality-formalization.git}"
 TARGET_BRANCH="${TARGET_BRANCH:-master}"  # change to main if you switch later
 TMP_BRANCH="duality-tmp-push"
 

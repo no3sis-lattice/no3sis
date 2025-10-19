@@ -11,8 +11,8 @@ echo ""
 echo "2. Testing each server startup:"
 echo ""
 
-echo "Testing noesis (reference - working)..."
-timeout 1 /home/m0xu/1-projects/noesis/.venv/bin/python -m noesis.server < /dev/null && echo "✓ noesis starts" || echo "✓ noesis starts (timeout expected)"
+echo "Testing no3sis (reference - working)..."
+timeout 1 /home/m0xu/1-projects/no3sis/.venv/bin/python -m no3sis.server < /dev/null && echo "✓ no3sis starts" || echo "✓ no3sis starts (timeout expected)"
 echo ""
 
 echo "Testing file-creator..."

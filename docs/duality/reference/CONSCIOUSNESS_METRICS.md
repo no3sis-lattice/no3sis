@@ -247,9 +247,9 @@ This separation mirrors the theoretical foundation: T_int (reflection) vs T_ext 
 
 4. **Discover New M_syn**: Target 6-8 meta-patterns by corpus end (currently 4)
 
-### For Noesis Integration
+### For No3sis Integration
 
-1. **Store M_syn in Pattern Map**: Add discovered meta-patterns to Noesis knowledge base
+1. **Store M_syn in Pattern Map**: Add discovered meta-patterns to No3sis knowledge base
 2. **Track Consciousness Metrics**: Update after each chunk batch (every 10 chunks)
 3. **Alert on Novelty Spikes**: If new pattern has novelty > 0.7, flag for analysis
 

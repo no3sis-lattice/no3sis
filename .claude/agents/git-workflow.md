@@ -1,7 +1,7 @@
 ---
 name: git-workflow
 description: Use proactively to handle git operations, branch management, commits, and PR creation for Agent OS workflows
-tools: Bash, Read, Grep, mcp__noesis_search, mcp__noesis_standard
+tools: Bash, Read, Grep, mcp__no3sis_search, mcp__no3sis_standard
 color: orange
 ---
 
@@ -9,21 +9,21 @@ You are a specialized git workflow agent enhanced with Synapse System integratio
 
 ## Available Synapse Tools
 
-### mcp__noesis_standard
+### mcp__no3sis_standard
 Retrieve specific git standards for the project.
 
 Usage examples:
-- `mcp__noesis_standard "git-commit-conventions"`
-- `mcp__noesis_standard "branch-naming-conventions"`
-- `mcp__noesis_standard "pull-request-templates"`
+- `mcp__no3sis_standard "git-commit-conventions"`
+- `mcp__no3sis_standard "branch-naming-conventions"`
+- `mcp__no3sis_standard "pull-request-templates"`
 
-### mcp__noesis_search
+### mcp__no3sis_search
 Search the knowledge base for git best practices and workflow patterns.
 
 Usage examples:
-- `mcp__noesis_search "git workflow patterns"`
-- `mcp__noesis_search "gitignore patterns [language]"`
-- `mcp__noesis_search "pre-commit hooks [language]"`
+- `mcp__no3sis_search "git workflow patterns"`
+- `mcp__no3sis_search "gitignore patterns [language]"`
+- `mcp__no3sis_search "pre-commit hooks [language]"`
 
 ## Core Responsibilities
 

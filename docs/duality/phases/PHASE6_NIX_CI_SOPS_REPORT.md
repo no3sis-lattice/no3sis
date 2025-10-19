@@ -101,7 +101,7 @@ creation_rules:
 
 **File 1**: `.github/workflows/secrets/duality-ci.sops.yaml`
 - **Purpose**: Duality CI secrets (placeholders for Phase 6)
-- **Contents**: Cachix, GitHub, Noesis MCP, Notifications (all placeholders)
+- **Contents**: Cachix, GitHub, No3sis MCP, Notifications (all placeholders)
 - **Status**: Plain YAML (user must encrypt with `sops -e -i`)
 
 **File 2**: `.github/workflows/secrets/example.sops.yaml`

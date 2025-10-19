@@ -67,11 +67,11 @@ Single-step agent task runner for MCP integration.
 
 ```bash
 nix run .#duality-agent-step --impure -- "solve chunk 06 and inject witness"
-# Placeholder for Noesis MCP integration
+# Placeholder for No3sis MCP integration
 ```
 
 **Operation**: Impure (allows network, environment, side effects)
-**Status**: Placeholder (TODO: Noesis MCP integration)
+**Status**: Placeholder (TODO: No3sis MCP integration)
 
 ---
 

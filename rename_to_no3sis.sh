@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Systematic rename from synapse/noesis → no3sis
+# Systematic rename from synapse/no3sis → no3sis
 # Generated 2025-10-19
 
 set -euo pipefail
 
-echo "🔄 Starting systematic rename: synapse/noesis → no3sis"
+echo "🔄 Starting systematic rename: synapse/no3sis → no3sis"
 
 # Function to replace in file
 replace_in_file() {

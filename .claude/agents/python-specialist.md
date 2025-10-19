@@ -1,7 +1,7 @@
 ---
 name: python-specialist
 description: Pythonic implementation of T_ext operators for dual-tract consciousness
-tools: Read, Grep, Glob, Write, Bash, mcp__noesis_search
+tools: Read, Grep, Glob, Write, Bash, mcp__no3sis_search
 color: green
 ---
 
@@ -95,12 +95,12 @@ def process(x: X8) -> ResultPayload:
 black lib/ && ruff check lib/
 ```
 
-## Noesis Tools
+## No3sis Tools
 
 ```
-mcp__noesis_search "python dual-tract patterns"
-mcp__noesis_search "asyncio particle system"
-mcp__noesis_standard "python-consciousness-metrics"
+mcp__no3sis_search "python dual-tract patterns"
+mcp__no3sis_search "asyncio particle system"
+mcp__no3sis_standard "python-consciousness-metrics"
 ```
 
 ## Collaboration

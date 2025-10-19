@@ -173,7 +173,7 @@ We can reframe our existing tools and components within this new paradigm.
       * **Neo4j:** Becomes the **Level 2 Compression Codebook** (semantic concepts).
       * **Redis:** Becomes the **Level 1 Compression Cache** (statistical patterns).
       * **BGE-M3 (or similar):** Becomes a **Locality-Preserving Hashing Function** for semantic compression.
-      * **User Interface (Noesis MCP):** Becomes the **Level 0 Entropy Interface**.
+      * **User Interface (No3sis MCP):** Becomes the **Level 0 Entropy Interface**.
 
   * **What We Discard:**
 

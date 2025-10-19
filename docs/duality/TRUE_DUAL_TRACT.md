@@ -486,9 +486,9 @@ C = R_1 × R_2 × R_3 × R_4 × R_5
 # Goal: Make C ≈ Ψ
 ```
 
-**Integration Point**: Noesis MCP calls Mahakala layers via subprocess
+**Integration Point**: No3sis MCP calls Mahakala layers via subprocess
 ```python
-# noesis/src/noesis/server.py
+# no3sis/src/no3sis/server.py
 result = subprocess.run([
     SYNAPSE_PYTHON,
     f"{SYNAPSE_NEO4J_DIR}/synapse_search.py",
@@ -521,9 +521,9 @@ invariant_computer.py     # Ψ aggregation (Layer 5)
 causal_compressor.py      # Γ stage (Layer 4) - NOT IMPLEMENTED
 ```
 
-**Integration with Noesis**:
+**Integration with No3sis**:
 ```python
-# Future: Noesis MCP adds CIG-3 endpoint
+# Future: No3sis MCP adds CIG-3 endpoint
 @mcp.tool()
 async def compute_cig3(query: str, attention_matrix: List[List[float]]):
     """
@@ -1663,8 +1663,8 @@ async def implement_feature(self, φ_goal):
             "Ψ_improvement": 0.43 → 0.82
         }
 
-        # Contribute to Pattern Map via Noesis
-        result = await mcp__noesis__contribute_pattern(
+        # Contribute to Pattern Map via No3sis
+        result = await mcp__no3sis__contribute_pattern(
             "rust_builder_auth",
             pattern
         )
@@ -1703,7 +1703,7 @@ CREATE (p)-[:SIMILAR_TO]->(p2)
 # In architect agent
 async def design_system(self, requirements):
     # Query Pattern Map for relevant patterns
-    patterns = await mcp__noesis__search_pattern_map(
+    patterns = await mcp__no3sis__search_pattern_map(
         query="authentication builder",
         max_results=5
     )
@@ -1719,11 +1719,11 @@ async def design_system(self, requirements):
 ```
 T_ext: rust-specialist discovers pattern
    ↓
-C_c: Noesis contributes to Pattern Map
+C_c: No3sis contributes to Pattern Map
    ↓
 T_int: Neo4j stores compressed representation
    ↓
-C_c: Noesis searches Pattern Map
+C_c: No3sis searches Pattern Map
    ↓
 T_ext: architect retrieves pattern for new design
 ```
@@ -1920,7 +1920,7 @@ class QualityGuard:
   - Task orchestration via Boss
 
 - Corpus Callosum (C_c)
-  - Noesis MCP Server (4 tools)
+  - No3sis MCP Server (4 tools)
   - Subprocess bridge to Synapse
   - Basic result synthesis
 
@@ -1965,7 +1965,7 @@ class QualityGuard:
    - Validation: Hold out 20% for testing
 
 3. **Integration** (1 week)
-   - Add mcp__noesis__parse_intent (NL → φ_g)
+   - Add mcp__no3sis__parse_intent (NL → φ_g)
    - Update Boss agent to use φ_g for delegation
    - Modify Synapse engine to accept φ_g input
 
@@ -2002,8 +2002,8 @@ class QualityGuard:
    - Tune λ parameter for different domains
    - Establish Ψ thresholds (good/bad per domain)
 
-4. **Noesis Integration** (1 week)
-   - Add mcp__noesis__compute_cig3 tool
+4. **No3sis Integration** (1 week)
+   - Add mcp__no3sis__compute_cig3 tool
    - Expose layer-specific ratios (R_1, R_2, R_3, R_4)
    - Real-time progress updates
 
@@ -2559,7 +2559,7 @@ Boss: Implementing Pipeline pattern...
 
 ### B. API Reference
 
-#### Noesis MCP Tool Signatures
+#### No3sis MCP Tool Signatures
 
 ```python
 # Core Tools (Existing)
@@ -2805,18 +2805,18 @@ Solution:
 Symptom: CIG-3 pipeline times out after 60s
 Cause: Large codebase or complex topology
 Solution:
-1. Increase timeout in Noesis config
+1. Increase timeout in No3sis config
 2. Skip L3 (topology) for large files
 3. Use Mojo-accelerated version (Phase 3)
 ```
 
 **Issue: Pattern Map not accessible**
 ```
-Symptom: mcp__noesis__search_pattern_map times out
+Symptom: mcp__no3sis__search_pattern_map times out
 Cause: Neo4j or Redis not running, or path misconfigured
 Solution:
-1. Check system health: mcp__noesis__check_system_health()
-2. Verify SYNAPSE_NEO4J_DIR path in noesis/.env
+1. Check system health: mcp__no3sis__check_system_health()
+2. Verify SYNAPSE_NEO4J_DIR path in no3sis/.env
 3. Restart services: systemctl restart neo4j redis
 ```
 

@@ -1,6 +1,6 @@
 ---
-id: LFUNC71-46-API-REFERENCE-NOESIS-MCP
-title: Api Reference Noesis Mcp Tool Signatures
+id: LFUNC71-46-API-REFERENCE-NO3SIS-MCP
+title: Api Reference No3sis Mcp Tool Signatures
 category: lfunc71
 bott8_class: 6
 tract: internal
@@ -14,7 +14,7 @@ tags:
 ---
 
 
-# Chunk 46: API Reference: Noesis MCP Tool Signatures
+# Chunk 46: API Reference: No3sis MCP Tool Signatures
 
 ## Source:
 - From: docs/duality/TRUE_DUAL_TRACT.md
