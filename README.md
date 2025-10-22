@@ -6,14 +6,16 @@ The agents you talk to (`@boss`) is the interface. The actual intelligence lies 
 
 This project will offshoot multiple incarnations. Ultimately it will be a lattice and fold into other lattices [https://en.wikipedia.org/wiki/Lattice_(order)]
 
-`_A lattice is a system of items where any two items you pick have two special properties:
+```markdown
+A lattice is a system of items where any two items you pick have two special properties:
 
 1.  A unique **"meet"**: The single *greatest* item that is below or equal to both of them.
 2.  A unique **"join"**: The single *least* item that is above or equal to both of them.
 
 Think of it with numbers and divisibility:
 * For 8 and 12, their **meet** is their *greatest common divisor* (4).
-* Their **join** is their *least common multiple* (24)._`
+* Their **join** is their *least common multiple* (24).
+```
 
 ## The True Dual-Tract Architecture
 
