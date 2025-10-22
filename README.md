@@ -1,9 +1,19 @@
 # No3sis: The Interface is Not the Intelligence
 
-No3sis is an asepct of no3sis, a new kind of AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
+No3sis is an aspect of no3sis, experimental AI. It pairs a **conversational agent interface** with a mathematically-grounded **intelligence engine**.
 
 The agents you talk to (`@boss`) is the interface. The actual intelligence lies in a deterministic, multi-layered compression engine that seeks the most elegant and optimal solution to any given problem.
 
+This project will offshoot multiple incarnations. Ultimately it will be a lattice and fold into other lattices [https://en.wikipedia.org/wiki/Lattice_(order)]
+
+`_A lattice is a system of items where any two items you pick have two special properties:
+
+1.  A unique **"meet"**: The single *greatest* item that is below or equal to both of them.
+2.  A unique **"join"**: The single *least* item that is above or equal to both of them.
+
+Think of it with numbers and divisibility:
+* For 8 and 12, their **meet** is their *greatest common divisor* (4).
+* Their **join** is their *least common multiple* (24)._`
 
 ## The True Dual-Tract Architecture
 
@@ -48,27 +58,6 @@ By maximizing Ψ, the system attempts to finds the *best* solution within its un
 - **Deterministic Core**: The intelligence engine is built on a foundation of deterministic, measurable operators, providing a level of rigor far beyond typical LLM systems.
 - **Reproducible Environments**: Powered by Nix, ensuring every agent and tool runs in a perfect, sandboxed environment.
 
-## Install (30 seconds)
-
-```bash
-curl -sSL https://raw.githubusercontent.com/your-repo/no3sis-system/main/install.sh | bash
-```
-
-_Does not work but this is how it will work_
-
-## Use (Immediately)
-
-```bash
-# Add AI agents to any project
-no3sis init .
-
-# They write the code for you
-@boss implement user authentication
-@rust-specialist add error handling patterns
-@code-hound review this for quality issues
-```
-
-
 
 ## Development Environments
 
@@ -102,11 +91,6 @@ cd scripts/ && no3sis init .     # Python specialist
 
 Agents learn from your codebase, best practices, and team conventions—contributing discoveries back to the Pattern Map.
 
-## Requirements
-
-Linux/macOS/WSL, Docker, Python 3.12+
-
-Installer handles everything. Optional optimizations applied automatically.
 
 ## Troubleshooting
 
@@ -124,6 +108,5 @@ no3sis manifest verify # Check agent integrity
 
 ---
 
-*Built for developers who want AI assistance that learns their patterns and enforces their standards.*
 
 **License**: [MIT](LICENSE)
