@@ -26,7 +26,7 @@ from typing import List, Dict, Any, Optional, Set
 from enum import Enum
 
 # Import serialization utilities to eliminate DRY violations
-from serialization_utils import (
+from lib.orchestration.serialization_utils import (
     JSONSerializable,
     serialize_ordered_dict,
     deserialize_to_ordered_dict
@@ -75,12 +75,20 @@ class PatternCollisionError(Exception):
 
 class PatternType(Enum):
     """Types of emergent patterns that can be discovered"""
+    # Existing types (orchestration patterns)
     SEQUENCE = "sequence"  # Common action chains
     COMPOSITION = "composition"  # Complex workflows built from primitives
     OPTIMIZATION = "optimization"  # Batch vs sequential opportunities
     ERROR = "error"  # Common failure modes
     STRUCTURAL = "structural"  # Directory/file hierarchies
     TEMPLATE = "template"  # Reusable template patterns
+
+    # NEW: Dialogue patterns from n0x_term integration
+    DIALOGUE_CONVERGENCE = "dialogue_convergence"     # Entropy decreasing (agents aligning)
+    DIALOGUE_DIVERGENCE = "dialogue_divergence"       # Entropy increasing (exploration)
+    DIALOGUE_PARADOX = "dialogue_paradox"            # Agent contradiction detected
+    DIALOGUE_SYNTHESIS = "dialogue_synthesis"         # Emergent insight from interaction
+    DIALOGUE_IMBALANCE = "dialogue_imbalance"        # One agent dominating
 
 
 @dataclass
