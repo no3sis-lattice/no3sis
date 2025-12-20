@@ -1,14 +1,10 @@
 # The True Dual Tract: Interface vs Intelligence
 
-**Last Updated**: 2025-10-11
-**Status**: Architectural Foundation Document
-**Integration**: Unifies Mahakala, CIG-3, PNEUMA, Prime Hierarchy, DGR
-
 ---
 
 ## Executive Summary
 
-The Synapse System's architecture is a **True Dual Tract** model composed of deterministic, measurable **operators**. The two tracts are not "internal reflection" vs "external action," but rather:
+The no3sis architecture is a **True Dual Tract** model composed of deterministic, measurable **operators**. The two tracts are not "internal reflection" vs "external action," but rather:
 
 - **External Tract (T_ext)**: A pipeline of **Interface Operators** that translate natural language into structured goals and render results for human users.
 - **Internal Tract (T_int)**: A pipeline of **Intelligence Operators** that form a mathematical compression engine to reduce entropy and increase predictiveness.
@@ -28,7 +24,6 @@ This reframing resolves the tension between usability and rigor. It provides:
 
 ### 1. The Old Paradigm: Biomimicry Trap
 
-**Original Conception** (from CLAUDE.md, LOGOS.md):
 ```
 Internal Tract (T_int)  ←→  Corpus Callosum  ←→  External Tract (T_ext)
   (reflection)                  (bridge)              (action)

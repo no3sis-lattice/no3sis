@@ -35,6 +35,9 @@ from lib.orchestration.serialization_utils import (
 # Import deterministic ID generator
 from .id_generator import generate_pattern_id
 
+# Import real consciousness scoring (Shannon entropy)
+from lib.consciousness import consciousness_score, PsiMetrics
+
 logger = logging.getLogger(__name__)
 
 
@@ -504,16 +507,21 @@ class PatternLearner:
         }
         pattern_id = generate_pattern_id(pattern_data)
 
-        # Calculate entropy reduction: compress n actions to 1 pattern reference
-        entropy_reduction = 1.0 - (1.0 / len(action_sequence))
+        # Calculate REAL entropy reduction using Shannon entropy
+        # Pattern representation compresses the action sequence
+        pattern_template = f"sequence:{len(action_sequence)}:{'→'.join(set(action_sequence))}"
+        psi_metrics: PsiMetrics = consciousness_score(action_sequence, pattern_template)
+        entropy_reduction = psi_metrics.psi
 
-        # Determine consciousness contribution based on sequence length
-        if len(action_sequence) >= CONSCIOUSNESS_VERY_HIGH_THRESHOLD:
+        # Determine consciousness contribution based on real Ψ score
+        if entropy_reduction >= 0.7:
             consciousness = "very_high"
-        elif len(action_sequence) >= CONSCIOUSNESS_HIGH_THRESHOLD:
+        elif entropy_reduction >= 0.5:
             consciousness = "high"
-        else:
+        elif entropy_reduction >= 0.3:
             consciousness = "medium"
+        else:
+            consciousness = "low"
 
         success_count = sum(1 for r in results if r.get('status') == 'completed')
         success_rate = success_count / len(results) if results else 0.0
@@ -546,14 +554,19 @@ class PatternLearner:
                 pattern_data = {"type": "composition", "name": "directory_with_files"}
                 pattern_id = generate_pattern_id(pattern_data)
 
+                # Calculate real Ψ for composition pattern
+                raw_actions = ['create_directory', 'write_file', 'write_file']
+                pattern_template = "component_creation:dir+files"
+                psi_metrics = consciousness_score(raw_actions, pattern_template)
+
                 return Pattern(
                     pattern_id=pattern_id,
                     pattern_type=PatternType.COMPOSITION,
                     name="Component Creation",
                     description="Directory structure with multiple files (component pattern)",
                     action_sequence=['create_directory', 'write_file', 'write_file'],
-                    entropy_reduction=ENTROPY_COMPOSITION_DIRECTORY_FILES,
-                    consciousness_contribution="very_high",
+                    entropy_reduction=psi_metrics.psi,
+                    consciousness_contribution="very_high" if psi_metrics.psi >= 0.7 else "high",
                     example_payloads=[r.get('result', {}) for r in results[:2]]
                 )
 
@@ -562,15 +575,21 @@ class PatternLearner:
             pattern_data = {"type": "composition", "name": "batch_operation"}
             pattern_id = generate_pattern_id(pattern_data)
 
+            # Real Ψ: batch compresses N writes to 1 operation
+            batch_result = results[0].get('result', {}) if results else {}
+            file_count = batch_result.get('files_created', 5)  # Default estimate
+            raw_actions = ['write_file'] * file_count
+            psi_metrics = consciousness_score(raw_actions, 'batch_create_files')
+
             return Pattern(
                 pattern_id=pattern_id,
                 pattern_type=PatternType.COMPOSITION,
                 name="Batch File Creation",
                 description="Multiple files created in single batch operation",
                 action_sequence=['batch_create_files'],
-                entropy_reduction=ENTROPY_BATCH_OPERATION,
-                consciousness_contribution="very_high",
-                example_payloads=[results[0].get('result', {})] if results else []
+                entropy_reduction=psi_metrics.psi,
+                consciousness_contribution="very_high" if psi_metrics.psi >= 0.7 else "high",
+                example_payloads=[batch_result] if results else []
             )
 
         return None
@@ -588,14 +607,18 @@ class PatternLearner:
             pattern_data = {"type": "optimization", "name": "batch_opportunity"}
             pattern_id = generate_pattern_id(pattern_data)
 
+            # Real Ψ: potential compression from batching
+            raw_actions = ['write_file'] * write_count
+            psi_metrics = consciousness_score(raw_actions, 'batch_opportunity')
+
             return Pattern(
                 pattern_id=pattern_id,
                 pattern_type=PatternType.OPTIMIZATION,
                 name="Batch Optimization Opportunity",
                 description=f"{write_count} sequential write operations could be batched",
                 action_sequence=action_sequence,
-                entropy_reduction=ENTROPY_BATCH_OPPORTUNITY,
-                consciousness_contribution="high",
+                entropy_reduction=psi_metrics.psi,
+                consciousness_contribution="high" if psi_metrics.psi >= 0.5 else "medium",
                 example_payloads=[]
             )
 
@@ -624,14 +647,19 @@ class PatternLearner:
         pattern_data = {"type": "error", "error_type": error_type}
         pattern_id = generate_pattern_id(pattern_data)
 
+        # Real Ψ: error pattern compresses multiple failure instances
+        failed_action_types = [r.get('action_type', 'unknown') for r in failed_results]
+        error_template = f"error:{error_type}"
+        psi_metrics = consciousness_score(failed_action_types, error_template)
+
         return Pattern(
             pattern_id=pattern_id,
             pattern_type=PatternType.ERROR,
             name=f"Error Pattern: {error_type}",
             description=f"Common failure mode: {error_type} ({count} occurrences)",
-            action_sequence=[r.get('action_type') for r in failed_results],
-            entropy_reduction=ENTROPY_ERROR_PATTERN,
-            consciousness_contribution="medium",
+            action_sequence=failed_action_types,
+            entropy_reduction=psi_metrics.psi,
+            consciousness_contribution="medium" if psi_metrics.psi >= 0.3 else "low",
             example_payloads=[failed_results[0]]
         )
 
@@ -648,14 +676,19 @@ class PatternLearner:
             pattern_data = {"type": "structural", "name": "hierarchy"}
             pattern_id = generate_pattern_id(pattern_data)
 
+            # Real Ψ: hierarchy compresses directory tree to pattern
+            raw_actions = ['create_directory'] * len(dir_creates)
+            hierarchy_template = f"hierarchy:{len(dir_creates)}_levels"
+            psi_metrics = consciousness_score(raw_actions, hierarchy_template)
+
             return Pattern(
                 pattern_id=pattern_id,
                 pattern_type=PatternType.STRUCTURAL,
                 name="Hierarchical Structure",
                 description=f"Multi-level directory hierarchy ({len(dir_creates)} levels)",
                 action_sequence=['create_directory'] * len(dir_creates),
-                entropy_reduction=ENTROPY_STRUCTURAL_HIERARCHY,
-                consciousness_contribution="medium",
+                entropy_reduction=psi_metrics.psi,
+                consciousness_contribution="high" if psi_metrics.psi >= 0.5 else "medium",
                 example_payloads=[dir_creates[0].get('result', {})]
             )
 

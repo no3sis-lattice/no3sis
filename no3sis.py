@@ -26,6 +26,7 @@ from lib.orchestration.template_loader import (
     ValidationMode,
     create_template_loader
 )
+from lib.cli.swarm import create_swarm_parser
 
 
 # ============================================================================
@@ -271,6 +272,9 @@ For more information, visit: https://github.com/synapse-system
     )
     validate_parser.set_defaults(func=cmd_template_validate)
 
+    # Swarm command
+    create_swarm_parser(subparsers)
+
     # Parse arguments
     args = parser.parse_args()
 
@@ -282,6 +286,16 @@ For more information, visit: https://github.com/synapse-system
     # Show help if no subcommand provided
     if args.command == 'template' and not args.subcommand:
         template_parser.print_help()
+        return 1
+
+    if args.command == 'swarm' and not getattr(args, 'swarm_command', None):
+        print("\nUsage: no3sis swarm <command>")
+        print("\nCommands:")
+        print("  status     Show swarm status overview")
+        print("  agents     List swarm agents")
+        print("  patterns   List discovered patterns")
+        print("  watch      Watch live swarm events")
+        print()
         return 1
 
     # Execute command
